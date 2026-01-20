@@ -18,7 +18,30 @@ CREATE TABLE users (
     avatar_url VARCHAR(500),
     is_active BOOLEAN DEFAULT true,
     email_verified BOOLEAN DEFAULT false,
+    user_type VARCHAR(50) DEFAULT 'employee', -- 'employee', 'customer', 'partner'
     last_login TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Customer Profiles (linked to users for registration)
+CREATE TABLE customer_profiles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+    company_id UUID REFERENCES companies(id) ON DELETE SET NULL,
+    company_name VARCHAR(255),
+    company_website VARCHAR(255),
+    industry VARCHAR(100),
+    business_size business_size,
+    job_title VARCHAR(100),
+    address TEXT,
+    city VARCHAR(100),
+    country VARCHAR(100),
+    verification_token VARCHAR(255),
+    verification_token_expires TIMESTAMP,
+    verified_at TIMESTAMP,
+    is_verified BOOLEAN DEFAULT false,
+    metadata JSONB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -1436,6 +1459,103 @@ CREATE INDEX idx_project_payments_status ON project_payments(status);
 CREATE INDEX idx_project_payments_due_date ON project_payments(due_date);
 CREATE INDEX idx_project_payments_quotation_id ON project_payments(quotation_id);
 CREATE INDEX idx_project_payments_invoice_id ON project_payments(invoice_id);
+
+-- =====================================================
+-- MESSAGING MODULE - Chat & Communication
+-- =====================================================
+
+-- Conversation types
+CREATE TYPE conversation_type AS ENUM (
+    'direct',           -- 1-to-1 messages
+    'group',            -- Group conversations
+    'admin_support',    -- Admin support channel
+    'team'              -- Team conversation
+);
+
+-- Conversations table
+CREATE TABLE conversations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255),
+    type conversation_type DEFAULT 'direct',
+    created_by UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    description TEXT,
+    is_archived BOOLEAN DEFAULT false,
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Conversation participants
+CREATE TABLE conversation_participants (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    role VARCHAR(50) DEFAULT 'member',  -- 'admin', 'moderator', 'member'
+    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_read_at TIMESTAMP,
+    is_muted BOOLEAN DEFAULT false,
+    UNIQUE(conversation_id, user_id)
+);
+
+-- Messages table
+CREATE TABLE messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+    sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    message_type VARCHAR(50) DEFAULT 'text',  -- 'text', 'file', 'system', 'notification'
+    attachments JSONB,  -- Array of file objects
+    reply_to UUID REFERENCES messages(id) ON DELETE SET NULL,  -- For message threading
+    is_edited BOOLEAN DEFAULT false,
+    edited_at TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT false,
+    deleted_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Message reactions (for emoji/reactions)
+CREATE TABLE message_reactions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    message_id UUID NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    reaction VARCHAR(10) NOT NULL,  -- emoji or reaction name
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(message_id, user_id, reaction)
+);
+
+-- Message read receipts
+CREATE TABLE message_read_receipts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    message_id UUID NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(message_id, user_id)
+);
+
+-- =====================================================
+-- MESSAGING INDEXES
+-- =====================================================
+
+CREATE INDEX idx_conversations_created_by ON conversations(created_by);
+CREATE INDEX idx_conversations_created_at ON conversations(created_at);
+CREATE INDEX idx_conversations_is_archived ON conversations(is_archived);
+
+CREATE INDEX idx_conversation_participants_conversation_id ON conversation_participants(conversation_id);
+CREATE INDEX idx_conversation_participants_user_id ON conversation_participants(user_id);
+CREATE INDEX idx_conversation_participants_joined_at ON conversation_participants(joined_at);
+
+CREATE INDEX idx_messages_conversation_id ON messages(conversation_id);
+CREATE INDEX idx_messages_sender_id ON messages(sender_id);
+CREATE INDEX idx_messages_created_at ON messages(created_at);
+CREATE INDEX idx_messages_is_deleted ON messages(is_deleted);
+CREATE INDEX idx_messages_reply_to ON messages(reply_to);
+
+CREATE INDEX idx_message_reactions_message_id ON message_reactions(message_id);
+CREATE INDEX idx_message_reactions_user_id ON message_reactions(user_id);
+
+CREATE INDEX idx_message_read_receipts_message_id ON message_read_receipts(message_id);
+CREATE INDEX idx_message_read_receipts_user_id ON message_read_receipts(user_id);
 
 -- =====================================================
 -- INITIAL DATA - SYSTEM SETTINGS

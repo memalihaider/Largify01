@@ -1,8 +1,12 @@
 'use client';
 
 import { use } from 'react';
-import { Card, Badge } from '@/components/ui';
-import { mockClientTaskTracking, mockTasks, mockProjects } from '@/lib/mock-data';
+import { Card, Badge, Button } from '@/components/ui';
+import {
+  mockClientUsers,
+  mockClientTaskTracking,
+  mockTasks,
+} from '@/lib/mock-data';
 
 interface PageProps {
   params: Promise<{
@@ -12,198 +16,99 @@ interface PageProps {
 
 export default function ClientTasksPage({ params }: PageProps) {
   const { clientId } = use(params);
-  const clientTasks = mockClientTaskTracking.filter(ct => ct.clientId === clientId);
+  const client = mockClientUsers.find(c => c.id === clientId);
+  const taskTracking = mockClientTaskTracking.filter(ct => ct.clientId === clientId);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'not_started':
-        return 'secondary';
-      case 'in_progress':
-        return 'warning';
-      case 'completed':
-        return 'success';
-      case 'on_hold':
-        return 'info';
-      default:
-        return 'secondary';
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'low':
-        return 'info';
-      case 'medium':
-        return 'warning';
-      case 'high':
-        return 'danger';
-      default:
-        return 'secondary';
-    }
-  };
-
-  // Group tasks by status
-  const groupedTasks = {
-    todo: clientTasks.filter(ct => mockTasks.find(t => t.id === ct.taskId)?.status === 'todo'),
-    in_progress: clientTasks.filter(ct => mockTasks.find(t => t.id === ct.taskId)?.status === 'in_progress'),
-    done: clientTasks.filter(ct => mockTasks.find(t => t.id === ct.taskId)?.status === 'done'),
-    review: clientTasks.filter(ct => mockTasks.find(t => t.id === ct.taskId)?.status === 'review'),
-  };
+  if (!client) {
+    return <div>Client not found</div>;
+  }
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Tracked Tasks</h1>
-        <p className="text-gray-600">Monitor tasks from your assigned projects</p>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card variant="bordered" className="p-4 text-center">
-          <div className="text-2xl font-bold text-blue-600 mb-1">{clientTasks.length}</div>
-          <p className="text-sm text-gray-600">Total Tasks</p>
-        </Card>
-        <Card variant="bordered" className="p-4 text-center">
-          <div className="text-2xl font-bold text-yellow-600 mb-1">{groupedTasks.in_progress.length}</div>
-          <p className="text-sm text-gray-600">In Progress</p>
-        </Card>
-        <Card variant="bordered" className="p-4 text-center">
-          <div className="text-2xl font-bold text-green-600 mb-1">{groupedTasks.done.length}</div>
-          <p className="text-sm text-gray-600">Completed</p>
-        </Card>
-        <Card variant="bordered" className="p-4 text-center">
-          <div className="text-2xl font-bold text-purple-600 mb-1">
-            {clientTasks.filter(ct => ct.viewCount === 0).length}
-          </div>
-          <p className="text-sm text-gray-600">Unread</p>
-        </Card>
-      </div>
-
-      {/* Kanban Board View */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {['todo', 'in_progress', 'done', 'review'].map((status) => {
-          const tasks = groupedTasks[status as keyof typeof groupedTasks];
-          const statusLabels: Record<string, string> = {
-            todo: 'To Do',
-            in_progress: 'In Progress',
-            done: 'Completed',
-            review: 'In Review',
-          };
-
-          return (
-            <Card key={status} variant="bordered" className="h-full min-h-96">
-              <div className="p-4 border-b bg-gray-50">
-                <h3 className="font-semibold text-gray-900">{statusLabels[status]}</h3>
-                <p className="text-sm text-gray-600 mt-1">{tasks.length} tasks</p>
-              </div>
-
-              <div className="p-4 space-y-3">
-                {tasks.length > 0 ? (
-                  tasks.map((ct) => {
-                    const task = mockTasks.find(t => t.id === ct.taskId);
-                    const project = mockProjects.find(p => p.id === task?.projectId);
-
-                    if (!task) return null;
-
-                    return (
-                      <div
-                        key={ct.id}
-                        className="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group"
-                      >
-                        <div className="flex items-start justify-between mb-2 gap-2">
-                          <p className="font-medium text-gray-900 group-hover:text-green-600 line-clamp-2">
-                            {task.title}
-                          </p>
-                          <Badge variant={getPriorityColor(task.priority)} className="text-xs">
-                            {task.priority}
-                          </Badge>
-                        </div>
-
-                        <p className="text-xs text-gray-500 mb-2">{project?.name}</p>
-
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500">Views: {ct.viewCount}</span>
-                          {ct.lastViewed && (
-                            <span className="text-gray-400">
-                              {new Date(ct.lastViewed).toLocaleDateString()}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-400 text-sm">No tasks</p>
-                  </div>
-                )}
-              </div>
-            </Card>
-          );
-        })}
-      </div>
-
-      {/* Detailed List View */}
-      <Card variant="bordered">
-        <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">All Tasks</h2>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-gray-50">
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Task</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Project</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Priority</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Views</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Last Viewed</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientTasks.length > 0 ? (
-                  clientTasks.map((ct) => {
-                    const task = mockTasks.find(t => t.id === ct.taskId);
-                    const project = mockProjects.find(p => p.id === task?.projectId);
-
-                    if (!task) return null;
-
-                    return (
-                      <tr key={ct.id} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-4">
-                          <p className="font-medium text-gray-900 line-clamp-1">{task.title}</p>
-                        </td>
-                        <td className="py-4 px-4 text-gray-600">{project?.name}</td>
-                        <td className="py-4 px-4">
-                          <Badge variant={getStatusColor(task.status)}>
-                            {task.status.replace('_', ' ')}
-                          </Badge>
-                        </td>
-                        <td className="py-4 px-4">
-                          <Badge variant={getPriorityColor(task.priority)}>
-                            {task.priority}
-                          </Badge>
-                        </td>
-                        <td className="py-4 px-4 text-gray-600">{ct.viewCount}</td>
-                        <td className="py-4 px-4 text-gray-600">
-                          {ct.lastViewed ? new Date(ct.lastViewed).toLocaleDateString() : 'Never'}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan={6} className="py-8 px-4 text-center text-gray-500">
-                      No tasks tracked yet
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+    <div className="space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-5 duration-700">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-white/5">
+        <div>
+          <Badge variant="outline" className="mb-4 bg-purple-500/5 text-purple-400 border-purple-500/20 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.4em]">
+            Infrastructure Operations
+          </Badge>
+          <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic leading-none">
+            TASK <span className="text-purple-400">TRAJECTORY</span>
+          </h1>
+          <p className="text-slate-400 font-light italic mt-6 max-w-xl">
+            Granular tracking of development tasks and operational maintenance. Monitor every byte of progress in your enterprise ecosystem.
+          </p>
         </div>
-      </Card>
+      </div>
+
+      {/* Task List - Infrastructure Style */}
+      <div className="bg-slate-900/50 border border-white/5 rounded-[3rem] overflow-hidden shadow-2xl relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-purple-600 via-blue-500 to-transparent opacity-30" />
+        
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-white/5 bg-white/2">
+                <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Operation ID</th>
+                <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Infrastructure Task</th>
+                <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Status Alpha</th>
+                <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Priority Matrix</th>
+                <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Timeline</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {taskTracking.length > 0 ? (
+                taskTracking.map((ct) => {
+                  const task = mockTasks.find(t => t.id === ct.taskId);
+                  if (!task) return null;
+
+                  return (
+                    <tr key={ct.id} className="group hover:bg-white/5 transition-colors cursor-default">
+                      <td className="px-8 py-8">
+                         <span className="text-xs font-black text-slate-600 monospace">OP-{task.id}</span>
+                      </td>
+                      <td className="px-8 py-8">
+                        <div>
+                          <p className="text-sm font-black text-white uppercase tracking-tight group-hover:text-purple-400 transition-colors italic">{task.title}</p>
+                          <p className="text-[10px] text-slate-500 italic mt-1 line-clamp-1">{task.description}</p>
+                        </div>
+                      </td>
+                      <td className="px-8 py-8">
+                        <Badge className={`text-[9px] font-black tracking-widest uppercase px-3 py-1 ${
+                          task.status === 'done' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
+                          task.status === 'in_progress' ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' :
+                          task.status === 'review' ? 'bg-purple-500/10 text-purple-500 border-purple-500/20' :
+                          'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                        }`}>
+                          {task.status === 'done' ? 'Done' : task.status === 'in_progress' ? 'In Progress' : task.status === 'review' ? 'Review' : 'Todo'}
+                        </Badge>
+                      </td>
+                      <td className="px-8 py-8 font-sans">
+                         <div className="flex gap-1 items-center">
+                            {[1,2,3].map(i => (
+                              <div key={i} className={`h-1.5 w-6 rounded-full ${i <= (task.priority === 'high' ? 3 : task.priority === 'medium' ? 2 : task.priority === 'urgent' ? 3 : 1) ? 'bg-purple-500 shadow-[0_0_5px_rgba(168,85,247,0.5)]' : 'bg-slate-800'}`} />
+                            ))}
+                         </div>
+                      </td>
+                      <td className="px-8 py-8">
+                        <div className="text-right sm:text-left">
+                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 italic">ETC</p>
+                           <p className="text-xs font-black text-white monospace">{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'ASAP'}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan={5} className="px-8 py-20 text-center">
+                    <p className="text-slate-500 italic text-sm font-medium">No operational tasks currently in the trajectory.</p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

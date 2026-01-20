@@ -11,9 +11,8 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Products', href: '/products', hasDropdown: true, type: 'products' },
   { name: 'Services', href: '/services', hasDropdown: true, type: 'services' },
-  { name: 'About', href: '/about' },
   { name: 'Case Studies', href: '/case-studies' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'More', href: '#', hasDropdown: true, type: 'more' },
 ];
 
 export function PublicNavbar() {
@@ -21,173 +20,205 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
+  const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">L</span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="h-10 w-10 bg-linear-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:rotate-12 transition-transform duration-300">
+                <span className="text-white font-black text-xl">L</span>
               </div>
-              <span className="font-bold text-xl text-gray-900">Largify</span>
+              <span className="font-black text-2xl text-slate-900 tracking-tighter">Largify</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             {navigation.map((item) => (
               item.hasDropdown ? (
                 <div
                   key={item.name}
-                  className="relative"
+                  className="relative h-full flex items-center"
                   onMouseEnter={() => {
                     if (item.type === 'services') {
                       setServicesDropdownOpen(true);
                       setProductsDropdownOpen(false);
+                      setMoreDropdownOpen(false);
                     }
                     if (item.type === 'products') {
                       setProductsDropdownOpen(true);
                       setServicesDropdownOpen(false);
+                      setMoreDropdownOpen(false);
+                    }
+                    if (item.type === 'more') {
+                      setMoreDropdownOpen(true);
+                      setServicesDropdownOpen(false);
+                      setProductsDropdownOpen(false);
                     }
                   }}
                   onMouseLeave={() => {
                     if (item.type === 'services') setServicesDropdownOpen(false);
                     if (item.type === 'products') setProductsDropdownOpen(false);
+                    if (item.type === 'more') setMoreDropdownOpen(false);
                   }}
                 >
                   <button
                     className={cn(
-                      'text-sm font-medium transition-colors flex items-center gap-1',
-                      pathname === item.href || pathname.startsWith(item.href)
+                      'text-[13px] font-black uppercase tracking-[0.15em] transition-all flex items-center gap-1.5 py-2 group',
+                      pathname === item.href || (item.href !== '#' && pathname.startsWith(item.href))
                         ? 'text-blue-600'
-                        : 'text-gray-600 hover:text-gray-900'
+                        : 'text-slate-500 hover:text-slate-900'
                     )}
                   >
                     {item.name}
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <svg className={cn("h-4 w-4 transition-transform duration-300", 
+                      (item.type === 'services' && servicesDropdownOpen) || (item.type === 'products' && productsDropdownOpen) || (item.type === 'more' && moreDropdownOpen) ? "rotate-180" : ""
+                    )} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
                   
-                  {/* Products Dropdown */}
+                  {/* Products Dropdown - Enhanced Premium */}
                   {item.type === 'products' && productsDropdownOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-screen max-w-4xl">
-                      <div className="bg-white rounded-lg shadow-2xl border border-gray-100 p-6">
-                        <div className="grid grid-cols-2 gap-4">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-0 w-screen max-w-2xl animate-in fade-in slide-in-from-top-4 duration-500">
+                      <div className="bg-slate-950/95 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-white/10 p-10 mt-4 mx-4 overflow-hidden relative group/dropdown">
+                        <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-blue-600 via-cyan-400 to-blue-600 animate-gradient-x"></div>
+                        <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl group-hover/dropdown:bg-blue-600/30 transition-all duration-700"></div>
+                        
+                        <div className="relative z-10 grid grid-cols-2 gap-8">
                           {mockCMSProducts.filter(p => p.isPublished).map((product) => (
                             <Link
                               key={product.id}
                               href={`/products/${product.slug}`}
-                              className="group p-4 rounded-lg hover:bg-gray-50 transition-colors"
+                              className="group p-6 rounded-3xl hover:bg-white/5 transition-all duration-500 border border-transparent hover:border-white/10"
                               onClick={() => setProductsDropdownOpen(false)}
                             >
-                              <div className="flex items-start gap-3">
-                                <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 shrink-0">
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <div className="flex items-start gap-5">
+                                <div className="h-14 w-14 bg-linear-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shrink-0">
+                                  <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                   </svg>
                                 </div>
                                 <div className="flex-1">
-                                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                                  <h3 className="font-black text-white mb-2 group-hover:text-cyan-400 transition-colors uppercase text-sm tracking-widest">
                                     {product.name}
                                   </h3>
-                                  <p className="text-sm text-gray-600 line-clamp-2">
-                                    {product.tagline}
+                                  <p className="text-[11px] text-gray-400 font-medium leading-relaxed uppercase tracking-[0.05em] line-clamp-2 italic">
+                                    "{product.tagline}"
                                   </p>
                                 </div>
                               </div>
                             </Link>
                           ))}
                         </div>
-                        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
-                          <Link
-                            href="/products"
-                            className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700"
-                            onClick={() => setProductsDropdownOpen(false)}
-                          >
-                            View all products
-                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                          </Link>
+                        
+                        <div className="mt-8 pt-6 border-t border-white/5 flex justify-between items-center px-4">
+                          <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Enterprise Standards</p>
+                          <div className="flex gap-4">
+                            <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">v4.0 Ready</span>
+                            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Cloud Native</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {/* Services Dropdown */}
+                  {/* Services Dropdown - Enhanced Premium */}
                   {item.type === 'services' && servicesDropdownOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-screen max-w-4xl">
-                      <div className="bg-white rounded-lg shadow-2xl border border-gray-100 p-6">
-                      <div className="grid grid-cols-2 gap-4">
-                        {mockCMSServices.filter(s => s.isPublished).map((service) => (
-                          <Link
-                            key={service.id}
-                            href={`/services/${service.slug}`}
-                            className="group p-4 rounded-lg hover:bg-gray-50 transition-colors"
-                            onClick={() => setServicesDropdownOpen(false)}
-                          >
-                            <div className="flex items-start gap-3">
-                              <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 shrink-0">
-                                {service.iconType === 'settings' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                  </svg>
-                                )}
-                                {service.iconType === 'code' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                                  </svg>
-                                )}
-                                {service.iconType === 'shield' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                  </svg>
-                                )}
-                                {service.iconType === 'ai' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                  </svg>
-                                )}
-                                {service.iconType === 'mobile' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                  </svg>
-                                )}
-                                {service.iconType === 'web' && (
-                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                  </svg>
-                                )}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-0 w-screen max-w-2xl animate-in fade-in slide-in-from-top-4 duration-500">
+                      <div className="bg-slate-950/95 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-white/10 p-10 mt-4 mx-4 overflow-hidden relative group/dropdown">
+                        <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-cyan-400 via-blue-600 to-cyan-400 animate-gradient-x"></div>
+                        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-cyan-600/20 rounded-full blur-3xl group-hover/dropdown:bg-cyan-600/30 transition-all duration-700"></div>
+                        
+                        <div className="relative z-10 grid grid-cols-2 gap-8">
+                          {mockCMSServices.filter(s => s.isPublished).map((service) => (
+                            <Link
+                              key={service.id}
+                              href={`/services/${service.slug}`}
+                              className="group p-6 rounded-3xl hover:bg-white/5 transition-all duration-500 border border-transparent hover:border-white/10"
+                              onClick={() => setServicesDropdownOpen(false)}
+                            >
+                              <div className="flex items-start gap-5">
+                                <div className="h-14 w-14 bg-linear-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 shrink-0">
+                                  {service.iconType === 'code' ? (
+                                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                    </svg>
+                                  ) : (
+                                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <h3 className="font-black text-white mb-2 group-hover:text-blue-400 transition-colors uppercase text-sm tracking-widest">
+                                    {service.title}
+                                  </h3>
+                                  <p className="text-[11px] text-gray-400 font-medium leading-relaxed uppercase tracking-[0.05em] line-clamp-2">
+                                    {service.description}
+                                  </p>
+                                </div>
                               </div>
-                              <div className="flex-1">
-                                <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                                  {service.title}
-                                </h3>
-                                <p className="text-sm text-gray-600 line-clamp-2">
-                                  {service.description}
-                                </p>
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-gray-100 text-center">
-                        <Link
-                          href="/services"
-                          className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700"
-                          onClick={() => setServicesDropdownOpen(false)}
-                        >
-                          View all services
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </Link>
+                            </Link>
+                          ))}
+                        </div>
+
+                        <div className="mt-8 pt-6 border-t border-white/5 flex justify-between items-center px-4">
+                          <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Deployment Protocol</p>
+                          <div className="flex gap-4">
+                            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">SOC2 Vetted</span>
+                            <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">24/7 Intel</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  )}
+
+                  {/* More Dropdown - Enhanced Premium */}
+                  {item.type === 'more' && moreDropdownOpen && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-0 w-screen max-w-xs animate-in fade-in slide-in-from-top-4 duration-500">
+                      <div className="bg-slate-950/95 backdrop-blur-3xl rounded-[2rem] shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-white/10 p-6 mt-4 mx-4 overflow-hidden relative group/dropdown">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 via-cyan-400 to-blue-600 animate-gradient-x"></div>
+                        
+                        <div className="relative z-10 space-y-1">
+                          {[
+                            { name: 'About Us', href: '/about', desc: 'Our mission & philosphy', icon: (
+                              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            )},
+                            { name: 'Contact', href: '/contact', desc: 'Secure channels', icon: (
+                              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            )},
+                            { name: 'Careers', href: '/careers', desc: 'Join the team', icon: (
+                              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            )},
+                          ].map((subItem) => (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.href}
+                              className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10 group/item"
+                              onClick={() => setMoreDropdownOpen(false)}
+                            >
+                              <div className="h-8 w-8 bg-linear-to-br from-blue-600/20 to-cyan-500/20 rounded-lg flex items-center justify-center text-blue-400 group-hover/item:text-white group-hover/item:from-blue-600 group-hover/item:to-cyan-500 transition-all duration-500">
+                                {subItem.icon}
+                              </div>
+                              <div>
+                                <h4 className="text-xs font-black text-white uppercase tracking-widest">{subItem.name}</h4>
+                                <p className="text-[9px] text-gray-500 font-medium uppercase tracking-wider">{subItem.desc}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -196,10 +227,10 @@ export function PublicNavbar() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    'text-sm font-medium transition-colors',
+                    'text-[13px] font-black uppercase tracking-[0.15em] transition-all py-2',
                     pathname === item.href
                       ? 'text-blue-600'
-                      : 'text-gray-600 hover:text-gray-900'
+                      : 'text-slate-500 hover:text-slate-900'
                   )}
                 >
                   {item.name}
@@ -208,48 +239,30 @@ export function PublicNavbar() {
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                Client Login
-              </Button>
-            </Link>
+          {/* User & Actions */}
+          <div className="hidden md:flex items-center gap-4">
             <Link href="/book">
-              <Button size="sm">
-                Book a Call
+              <Button className="bg-slate-950 hover:bg-blue-600 text-white transition-all duration-500 px-8 rounded-xl h-12 text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-slate-950/20 border-none">
+                Get Started
               </Button>
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              className="p-3 rounded-xl bg-slate-50 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              {mobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
@@ -257,32 +270,54 @@ export function PublicNavbar() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-100">
-          <div className="px-4 py-3 space-y-1">
+        <div className="md:hidden bg-white border-t border-slate-100 animate-in slide-in-from-top duration-300">
+          <div className="px-4 py-8 space-y-2 max-h-[80vh] overflow-y-auto">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  'block px-3 py-2 rounded-lg text-sm font-medium',
-                  pathname === item.href
-                    ? 'bg-blue-50 text-blue-600'
-                    : 'text-gray-600 hover:bg-gray-50'
-                )}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
+              item.type === 'more' ? (
+                <div key={item.name} className="py-2">
+                  <div className="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{item.name}</div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      { name: 'About Us', href: '/about' },
+                      { name: 'Contact', href: '/contact' },
+                      { name: 'Careers', href: '/careers' },
+                    ].map((sub) => (
+                      <Link
+                        key={sub.name}
+                        href={sub.href}
+                        className={cn(
+                          'block px-6 py-4 rounded-2xl text-[12px] font-black uppercase tracking-widest transition-all',
+                          pathname === sub.href
+                            ? 'bg-blue-50 text-blue-600'
+                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                        )}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    'block px-4 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest transition-all',
+                    pathname === item.href
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
-            <div className="pt-3 space-y-2">
-              <Link href="/login" className="block">
-                <Button variant="outline" className="w-full">
-                  Client Login
-                </Button>
-              </Link>
-              <Link href="/book" className="block">
-                <Button className="w-full">
-                  Book a Call
+            <div className="pt-6">
+              <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+                <Button className="w-full h-14 rounded-2xl font-black uppercase tracking-widest text-[11px] bg-slate-950">
+                  Book Now
                 </Button>
               </Link>
             </div>

@@ -59,46 +59,44 @@ export default function BookingPage() {
   if (submitted) {
     return (
       <PublicLayout>
-        <section className="py-20">
-          <div className="max-w-2xl mx-auto px-4 text-center">
-            <div className="h-20 w-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <section className="py-32 bg-white">
+          <div className="max-w-3xl mx-auto px-4 text-center">
+            <div className="h-24 w-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 text-green-600 shadow-xl shadow-green-500/10 border-4 border-white">
+              <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Booking Confirmed!</h1>
-            <p className="text-lg text-gray-600 mb-8">
-              Thank you for booking with Largify Solutions. You will receive a confirmation email shortly.
+            <h1 className="text-4xl font-black text-gray-900 mb-6 tracking-tight">Deployment Scheduled</h1>
+            <p className="text-xl text-gray-600 mb-12 font-light leading-relaxed">
+              Your engineering consultation is confirmed. A calendar invitation with the secure meeting link has been dispatched.
             </p>
-            <Card variant="bordered" className="p-6 text-left mb-8">
-              <h2 className="font-semibold text-gray-900 mb-4">Booking Details</h2>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Service:</span>
-                  <span className="font-medium text-gray-900">{service?.name}</span>
+            
+            <Card variant="bordered" className="p-10 text-left mb-12 bg-slate-50 border-blue-100 rounded-3xl shadow-sm relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16"></div>
+              <h2 className="text-xs font-black text-blue-600 uppercase tracking-widest mb-6 border-b border-blue-100 pb-4">Mission Specs</h2>
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Protocol</span>
+                  <span className="font-bold text-gray-900 text-lg">{service?.name}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Date:</span>
-                  <span className="font-medium text-gray-900">
-                    {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Temporal Window</span>
+                  <span className="font-bold text-gray-900 text-lg">
+                    {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at {selectedTime}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Time:</span>
-                  <span className="font-medium text-gray-900">{selectedTime}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Duration:</span>
-                  <span className="font-medium text-gray-900">{service?.durationMinutes} minutes</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Duration</span>
+                  <span className="font-bold text-gray-900 text-lg">{service?.durationMinutes} minutes</span>
                 </div>
               </div>
             </Card>
-            <p className="text-sm text-gray-500 mb-4">
-              A calendar invite will be sent to {formData.email}
-            </p>
-            <Button onClick={() => window.location.href = '/'}>
-              Back to Home
-            </Button>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-800 px-12 py-8 rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-slate-950/20" onClick={() => window.location.href = '/'}>
+                Return to Command
+              </Button>
+            </div>
           </div>
         </section>
       </PublicLayout>
@@ -107,39 +105,56 @@ export default function BookingPage() {
 
   return (
     <PublicLayout>
-      {/* Hero Section */}
-      <section className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section - Premium */}
+      <section className="relative bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 text-white py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <svg className="w-full h-full" viewBox="0 0 1200 1200">
+            <defs>
+              <pattern id="book-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="1200" height="1200" fill="url(#book-grid)" />
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Book a Call</h1>
-            <p className="text-xl text-gray-300">
-              Schedule a free consultation to discuss your project and see how we can help.
+            <div className="inline-block mb-6 px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full">
+              <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Direct Access</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter">
+              Reserve Your <br />
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-cyan-400">Architect Session</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+              Synchronize with our technical leads to map your system requirements and scalability goals.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Progress Steps */}
-      <section className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
+      {/* Progress Steps - Premium */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 py-12">
+          <div className="flex items-center justify-between relative">
+            <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-50 -translate-y-1/2"></div>
             {[
-              { num: 1, label: 'Select Service' },
-              { num: 2, label: 'Choose Time' },
-              { num: 3, label: 'Your Details' },
+              { num: 1, label: 'Technical Protocol' },
+              { num: 2, label: 'Temporal Window' },
+              { num: 3, label: 'Mission Briefing' },
             ].map((s, i) => (
-              <div key={s.num} className="flex items-center">
+              <div key={s.num} className="relative z-10 flex flex-col items-center group">
                 <div
                   className={cn(
-                    'h-8 w-8 rounded-full flex items-center justify-center font-medium text-sm',
+                    'h-14 w-14 rounded-2xl flex items-center justify-center font-black text-xl transition-all duration-500 shadow-lg border-4 border-white',
                     step >= s.num
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-500'
+                      ? 'bg-blue-600 text-white scale-110 rotate-12'
+                      : 'bg-white text-gray-300 border-gray-100'
                   )}
                 >
                   {step > s.num ? (
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   ) : (
                     s.num
@@ -147,17 +162,16 @@ export default function BookingPage() {
                 </div>
                 <span
                   className={cn(
-                    'ml-2 text-sm font-medium hidden sm:block',
-                    step >= s.num ? 'text-gray-900' : 'text-gray-500'
+                    'mt-4 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-500 text-center w-32 px-2',
+                    step >= s.num ? 'text-blue-600' : 'text-gray-300'
                   )}
                 >
                   {s.label}
                 </span>
-                {i < 2 && (
-                  <div className={cn(
-                    'mx-4 h-0.5 w-16 md:w-32',
-                    step > s.num ? 'bg-blue-600' : 'bg-gray-200'
-                  )} />
+                
+                {/* Connector pulse for current step */}
+                {step === s.num && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-20 w-20 bg-blue-600/10 rounded-full animate-ping pointer-events-none"></div>
                 )}
               </div>
             ))}

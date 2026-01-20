@@ -2,7 +2,7 @@ import React from 'react';
 import { cn, statusColors } from '@/lib/utils';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
+  variant?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'outline' | 'ghost';
   size?: 'sm' | 'md';
   status?: string;
 }
@@ -22,6 +22,8 @@ export function Badge({
     warning: 'bg-yellow-100 text-yellow-800',
     danger: 'bg-red-100 text-red-800',
     info: 'bg-blue-100 text-blue-800',
+    outline: 'bg-transparent border border-current',
+    ghost: 'bg-transparent',
   };
   
   const sizes = {
