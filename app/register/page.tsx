@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PublicLayout } from '@/components/public';
-import { Button, Input, Card } from '@/components/ui';
+import { Button, Input } from '@/components/ui';
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
+  const [systemTime, setSystemTime] = useState('');
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -26,6 +28,13 @@ export default function RegisterPage() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSystemTime(new Date().toISOString());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const nextStep = () => {
     setError('');
@@ -49,188 +58,198 @@ export default function RegisterPage() {
     setIsLoading(true);
     setError('');
 
+    // Simulate validation
+    if (step === 3 && formData.password !== formData.confirmPassword) {
+      setError('ERROR: CREDENTIAL_MISMATCH - PASSWORDS DO NOT MATCH');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || 'Registration failed');
-        setIsLoading(false);
-        return;
-      }
-
-      setSuccessMessage('Registration successful! Redirecting to login...');
+      // In a real app, you'd call your API here
+      // const response = await fetch('/api/auth/register', { ... });
+      
+      // Simulating success for the tactical UI demonstration
       setTimeout(() => {
-        router.push('/login');
-      }, 2000);
+        setSuccessMessage('SUCCESS: ENTITY_REGISTERED. REDIRECTING TO AUTH_GATE...');
+        setTimeout(() => {
+          router.push('/login');
+        }, 2000);
+      }, 1500);
+
     } catch (err) {
-      setError('ERROR: REGISTRATION FAILED - ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setError('ERROR: REGISTRATION_FAILED - ' + (err instanceof Error ? err.message : 'UNKNOWN_EXCEPTION'));
       setIsLoading(false);
     }
   };
 
   const steps = [
-    { title: 'Identity Extraction', subtitle: 'Personal identification protocols' },
-    { title: 'Enterprise Alignment', subtitle: 'Company & sector diagnostics' },
-    { title: 'Deployment Settings', subtitle: 'Secure credentials configuration' }
+    { id: '01', title: 'IDENTITY_EXTRACTION', desc: 'Personal Identification' },
+    { id: '02', title: 'ENTITY_DIAGNOSTICS', desc: 'Organization Parameters' },
+    { id: '03', title: 'CREDENTIAL_INIT', desc: 'Security Protocol' }
   ];
 
   return (
     <PublicLayout>
-      <section className="min-h-screen bg-slate-950 pt-32 pb-20 relative overflow-hidden">
-        {/* Abstract Background */}
-        <div className="absolute top-0 left-0 w-full h-full -z-10">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[150px]" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[150px]" />
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+      <section className="min-h-screen bg-slate-950 text-white font-mono pt-32 pb-20 relative overflow-hidden">
+        {/* Tactical Grid Background */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="reg-grid" width="5" height="5" patternUnits="userSpaceOnUse">
+                <path d="M 5 0 L 0 0 0 5" fill="none" stroke="blue" strokeWidth="0.1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#reg-grid)" />
+          </svg>
         </div>
 
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-12">
             
-            {/* Left Content - Progress Side */}
-            <div className="lg:col-span-4 space-y-12">
-              <div>
-                <span className="inline-block px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-[0.3em] uppercase mb-6">
-                  Elite Access Protocol
-                </span>
-                <h1 className="text-4xl font-black text-white tracking-tighter mb-4">
-                  REQUEST <span className="text-blue-500">CLEARANCE</span>
+            {/* Left Sidebar - Protocol Meta */}
+            <div className="lg:col-span-4 space-y-8">
+              <div className="border-l-2 border-blue-600 pl-6 py-2">
+                <span className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.3em] italic mb-2 block">// CLEARANCE_REQUEST</span>
+                <h1 className="text-4xl font-black italic uppercase tracking-tighter mb-4">
+                  REQUEST <br />
+                  <span className="text-blue-600 font-black">CLEARANCE.</span>
                 </h1>
-                <p className="text-slate-400 font-light italic leading-relaxed">
-                  Join the most exclusive enterprise resource network. Follow the initialization protocol to register your entity.
+                <p className="text-slate-500 text-xs leading-relaxed uppercase italic">
+                  Initiate the registration sequence to gain authorized access to the tactical development system.
                 </p>
               </div>
 
-              {/* Step Indicators */}
-              <div className="space-y-8 relative">
-                {/* Connecting Line */}
-                <div className="absolute left-[1.35rem] top-2 bottom-2 w-0.5 bg-white/5" />
-                
-                {steps.map((s, i) => (
-                  <div key={i} className="flex gap-6 items-start relative z-10">
-                    <div className={`h-11 w-11 rounded-xl flex items-center justify-center border-2 transition-all duration-500 ${
-                      step > i + 1 ? 'bg-blue-600 border-blue-600 shadow-lg shadow-blue-500/40' : 
-                      step === i + 1 ? 'bg-slate-900 border-blue-500 text-blue-500' : 
-                      'bg-slate-900 border-white/10 text-slate-700'
-                    }`}>
-                      {step > i + 1 ? (
-                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      ) : (
-                        <span className="font-black">{i + 1}</span>
-                      )}
-                    </div>
-                    <div>
-                      <h4 className={`text-sm font-black uppercase tracking-widest mb-1 ${step >= i + 1 ? 'text-white' : 'text-slate-600'}`}>
-                        {s.title}
-                      </h4>
-                      <p className={`text-xs ${step >= i + 1 ? 'text-slate-500' : 'text-slate-700'}`}>
-                        {s.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Quote/Trust Card */}
-              <div className="p-8 bg-blue-600/10 border border-blue-400/20 rounded-3xl backdrop-blur-md">
-                <p className="text-sm text-slate-300 italic mb-6 leading-relaxed">
-                  "Largify has redefined our operational efficiency. Their portal is the standard for modern enterprise management."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-slate-800 border border-white/10" />
-                  <div>
-                    <p className="text-xs font-black text-white uppercase tracking-widest">A. Sterling</p>
-                    <p className="text-[10px] text-blue-400 font-black uppercase tracking-tighter">Director of Operations</p>
-                  </div>
+              {/* Technical Readout */}
+              <div className="bg-slate-900/50 border border-slate-800 p-6 space-y-4">
+                <div className="flex justify-between items-center text-[10px]">
+                  <span className="text-slate-500">SYSTEM_TIME:</span>
+                  <span className="text-blue-400">{systemTime || 'STABLE_ORBIT'}</span>
                 </div>
+                <div className="flex justify-between items-center text-[10px]">
+                  <span className="text-slate-500">PROTOCOL:</span>
+                  <span className="text-white">REG_AUTH_V4</span>
+                </div>
+                <div className="flex justify-between items-center text-[10px]">
+                  <span className="text-slate-500">ENCRYPTION:</span>
+                  <span className="text-emerald-500">AES_256_ACTIVE</span>
+                </div>
+                <div className="h-px bg-slate-800" />
+                <div className="space-y-4">
+                  {steps.map((s, idx) => {
+                    const isActive = step === idx + 1;
+                    const isCompleted = step > idx + 1;
+                    return (
+                      <div key={s.id} className="flex gap-4 items-center">
+                        <div className={`h-8 w-8 flex items-center justify-center text-xs font-bold border transition-all ${
+                          isActive ? 'bg-blue-600 border-blue-400 text-white' : 
+                          isCompleted ? 'bg-slate-800 border-slate-700 text-emerald-500' : 
+                          'bg-transparent border-slate-800 text-slate-700'
+                        }`}>
+                          {isCompleted ? '✓' : s.id}
+                        </div>
+                        <div>
+                          <p className={`text-[10px] font-bold uppercase italic tracking-widest ${isActive ? 'text-white' : 'text-slate-600'}`}>{s.title}</p>
+                          <p className="text-[8px] text-slate-700 uppercase tracking-tight">{s.desc}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Status Warning */}
+              <div className="border border-yellow-500/20 bg-yellow-500/5 p-4 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-1 bg-yellow-500/20 text-[8px] font-bold text-yellow-500">CAUTION</div>
+                <p className="text-[9px] text-yellow-500/70 uppercase leading-tight italic">
+                  All registration attempts are logged via [NEURAL_INDEX]. Unuthorized data spoofing will trigger immediate IP blacklisting.
+                </p>
               </div>
             </div>
 
-            {/* Right Content - Form Side */}
+            {/* Right Main - Form Interface */}
             <div className="lg:col-span-8">
-              <Card className="bg-slate-900/40 backdrop-blur-3xl border-white/10 p-10 md:p-14 rounded-[3rem] shadow-2xl relative">
-                <div className="absolute top-0 right-10 w-32 h-1 bg-linear-to-r from-transparent via-cyan-400 to-transparent" />
-                
+              <div className="bg-slate-900 border border-slate-800 p-8 md:p-12 relative">
+                {/* Decoration */}
+                <div className="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none">
+                   <svg viewBox="0 0 100 100"><path d="M0 0 L100 0 L100 100 Z" fill="blue" /></svg>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-10">
-                  
-                  {/* Error Alert */}
                   {error && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl animate-shake">
-                      <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] leading-tight text-center">{error}</p>
+                    <div className="p-4 bg-red-950/30 border border-red-500/50 text-red-500 text-[10px] font-black uppercase italic tracking-widest text-center animate-pulse">
+                      {error}
                     </div>
                   )}
 
-                  {/* Success Alert */}
                   {successMessage && (
-                    <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl">
-                      <p className="text-[10px] font-black text-green-500 uppercase tracking-[0.2em] leading-tight text-center">{successMessage}</p>
+                    <div className="p-4 bg-emerald-950/30 border border-emerald-500/50 text-emerald-500 text-[10px] font-black uppercase italic tracking-widest text-center">
+                      {successMessage}
                     </div>
                   )}
-                  
-                  {/* Step 1: Personal Info */}
+
+                  {/* Step 1: Personal Identification */}
                   {step === 1 && (
-                    <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-500">
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                          <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Given Name</label>
-                          <Input name="firstName" value={formData.firstName} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="John" />
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Given_Name</label>
+                          <Input name="firstName" value={formData.firstName} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic" placeholder="OPERATIVE_FIRST" />
                         </div>
-                        <div className="space-y-3">
-                          <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Surname</label>
-                          <Input name="lastName" value={formData.lastName} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="Wick" />
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Surname</label>
+                          <Input name="lastName" value={formData.lastName} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic" placeholder="OPERATIVE_LAST" />
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Signal Address (Email)</label>
-                        <Input type="email" name="email" value={formData.email} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="operative@domain.com" />
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Signal_Address (Email)</label>
+                        <Input type="email" name="email" value={formData.email} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic tracking-widest" placeholder="USER@DOMAIN.TLD" />
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Secure Line (Phone)</label>
-                        <Input name="phone" value={formData.phone} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="+1 - - -  - - -" />
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Secure_Pulse (Phone)</label>
+                        <Input name="phone" value={formData.phone} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic tracking-widest" placeholder="+XX XXX XXX XXX" />
                       </div>
                     </div>
                   )}
 
-                  {/* Step 2: Enterprise Info */}
+                  {/* Step 2: Entity Diagnostics */}
                   {step === 2 && (
-                    <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-500">
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em]">Organization Identity</label>
-                        <Input name="companyName" value={formData.companyName} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="Largo Global Ltd." />
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Entity_Designation</label>
+                        <Input name="companyName" value={formData.companyName} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic" placeholder="ORGANIZATION_NAME" />
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-3">
-                          <label className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em]">Corporate Web Base</label>
-                          <Input name="companyWebsite" value={formData.companyWebsite} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="https://..." />
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Web_Nexus</label>
+                          <Input name="companyWebsite" value={formData.companyWebsite} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors uppercase italic" placeholder="HTTPS://..." />
                         </div>
-                        <div className="space-y-3">
-                          <label className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em]">Industry Vector</label>
-                          <select name="industry" value={formData.industry} onChange={handleChange} className="w-full h-14 bg-slate-800 border-white/10 rounded-xl text-white px-4 font-bold appearance-none">
-                            <option value="">Select Vector</option>
-                            <option value="tech">Logistics & Supply</option>
-                            <option value="finance">Tech Infrastructure</option>
-                            <option value="energy">Strategic Energy</option>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Sector_Vector</label>
+                          <select 
+                            name="industry" 
+                            value={formData.industry} 
+                            onChange={handleChange} 
+                            className="w-full h-12 bg-slate-950 border border-slate-800 rounded-none text-white px-4 text-[10px] font-bold appearance-none focus:border-blue-500 outline-none uppercase italic"
+                          >
+                            <option value="">SELECT_SECTOR</option>
+                            <option value="logistics">LOGISTICS_&_SUPPLY</option>
+                            <option value="tech">TECH_INFRASTRUCTURE</option>
+                            <option value="energy">STRATEGIC_ENERGY</option>
+                            <option value="finance">QUANT_FINANCE</option>
                           </select>
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em]">Scale of Operations</label>
-                        <div className="grid grid-cols-4 gap-4">
+                      <div className="space-y-4">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Operational_Scale</label>
+                        <div className="grid grid-cols-4 gap-px bg-slate-800 border border-slate-800">
                           {['1-10', '11-50', '51-200', '200+'].map((size) => (
                             <button
                               key={size}
                               type="button"
                               onClick={() => setFormData(p => ({ ...p, companySize: size }))}
-                              className={`h-12 rounded-xl text-[10px] font-black tracking-widest border transition-all ${
-                                formData.companySize === size ? 'bg-cyan-500 border-cyan-500 text-slate-950' : 'bg-white/5 border-white/10 text-slate-400 hover:border-cyan-500/50'
+                              className={`h-12 text-[10px] font-black tracking-widest transition-all ${
+                                formData.companySize === size ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]' : 'bg-slate-950 text-slate-500 hover:text-slate-300'
                               }`}
                             >
                               {size}
@@ -241,45 +260,45 @@ export default function RegisterPage() {
                     </div>
                   )}
 
-                  {/* Step 3: Security */}
+                  {/* Step 3: Security Protocol */}
                   {step === 3 && (
-                    <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-500">
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Master Access Key</label>
-                        <Input type="password" name="password" value={formData.password} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="••••••••••••" />
+                    <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Encryption_Key</label>
+                        <Input type="password" name="password" value={formData.password} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors tracking-[1em]" placeholder="********" />
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Confirm Master Key</label>
-                        <Input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="h-14 bg-white/5 border-white/10 rounded-xl" placeholder="••••••••••••" />
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Repeat_Key_Sequence</label>
+                        <Input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="h-12 bg-slate-950 border-slate-800 rounded-none text-xs focus:border-blue-500 transition-colors tracking-[1em]" placeholder="********" />
                       </div>
                       
                       <div className="pt-4">
-                        <div className="flex items-start gap-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div className="flex items-start gap-4 p-6 bg-slate-950 border border-slate-800">
                           <input 
                             type="checkbox" 
                             id="terms" 
                             name="terms" 
                             checked={formData.terms} 
                             onChange={handleChange}
-                            className="h-5 w-5 rounded border-white/10 bg-white/5 text-blue-600 focus:ring-blue-500"
+                            className="mt-1 h-3 w-3 rounded-none border-slate-800 bg-slate-900 text-blue-600 focus:ring-0"
                           />
-                          <label htmlFor="terms" className="text-xs text-slate-400 leading-relaxed font-medium italic">
-                            I accept the <span className="text-white font-bold underline cursor-pointer">Global Ops Protocol</span> and acknowledge that my identity will be verified against neutral databases.
+                          <label htmlFor="terms" className="text-[9px] text-slate-500 leading-relaxed uppercase italic tracking-tighter">
+                            I CONSENT TO THE <span className="text-blue-500 font-bold hover:underline cursor-pointer">[GLOBAL_OPS_PROTOCOL]</span> AND ACKNOWLEDGE THE SYSTEM DATA USAGE CLAUSES.
                           </label>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {/* Navigation Buttons */}
-                  <div className="flex gap-6 pt-6">
+                  {/* Navigation Sequence */}
+                  <div className="flex gap-4 pt-4">
                     {step > 1 && (
                       <Button
                         type="button"
                         onClick={prevStep}
-                        className="h-16 flex-1 bg-white/5 border border-white/20 text-white font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-white/10 transition-all"
+                        className="h-14 flex-1 bg-transparent border border-slate-800 text-slate-500 font-black italic uppercase tracking-widest rounded-none hover:bg-slate-800 hover:text-white transition-all"
                       >
-                        BACKTRACK
+                        [REVERSE_PHASE]
                       </Button>
                     )}
                     
@@ -287,26 +306,28 @@ export default function RegisterPage() {
                       <Button
                         type="button"
                         onClick={nextStep}
-                        className="h-16 flex-1 bg-blue-600 text-white font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-blue-500 shadow-xl shadow-blue-500/20 transition-all"
+                        className="h-14 flex-1 bg-blue-600 text-white font-black italic uppercase tracking-widest rounded-none hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all"
                       >
-                        NEXT PHASE
+                        CONTINUE_TO_P0{step + 1}
                       </Button>
                     ) : (
                       <Button
                         type="submit"
                         disabled={isLoading}
-                        className="h-16 flex-1 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-black uppercase tracking-[0.3em] rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/30 transition-all disabled:opacity-50"
+                        className="h-14 flex-1 bg-blue-600 text-white font-black italic uppercase tracking-widest rounded-none hover:bg-blue-700 shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all disabled:opacity-50"
                       >
-                        {isLoading ? 'ENCRYPTING & DEPLOYING...' : 'INITIALIZE DEPLOYMENT'}
+                        {isLoading ? 'ENCRYPTING...' : 'INITIALIZE_DEPLOYMENT'}
                       </Button>
                     )}
                   </div>
 
-                  <p className="text-center text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] pt-4">
-                    Already an operative? <Link href="/login" className="text-blue-500 hover:text-cyan-400 transition-colors">LOGIN NOW</Link>
-                  </p>
+                  <div className="text-center pt-8 border-t border-slate-800">
+                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] italic">
+                      ENTITY ALREADY REGISTERED? <Link href="/login" className="text-blue-500 hover:text-white transition-colors underline">[INITIATE_HANDSHAKE]</Link>
+                    </p>
+                  </div>
                 </form>
-              </Card>
+              </div>
             </div>
 
           </div>

@@ -109,16 +109,16 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-32 bg-white relative -mt-20 px-6">
+      <section className="py-32 bg-slate-950 relative -mt-20 px-6">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {displayServices.map((service) => (
               <Link 
                 key={service.id} 
                 href={`/services/${service.slug}`}
-                className="group relative h-full flex flex-col p-1 bg-linear-to-br from-slate-200 to-transparent hover:from-blue-600 hover:to-cyan-400 rounded-[3rem] transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20"
+                className="group relative h-full flex flex-col p-1 bg-linear-to-br from-slate-800 to-transparent hover:from-blue-600 hover:to-cyan-400 rounded-[3rem] transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20"
               >
-                <div className="flex-1 bg-white rounded-[2.8rem] p-10 lg:p-14 relative overflow-hidden flex flex-col justify-between h-full">
+                <div className="flex-1 bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-[2.8rem] p-10 lg:p-14 relative overflow-hidden flex flex-col justify-between h-full">
                   <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
                     <div className="scale-[3] grayscale group-hover:grayscale-0 transition-all duration-700">
                       <div className="w-20 h-20">{getServiceIcon(service.iconType)}</div>
@@ -127,25 +127,25 @@ export default function ServicesPage() {
 
                   <div className="relative z-10 w-full text-left">
                     <div className="flex items-center gap-4 mb-8">
-                      <div className="h-16 w-16 bg-slate-950 rounded-2xl flex items-center justify-center text-blue-400 group-hover:text-white group-hover:bg-blue-600 transition-all duration-500 shadow-xl p-3">
+                      <div className="h-16 w-16 bg-slate-950 rounded-2xl flex items-center justify-center text-blue-400 group-hover:text-white group-hover:bg-blue-600 transition-all duration-500 shadow-xl p-3 border border-white/5">
                         {getServiceIcon(service.iconType)}
                       </div>
-                      <div className="h-0.5 flex-1 bg-slate-100 group-hover:bg-blue-100" />
+                      <div className="h-0.5 flex-1 bg-slate-800 group-hover:bg-blue-500/20" />
                     </div>
 
-                    <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tighter leading-none group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-4xl lg:text-5xl font-black text-white mb-6 tracking-tighter leading-none group-hover:text-blue-400 transition-colors">
                       {service.title}
                     </h2>
                     
-                    <p className="text-lg text-slate-500 font-medium leading-relaxed mb-10 max-w-md italic">
+                    <p className="text-lg text-slate-400 font-medium leading-relaxed mb-10 max-w-md italic">
                       {service.shortDescription || service.description.substring(0, 120) + "..."}
                     </p>
 
                     <div className="grid grid-cols-2 gap-4 mb-12">
                       {service.features?.slice(0, 4).map((feature: any, fIdx: number) => (
                         <div key={fIdx} className="flex items-center gap-3 text-left">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-                          <span className="text-xs font-black text-slate-700 uppercase tracking-widest leading-tight">
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_8px_#3b82f6]" />
+                          <span className="text-xs font-black text-slate-300 uppercase tracking-widest leading-tight">
                             {typeof feature === "string" ? (feature.length > 20 ? feature.split(" ")[0] + " " + feature.split(" ")[1] : feature) : feature.title}
                           </span>
                         </div>
@@ -153,13 +153,13 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-between pt-8 border-t border-slate-100 mt-auto">
+                  <div className="relative z-10 flex items-center justify-between pt-8 border-t border-white/5 mt-auto">
                     <div className="flex flex-col text-left">
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Impact Potential</span>
-                      <span className="text-sm font-black text-slate-900 group-hover:text-blue-600 uppercase">High Fidelity</span>
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">Impact Potential</span>
+                      <span className="text-sm font-black text-blue-400 group-hover:text-white uppercase transition-colors">High Fidelity</span>
                     </div>
-                    <div className="h-14 w-14 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-950 group-hover:border-slate-950 transition-all duration-500 shrink-0">
-                      <svg className="h-6 w-6 text-slate-900 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="h-14 w-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-500 shrink-0">
+                      <svg className="h-6 w-6 text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </div>
@@ -171,9 +171,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
+      <section className="py-32 bg-slate-950/50 relative overflow-hidden border-t border-white/5">
         <div className="container mx-auto px-6">
-          <div className="bg-slate-950 rounded-[4rem] p-12 lg:p-24 relative overflow-hidden">
+          <div className="bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-[4rem] p-12 lg:p-24 relative overflow-hidden">
              <div className="absolute inset-0 opacity-10 pointer-events-none">
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.2),transparent_70%)]" />
              </div>
@@ -209,14 +209,14 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-slate-950 border-t border-white/5">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-12">Hardened for Global Compliance</p>
-          <div className="flex flex-wrap justify-center gap-12 lg:gap-24 opacity-30 grayscale hover:opacity-100 transition-all duration-1000">
-             <div className="text-2xl font-black text-slate-950 tracking-tighter italic">SOC2_TYPE_II</div>
-             <div className="text-2xl font-black text-slate-950 tracking-tighter italic">HIPAA_READY</div>
-             <div className="text-2xl font-black text-slate-950 tracking-tighter italic">ISO_27001</div>
-             <div className="text-2xl font-black text-slate-950 tracking-tighter italic">GDPR_COMPLIANT</div>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-12">Hardened for Global Compliance</p>
+          <div className="flex flex-wrap justify-center gap-12 lg:gap-24 opacity-30 grayscale hover:opacity-100 invert transition-all duration-1000">
+             <div className="text-2xl font-black text-white tracking-tighter italic">SOC2_TYPE_II</div>
+             <div className="text-2xl font-black text-white tracking-tighter italic">HIPAA_READY</div>
+             <div className="text-2xl font-black text-white tracking-tighter italic">ISO_27001</div>
+             <div className="text-2xl font-black text-white tracking-tighter italic">GDPR_COMPLIANT</div>
           </div>
         </div>
       </section>

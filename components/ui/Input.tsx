@@ -26,40 +26,40 @@ export function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className="block text-xs font-black text-slate-500 mb-2 uppercase tracking-[0.2em]"
         >
           {label}
         </label>
       )}
-      <div className="relative">
+      <div className="relative group">
         {leftIcon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-blue-500 transition-colors">
             {leftIcon}
           </div>
         )}
         <input
           id={inputId}
           className={cn(
-            'block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
-            'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed',
-            'transition-all duration-200',
-            leftIcon ? 'pl-10' : '',
-            rightIcon ? 'pr-10' : '',
-            error ? 'border-red-500 focus:ring-red-500' : '',
+            'block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-white placeholder-slate-600 font-medium',
+            'focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/50',
+            'disabled:bg-slate-900 disabled:text-slate-600 disabled:cursor-not-allowed',
+            'transition-all duration-300 shadow-inner',
+            leftIcon ? 'pl-12' : '',
+            rightIcon ? 'pr-12' : '',
+            error ? 'border-red-500/50 focus:ring-red-500/20' : '',
             className
           )}
           {...props}
         />
         {rightIcon && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
+          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-blue-500 transition-colors">
             {rightIcon}
           </div>
         )}
       </div>
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">{error}</p>}
       {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+        <p className="mt-2 text-[10px] font-bold text-slate-600 uppercase tracking-tighter">{helperText}</p>
       )}
     </div>
   );

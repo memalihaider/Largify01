@@ -26,12 +26,12 @@ export interface Deal {
 
 const pipelineStages = [
   { id: 'new', name: 'New', color: 'bg-slate-100', textColor: 'text-slate-700' },
-  { id: 'contacted', name: 'Contacted', color: 'bg-blue-100', textColor: 'text-blue-700' },
+  { id: 'contacted', name: 'Contacted', color: 'bg-blue-900/20', textColor: 'text-blue-400' },
   { id: 'qualified', name: 'Qualified', color: 'bg-cyan-100', textColor: 'text-cyan-700' },
-  { id: 'proposal_sent', name: 'Proposal', color: 'bg-yellow-100', textColor: 'text-yellow-700' },
+  { id: 'proposal_sent', name: 'Proposal', color: 'bg-amber-900/20', textColor: 'text-yellow-700' },
   { id: 'negotiation', name: 'Negotiation', color: 'bg-orange-100', textColor: 'text-orange-700' },
-  { id: 'won', name: 'Won', color: 'bg-green-100', textColor: 'text-green-700' },
-  { id: 'lost', name: 'Lost', color: 'bg-red-100', textColor: 'text-red-700' },
+  { id: 'won', name: 'Won', color: 'bg-emerald-900/20', textColor: 'text-green-700' },
+  { id: 'lost', name: 'Lost', color: 'bg-red-900/20', textColor: 'text-red-700' },
 ];
 
 const mockDeals: Deal[] = [
@@ -302,8 +302,8 @@ export default function PipelinePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Sales Pipeline</h1>
-          <p className="text-gray-500">Manage deals through sales stages - drag to move</p>
+          <h1 className="text-2xl font-bold text-white">Sales Pipeline</h1>
+          <p className="text-slate-400">Manage deals through sales stages - drag to move</p>
         </div>
         <Button onClick={() => setShowModal(true)}>
           <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -315,35 +315,35 @@ export default function PipelinePage() {
 
       {/* Statistics */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div className="bg-white rounded-xl p-4">
-          <p className="text-sm text-gray-500">Total Deals</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.totalDeals}</p>
-          <p className="text-xs text-gray-400 mt-2">{formatCurrency(stats.totalValue)}</p>
+        <div className="bg-slate-900 rounded-xl p-4">
+          <p className="text-sm text-slate-400">Total Deals</p>
+          <p className="text-2xl font-bold text-white">{stats.totalDeals}</p>
+          <p className="text-xs text-slate-500 mt-2">{formatCurrency(stats.totalValue)}</p>
         </div>
-        <div className="bg-white rounded-xl p-4">
-          <p className="text-sm text-gray-500">Won Deals</p>
-          <p className="text-2xl font-bold text-green-600">{stats.wonDeals}</p>
-          <p className="text-xs text-gray-400 mt-2">{formatCurrency(stats.wonValue)}</p>
+        <div className="bg-slate-900 rounded-xl p-4">
+          <p className="text-sm text-slate-400">Won Deals</p>
+          <p className="text-2xl font-bold text-emerald-400">{stats.wonDeals}</p>
+          <p className="text-xs text-slate-500 mt-2">{formatCurrency(stats.wonValue)}</p>
         </div>
-        <div className="bg-white rounded-xl p-4">
-          <p className="text-sm text-gray-500">Active Value</p>
-          <p className="text-2xl font-bold text-blue-600">{formatCurrency(stats.activeValue)}</p>
-          <p className="text-xs text-gray-400 mt-2">Weighted by probability</p>
+        <div className="bg-slate-900 rounded-xl p-4">
+          <p className="text-sm text-slate-400">Active Value</p>
+          <p className="text-2xl font-bold text-blue-400">{formatCurrency(stats.activeValue)}</p>
+          <p className="text-xs text-slate-500 mt-2">Weighted by probability</p>
         </div>
-        <div className="bg-white rounded-xl p-4">
-          <p className="text-sm text-gray-500">Avg Deal Size</p>
-          <p className="text-2xl font-bold text-purple-600">{formatCurrency(stats.avgDealSize)}</p>
-          <p className="text-xs text-gray-400 mt-2">Per deal</p>
+        <div className="bg-slate-900 rounded-xl p-4">
+          <p className="text-sm text-slate-400">Avg Deal Size</p>
+          <p className="text-2xl font-bold text-purple-400">{formatCurrency(stats.avgDealSize)}</p>
+          <p className="text-xs text-slate-500 mt-2">Per deal</p>
         </div>
-        <div className="bg-white rounded-xl p-4">
-          <p className="text-sm text-gray-500">Close Rate</p>
+        <div className="bg-slate-900 rounded-xl p-4">
+          <p className="text-sm text-slate-400">Close Rate</p>
           <p className="text-2xl font-bold text-orange-600">{stats.totalDeals > 0 ? Math.round((stats.wonDeals / stats.totalDeals) * 100) : 0}%</p>
-          <p className="text-xs text-gray-400 mt-2">Won vs total</p>
+          <p className="text-xs text-slate-500 mt-2">Won vs total</p>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-xl p-4 space-y-4">
+      <div className="bg-slate-900 rounded-xl p-4 space-y-4">
         <div className="flex gap-4">
           <div className="flex-1">
             <Input
@@ -354,12 +354,12 @@ export default function PipelinePage() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <span className="text-sm text-gray-600 font-medium py-1.5 px-2">Stage:</span>
+          <span className="text-sm text-slate-400 font-medium py-1.5 px-2">Stage:</span>
           <button
             onClick={() => setStageFilter('all')}
             className={cn(
               'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors',
-              stageFilter === 'all' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              stageFilter === 'all' ? 'bg-blue-900/20 text-blue-400' : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
             )}
           >
             All
@@ -370,7 +370,7 @@ export default function PipelinePage() {
               onClick={() => setStageFilter(stage.id)}
               className={cn(
                 'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
-                stageFilter === stage.id ? `${stage.color} text-gray-900 font-bold` : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                stageFilter === stage.id ? `${stage.color} text-white font-bold` : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
               )}
             >
               {stage.name}
@@ -397,19 +397,19 @@ export default function PipelinePage() {
                 <div className={cn('rounded-t-lg p-4', stage.color)}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-gray-900">{stage.name}</h3>
-                      <Badge variant="secondary" className="bg-white/50">
+                      <h3 className="font-semibold text-white">{stage.name}</h3>
+                      <Badge variant="secondary" className="bg-slate-900/50">
                         {stageDeals.length}
                       </Badge>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{formatCurrency(stageValue)}</p>
+                  <p className="text-sm text-slate-400 mt-1">{formatCurrency(stageValue)}</p>
                 </div>
 
                 {/* Stage Content */}
-                <div className="bg-gray-50 rounded-b-lg p-3 min-h-96 space-y-3">
+                <div className="bg-slate-950/50 rounded-b-lg p-3 min-h-96 space-y-3">
                   {stageDeals.length === 0 ? (
-                    <div className="flex items-center justify-center h-32 text-gray-400 text-sm">
+                    <div className="flex items-center justify-center h-32 text-slate-500 text-sm">
                       Drop deals here
                     </div>
                   ) : (
@@ -417,7 +417,7 @@ export default function PipelinePage() {
                       <Card
                         key={deal.id}
                         className={cn(
-                          'p-3 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow bg-white',
+                          'p-3 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow bg-slate-900',
                           draggedDeal === deal.id && 'opacity-50'
                         )}
                         draggable
@@ -426,30 +426,30 @@ export default function PipelinePage() {
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex-1">
-                            <h4 className="font-medium text-gray-900 text-sm">{deal.dealName}</h4>
-                            <p className="text-xs text-gray-500">{deal.company}</p>
+                            <h4 className="font-medium text-white text-sm">{deal.dealName}</h4>
+                            <p className="text-xs text-slate-400">{deal.company}</p>
                           </div>
-                          <div className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded ml-2">
+                          <div className="text-xs bg-blue-900/20 text-blue-400 px-2 py-1 rounded ml-2">
                             {deal.probability}%
                           </div>
                         </div>
                         <div className="flex items-center justify-between text-sm mb-2">
-                          <span className="font-semibold text-gray-900">{formatCurrency(deal.amount)}</span>
-                          <span className="text-xs text-gray-500">{deal.assignedTo || 'Unassigned'}</span>
+                          <span className="font-semibold text-white">{formatCurrency(deal.amount)}</span>
+                          <span className="text-xs text-slate-400">{deal.assignedTo || 'Unassigned'}</span>
                         </div>
                         <div className="flex items-center justify-between text-xs">
                           <Badge variant="info">{deal.source}</Badge>
-                          <span className="text-gray-400">
+                          <span className="text-slate-500">
                             {deal.expectedCloseDate ? new Date(deal.expectedCloseDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'No date'}
                           </span>
                         </div>
                         {deal.description && (
-                          <p className="text-xs text-gray-600 mt-2 line-clamp-2">{deal.description}</p>
+                          <p className="text-xs text-slate-400 mt-2 line-clamp-2">{deal.description}</p>
                         )}
                         <div className="flex gap-1 mt-2">
                           <button
                             onClick={() => handleEdit(deal)}
-                            className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded text-xs"
+                            className="p-1 text-slate-500 hover:text-blue-400 hover:bg-blue-900/20 rounded text-xs"
                           >
                             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -457,7 +457,7 @@ export default function PipelinePage() {
                           </button>
                           <button
                             onClick={() => handleDelete(deal.id)}
-                            className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded text-xs"
+                            className="p-1 text-slate-500 hover:text-red-400 hover:bg-red-900/20 rounded text-xs"
                           >
                             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -477,15 +477,15 @@ export default function PipelinePage() {
       {/* Create/Edit Deal Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">{editingId ? 'Edit Deal' : 'Create New Deal'}</h2>
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-800">
+              <h2 className="text-xl font-bold text-white">{editingId ? 'Edit Deal' : 'Create New Deal'}</h2>
             </div>
             
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               {/* Deal Information Section */}
               <div className="border-b pb-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Deal Information</h3>
+                <h3 className="text-sm font-semibold text-slate-300 mb-3">Deal Information</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Deal Name *"
@@ -500,11 +500,11 @@ export default function PipelinePage() {
                   />
                 </div>
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-1">Description</label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     rows={2}
                     placeholder="Deal notes or details..."
                   />
@@ -513,7 +513,7 @@ export default function PipelinePage() {
 
               {/* Deal Financial Section */}
               <div className="border-b pb-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Financial Details</h3>
+                <h3 className="text-sm font-semibold text-slate-300 mb-3">Financial Details</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Deal Amount *"
@@ -523,7 +523,7 @@ export default function PipelinePage() {
                     required
                   />
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Win Probability (%)</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Win Probability (%)</label>
                     <input
                       type="range"
                       min="0"
@@ -532,21 +532,21 @@ export default function PipelinePage() {
                       onChange={(e) => setFormData({...formData, probability: e.target.value})}
                       className="w-full"
                     />
-                    <p className="text-xs text-gray-500 mt-1">{formData.probability}%</p>
+                    <p className="text-xs text-slate-400 mt-1">{formData.probability}%</p>
                   </div>
                 </div>
               </div>
 
               {/* Deal Status Section */}
               <div className="border-b pb-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Deal Status</h3>
+                <h3 className="text-sm font-semibold text-slate-300 mb-3">Deal Status</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Stage</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Stage</label>
                     <select
                       value={formData.stage}
                       onChange={(e) => setFormData({...formData, stage: e.target.value as DealStatus})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {pipelineStages.map(s => (
                         <option key={s.id} value={s.id}>{s.name}</option>
@@ -554,11 +554,11 @@ export default function PipelinePage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Source</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Source</label>
                     <select
                       value={formData.source}
                       onChange={(e) => setFormData({...formData, source: e.target.value as any})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="website">Website</option>
                       <option value="referral">Referral</option>
@@ -572,7 +572,7 @@ export default function PipelinePage() {
 
               {/* Additional Info Section */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Additional Information</h3>
+                <h3 className="text-sm font-semibold text-slate-300 mb-3">Additional Information</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Expected Close Date"

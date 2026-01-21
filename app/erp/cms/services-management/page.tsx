@@ -206,8 +206,8 @@ export default function ServicesManagementPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Services Management</h1>
-          <p className="text-gray-600 mt-1">Manage all available services across your platform</p>
+          <h1 className="text-3xl font-bold text-white">Services Management</h1>
+          <p className="text-slate-400 mt-1">Manage all available services across your platform</p>
         </div>
         <Button onClick={() => handleOpenModal()} className="bg-blue-600 hover:bg-blue-700">
           + Add New Service
@@ -217,20 +217,20 @@ export default function ServicesManagementPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-6">
-          <p className="text-sm text-gray-600">Total Services</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">{stats.total}</p>
+          <p className="text-sm text-slate-400">Total Services</p>
+          <p className="text-3xl font-bold text-white mt-2">{stats.total}</p>
         </Card>
         <Card className="p-6">
-          <p className="text-sm text-gray-600">Published</p>
-          <p className="text-3xl font-bold text-green-600 mt-2">{stats.published}</p>
+          <p className="text-sm text-slate-400">Published</p>
+          <p className="text-3xl font-bold text-emerald-400 mt-2">{stats.published}</p>
         </Card>
         <Card className="p-6">
-          <p className="text-sm text-gray-600">Featured</p>
-          <p className="text-3xl font-bold text-purple-600 mt-2">{stats.featured}</p>
+          <p className="text-sm text-slate-400">Featured</p>
+          <p className="text-3xl font-bold text-purple-400 mt-2">{stats.featured}</p>
         </Card>
         <Card className="p-6">
-          <p className="text-sm text-gray-600">Total Portfolio Value</p>
-          <p className="text-3xl font-bold text-blue-600 mt-2">{formatCurrency(stats.totalValue)}</p>
+          <p className="text-sm text-slate-400">Total Portfolio Value</p>
+          <p className="text-3xl font-bold text-blue-400 mt-2">{formatCurrency(stats.totalValue)}</p>
         </Card>
       </div>
 
@@ -245,7 +245,7 @@ export default function ServicesManagementPage() {
           <select 
             value={filterPublished} 
             onChange={(e) => setFilterPublished(e.target.value as any)}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            className="px-3 py-2 border border-slate-700 rounded-lg text-sm"
           >
             <option value="all">All Services</option>
             <option value="published">Published Only</option>
@@ -255,7 +255,7 @@ export default function ServicesManagementPage() {
             <button 
               onClick={() => setViewMode('table')}
               className={cn('flex-1 px-3 py-2 rounded-lg text-sm font-medium', 
-                viewMode === 'table' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                viewMode === 'table' ? 'bg-blue-900/20 text-blue-400' : 'bg-slate-800 text-slate-300'
               )}
             >
               Table View
@@ -263,7 +263,7 @@ export default function ServicesManagementPage() {
             <button 
               onClick={() => setViewMode('grid')}
               className={cn('flex-1 px-3 py-2 rounded-lg text-sm font-medium', 
-                viewMode === 'grid' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                viewMode === 'grid' ? 'bg-blue-900/20 text-blue-400' : 'bg-slate-800 text-slate-300'
               )}
             >
               Grid View
@@ -273,10 +273,10 @@ export default function ServicesManagementPage() {
 
         {selectedServices.length > 0 && (
           <div className="flex items-center justify-between pt-4 border-t">
-            <p className="text-sm text-gray-600">{selectedServices.length} selected</p>
+            <p className="text-sm text-slate-400">{selectedServices.length} selected</p>
             <button 
               onClick={() => setShowDeleteConfirm(true)}
-              className="px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-sm font-medium"
+              className="px-4 py-2 bg-red-900/20 text-red-400 hover:bg-red-900/20 rounded-lg text-sm font-medium"
             >
               Delete Selected
             </button>
@@ -305,7 +305,7 @@ export default function ServicesManagementPage() {
                 </TableHead>
                 <TableHead 
                   onClick={() => setSortField('title')}
-                  className="cursor-pointer hover:bg-gray-50"
+                  className="cursor-pointer hover:bg-slate-950/50"
                 >
                   Title {sortField === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
@@ -328,12 +328,12 @@ export default function ServicesManagementPage() {
                   </TableCell>
                   <TableCell>
                     <div>
-                      <p className="font-medium text-gray-900 cursor-pointer hover:text-blue-600" 
+                      <p className="font-medium text-white cursor-pointer hover:text-blue-400" 
                         onClick={() => { setCurrentService(service); setShowDetailModal(true); }}
                       >
                         {service.title}
                       </p>
-                      <p className="text-xs text-gray-500">{service.shortDescription}</p>
+                      <p className="text-xs text-slate-400">{service.shortDescription}</p>
                     </div>
                   </TableCell>
                   <TableCell><Badge variant="info">{service.category}</Badge></TableCell>
@@ -359,7 +359,7 @@ export default function ServicesManagementPage() {
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        className="text-red-600 hover:bg-red-50"
+                        className="text-red-400 hover:bg-red-900/20"
                         onClick={() => setServices(services.filter(s => s.id !== service.id))}
                       >
                         Delete
@@ -383,21 +383,21 @@ export default function ServicesManagementPage() {
               </div>
               <div className="p-6">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900 flex-1">{service.title}</h3>
+                  <h3 className="text-lg font-semibold text-white flex-1">{service.title}</h3>
                   {service.isFeatured && <Badge variant="warning" className="ml-2">★</Badge>}
                 </div>
-                <p className="text-sm text-gray-600 mb-4">{service.shortDescription}</p>
+                <p className="text-sm text-slate-400 mb-4">{service.shortDescription}</p>
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-xs text-gray-500">Category</p>
-                    <p className="font-medium text-gray-900">{service.category}</p>
+                    <p className="text-xs text-slate-400">Category</p>
+                    <p className="font-medium text-white">{service.category}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">Price</p>
-                    <p className="font-medium text-blue-600">{service.price ? formatCurrency(service.price) : '-'}</p>
+                    <p className="text-xs text-slate-400">Price</p>
+                    <p className="font-medium text-blue-400">{service.price ? formatCurrency(service.price) : '-'}</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
+                <div className="flex items-center justify-between mb-4 text-xs text-slate-400">
                   <span>{service.usedInProjects} projects</span>
                   <span>{service.usedByClients} clients</span>
                 </div>
@@ -416,7 +416,7 @@ export default function ServicesManagementPage() {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-red-600 hover:bg-red-50"
+                    className="text-red-400 hover:bg-red-900/20"
                     onClick={() => setServices(services.filter(s => s.id !== service.id))}
                   >
                     Delete
@@ -431,19 +431,19 @@ export default function ServicesManagementPage() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
-            <div className="p-8 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">
+          <div className="bg-slate-900 rounded-xl max-w-2xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
+            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">
                 {currentService ? '✎ Edit Service' : '+ Create New Service'}
               </h2>
-              <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">
+              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-300">
                 ✕
               </button>
             </div>
 
             <form onSubmit={(e) => { e.preventDefault(); handleSaveService(); }} className="p-8 space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">Service Title *</label>
+                <label className="block text-sm font-semibold text-white mb-2">Service Title *</label>
                 <Input 
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
@@ -453,24 +453,24 @@ export default function ServicesManagementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">Description *</label>
+                <label className="block text-sm font-semibold text-white mb-2">Description *</label>
                 <textarea 
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
                   placeholder="Detailed description of the service"
                   rows={4}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:outline-none"
+                  className="w-full px-4 py-2 border border-slate-700 rounded-lg text-sm focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+                  <label className="block text-sm font-semibold text-white mb-2">Category</label>
                   <select 
                     value={formData.category}
                     onChange={(e) => setFormData({...formData, category: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-slate-700 rounded-lg text-sm"
                   >
                     <option>Standard</option>
                     <option>Premium</option>
@@ -478,7 +478,7 @@ export default function ServicesManagementPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Price</label>
+                  <label className="block text-sm font-semibold text-white mb-2">Price</label>
                   <Input 
                     type="number"
                     value={formData.price}
@@ -496,7 +496,7 @@ export default function ServicesManagementPage() {
                     onChange={(e) => setFormData({...formData, isPublished: e.target.checked})}
                     className="rounded"
                   />
-                  <span className="ml-2 text-sm text-gray-900">Publish Service</span>
+                  <span className="ml-2 text-sm text-white">Publish Service</span>
                 </label>
                 <label className="flex items-center">
                   <input 
@@ -505,7 +505,7 @@ export default function ServicesManagementPage() {
                     onChange={(e) => setFormData({...formData, isFeatured: e.target.checked})}
                     className="rounded"
                   />
-                  <span className="ml-2 text-sm text-gray-900">Featured</span>
+                  <span className="ml-2 text-sm text-white">Featured</span>
                 </label>
               </div>
 
@@ -525,9 +525,9 @@ export default function ServicesManagementPage() {
       {/* Delete Confirmation */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete Services?</h3>
-            <p className="text-gray-600 mb-6">This will delete {selectedServices.length} service(s). This action cannot be undone.</p>
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-white mb-2">Delete Services?</h3>
+            <p className="text-slate-400 mb-6">This will delete {selectedServices.length} service(s). This action cannot be undone.</p>
             <div className="flex gap-3">
               <Button variant="outline" onClick={() => setShowDeleteConfirm(false)} className="flex-1">
                 Cancel

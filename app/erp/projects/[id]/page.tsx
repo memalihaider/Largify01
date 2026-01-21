@@ -480,7 +480,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               <div key={field.key}>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
                   {field.label}
-                  {field.required && <span className="text-red-600">*</span>}
+                  {field.required && <span className="text-red-400">*</span>}
                 </label>
                 {field.type === 'select' ? (
                   <select
@@ -561,7 +561,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-blue-600 hover:text-blue-700 mb-4 flex items-center gap-1"
+            className="text-blue-400 hover:text-blue-400 mb-4 flex items-center gap-1"
           >
             ← Back to Projects
           </button>
@@ -652,7 +652,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                           e.stopPropagation();
                           openPhaseModal(phase.id);
                         }}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                        className="p-2 text-blue-400 hover:bg-blue-900/20 rounded"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
@@ -661,7 +661,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                           e.stopPropagation();
                           handleDeletePhase(phase.id);
                         }}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded"
+                        className="p-2 text-red-400 hover:bg-red-900/20 rounded"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -669,7 +669,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </div>
 
                   {expandedPhases.has(phase.id) && (
-                    <div className="p-4 bg-white border-t border-slate-200">
+                    <div className="p-4 bg-slate-900 border-t border-slate-200">
                       <div className="grid grid-cols-2 gap-4 mb-4">
                         <div>
                           <label className="block text-sm font-medium text-slate-700 mb-1">Phase Name</label>
@@ -683,7 +683,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <div className="mb-4">
                         <label className="block text-sm font-medium text-slate-700 mb-1">Completion</label>
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 h-2 bg-gray-200 rounded-full">
+                          <div className="flex-1 h-2 bg-slate-800 rounded-full">
                             <div
                               className="h-full bg-blue-600 rounded-full"
                               style={{ width: `${phase.completionPercentage || 0}%` }}
@@ -729,18 +729,18 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="font-semibold text-slate-900">{module.moduleName}</h3>
-                      <Badge className="text-xs mt-1 bg-blue-100 text-blue-700">{module.moduleType}</Badge>
+                      <Badge className="text-xs mt-1 bg-blue-900/20 text-blue-400">{module.moduleType}</Badge>
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => openModuleModal(module.id)}
-                        className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                        className="p-1 text-blue-400 hover:bg-blue-900/20 rounded"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteModule(module.id)}
-                        className="p-1 text-red-600 hover:bg-red-50 rounded"
+                        className="p-1 text-red-400 hover:bg-red-900/20 rounded"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -803,13 +803,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         <td className="px-4 py-3 text-sm flex gap-2">
                           <button
                             onClick={() => openTeamModal(member.id)}
-                            className="text-blue-600 hover:text-blue-700"
+                            className="text-blue-400 hover:text-blue-400"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteTeamMember(member.id)}
-                            className="text-red-600 hover:text-red-700"
+                            className="text-red-400 hover:text-red-700"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -856,13 +856,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   <div className="flex gap-2">
                     <button
                       onClick={() => openPaymentModal(payment.id)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                      className="p-2 text-blue-400 hover:bg-blue-900/20 rounded"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDeletePayment(payment.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded"
+                      className="p-2 text-red-400 hover:bg-red-900/20 rounded"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -874,15 +874,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200">
               <div>
                 <div className="text-sm text-slate-600">Total Due</div>
-                <div className="text-2xl font-bold text-red-600">{formatCurrency(totalPaymentsDue)}</div>
+                <div className="text-2xl font-bold text-red-400">{formatCurrency(totalPaymentsDue)}</div>
               </div>
               <div>
                 <div className="text-sm text-slate-600">Total Paid</div>
-                <div className="text-2xl font-bold text-green-600">{formatCurrency(totalPaymentsPaid)}</div>
+                <div className="text-2xl font-bold text-emerald-400">{formatCurrency(totalPaymentsPaid)}</div>
               </div>
               <div>
                 <div className="text-sm text-slate-600">Total Invoiced</div>
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-bold text-blue-400">
                   {formatCurrency(state.payments.reduce((sum, p) => sum + p.amount, 0))}
                 </div>
               </div>

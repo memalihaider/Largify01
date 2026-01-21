@@ -286,8 +286,8 @@ export default function BookingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
-          <p className="text-gray-500">Manage consultation bookings and appointments</p>
+          <h1 className="text-2xl font-bold text-white">Bookings</h1>
+          <p className="text-slate-400">Manage consultation bookings and appointments</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -314,24 +314,24 @@ export default function BookingsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Bookings</p>
-          <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
+          <p className="text-sm text-slate-400">Total Bookings</p>
+          <p className="text-2xl font-bold text-white">{bookings.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Upcoming</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Upcoming</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {bookings.filter(b => b.status === 'confirmed').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Pending Confirmation</p>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-sm text-slate-400">Pending Confirmation</p>
+          <p className="text-2xl font-bold text-amber-400">
             {bookings.filter(b => b.status === 'pending').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Completed This Month</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-sm text-slate-400">Completed This Month</p>
+          <p className="text-2xl font-bold text-blue-400">
             {bookings.filter(b => b.status === 'completed').length}
           </p>
         </Card>
@@ -356,8 +356,8 @@ export default function BookingsPage() {
                   className={cn(
                     'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
                     statusFilter === status
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-blue-900/20 text-blue-400'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                   )}
                 >
                   {status === 'all' ? 'All' : status.replace('_', ' ')}
@@ -366,7 +366,7 @@ export default function BookingsPage() {
             </div>
           </div>
           {selectedBookings.length > 0 && (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-2 p-3 bg-blue-900/20 rounded-lg">
               <span className="text-sm font-medium text-blue-900">
                 {selectedBookings.length} selected
               </span>
@@ -374,7 +374,7 @@ export default function BookingsPage() {
                 <Button size="sm" variant="outline" onClick={handleBulkConfirm}>
                   Confirm Selected
                 </Button>
-                <Button size="sm" variant="outline" onClick={handleBulkCancel} className="text-red-600">
+                <Button size="sm" variant="outline" onClick={handleBulkCancel} className="text-red-400">
                   Cancel Selected
                 </Button>
               </div>
@@ -391,7 +391,7 @@ export default function BookingsPage() {
               <TableHead className="w-12">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300"
+                  className="rounded border-slate-700"
                   checked={selectedBookings.length === filteredBookings.length && filteredBookings.length > 0}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -419,17 +419,17 @@ export default function BookingsPage() {
                   <TableCell>
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300"
+                      className="rounded border-slate-700"
                       checked={selectedBookings.includes(booking.id)}
                       onChange={() => toggleSelectBooking(booking.id)}
                     />
                   </TableCell>
                   <TableCell>
                     <div>
-                      <p className="font-medium text-gray-900">{booking.customerName}</p>
-                      <p className="text-sm text-gray-500">{booking.customerEmail}</p>
+                      <p className="font-medium text-white">{booking.customerName}</p>
+                      <p className="text-sm text-slate-400">{booking.customerEmail}</p>
                       {booking.guestPhone && (
-                        <p className="text-xs text-gray-400">{booking.guestPhone}</p>
+                        <p className="text-xs text-slate-500">{booking.guestPhone}</p>
                       )}
                     </div>
                   </TableCell>
@@ -440,24 +440,24 @@ export default function BookingsPage() {
                         style={{ backgroundColor: service?.color || '#3B82F6' }}
                       />
                       <div>
-                        <span className="text-gray-900">{service?.name || 'Unknown'}</span>
+                        <span className="text-white">{service?.name || 'Unknown'}</span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-white">
                         {new Date(booking.scheduledDate).toLocaleDateString('en-US', {
                           weekday: 'short',
                           month: 'short',
                           day: 'numeric',
                         })}
                       </p>
-                      <p className="text-sm text-gray-500">{booking.scheduledTime}</p>
+                      <p className="text-sm text-slate-400">{booking.scheduledTime}</p>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <p className="text-gray-600">{service?.durationMinutes || 30} min</p>
+                    <p className="text-slate-400">{service?.durationMinutes || 30} min</p>
                   </TableCell>
                   <TableCell>
                     <Badge variant={statusColors[booking.status] as any || 'secondary'} className="capitalize">
@@ -468,7 +468,7 @@ export default function BookingsPage() {
                     <div className="flex gap-1">
                       <button
                         onClick={() => handleOpenModal(booking)}
-                        className="p-1 text-gray-400 hover:text-blue-600"
+                        className="p-1 text-slate-500 hover:text-blue-400"
                         title="Edit"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -478,7 +478,7 @@ export default function BookingsPage() {
                       {booking.status === 'pending' && (
                         <button
                           onClick={() => handleConfirmBooking(booking)}
-                          className="p-1 text-gray-400 hover:text-green-600"
+                          className="p-1 text-slate-500 hover:text-emerald-400"
                           title="Confirm"
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -490,7 +490,7 @@ export default function BookingsPage() {
                         <>
                           <button
                             onClick={() => handleCompleteBooking(booking)}
-                            className="p-1 text-gray-400 hover:text-blue-600"
+                            className="p-1 text-slate-500 hover:text-blue-400"
                             title="Mark Complete"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -499,7 +499,7 @@ export default function BookingsPage() {
                           </button>
                           <button
                             onClick={() => handleNoShow(booking)}
-                            className="p-1 text-gray-400 hover:text-orange-600"
+                            className="p-1 text-slate-500 hover:text-orange-600"
                             title="Mark No-Show"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -512,7 +512,7 @@ export default function BookingsPage() {
                         <>
                           <button
                             onClick={() => handleReschedule(booking)}
-                            className="p-1 text-gray-400 hover:text-purple-600"
+                            className="p-1 text-slate-500 hover:text-purple-400"
                             title="Reschedule"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -521,7 +521,7 @@ export default function BookingsPage() {
                           </button>
                           <button
                             onClick={() => handleSendReminder(booking)}
-                            className="p-1 text-gray-400 hover:text-indigo-600"
+                            className="p-1 text-slate-500 hover:text-indigo-600"
                             title="Send Reminder"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -530,7 +530,7 @@ export default function BookingsPage() {
                           </button>
                           <button
                             onClick={() => handleOpenCancelModal(booking)}
-                            className="p-1 text-gray-400 hover:text-red-600"
+                            className="p-1 text-slate-500 hover:text-red-400"
                             title="Cancel Booking"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -541,7 +541,7 @@ export default function BookingsPage() {
                       )}
                       <button
                         onClick={() => handleDelete(booking.id)}
-                        className="p-1 text-gray-400 hover:text-red-600"
+                        className="p-1 text-slate-500 hover:text-red-400"
                         title="Delete"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -556,8 +556,8 @@ export default function BookingsPage() {
           </TableBody>
         </Table>
         {filteredBookings.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
-            <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-8 text-center text-slate-400">
+            <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <p>No bookings found matching your criteria</p>
@@ -568,13 +568,13 @@ export default function BookingsPage() {
       {/* Create/Edit Booking Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentBooking ? 'Edit Booking' : 'Create New Booking'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -583,14 +583,14 @@ export default function BookingsPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Service *
                   </label>
                   <select
                     required
                     value={formData.serviceId}
                     onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select service</option>
                     {mockBookingServices.map((service) => (
@@ -603,7 +603,7 @@ export default function BookingsPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Customer Name *
                     </label>
                     <Input
@@ -614,7 +614,7 @@ export default function BookingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Customer Email *
                     </label>
                     <Input
@@ -628,7 +628,7 @@ export default function BookingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Customer Phone
                   </label>
                   <Input
@@ -640,7 +640,7 @@ export default function BookingsPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Booking Date *
                     </label>
                     <Input
@@ -651,7 +651,7 @@ export default function BookingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Booking Time *
                     </label>
                     <Input
@@ -664,7 +664,7 @@ export default function BookingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Notes
                   </label>
                   <textarea
@@ -672,19 +672,19 @@ export default function BookingsPage() {
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="Additional notes or requirements..."
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Status *
                   </label>
                   <select
                     required
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="pending">Pending</option>
                     <option value="confirmed">Confirmed</option>
@@ -711,10 +711,10 @@ export default function BookingsPage() {
       {/* Reschedule Modal */}
       {showRescheduleModal && currentBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Reschedule Booking</h2>
-              <button onClick={() => setShowRescheduleModal(false)} className="text-gray-400 hover:text-gray-600">
+              <h2 className="text-xl font-bold text-white">Reschedule Booking</h2>
+              <button onClick={() => setShowRescheduleModal(false)} className="text-slate-500 hover:text-slate-400">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -723,13 +723,13 @@ export default function BookingsPage() {
 
             <form onSubmit={handleRescheduleSubmit} className="space-y-4">
               <div>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-slate-400 mb-4">
                   Rescheduling booking for <strong>{currentBooking.customerName}</strong>
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   New Date *
                 </label>
                 <Input
@@ -741,7 +741,7 @@ export default function BookingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   New Time *
                 </label>
                 <Input
@@ -768,10 +768,10 @@ export default function BookingsPage() {
       {/* Cancel Booking Modal */}
       {showCancelModal && currentBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Cancel Booking</h2>
-              <button onClick={() => setShowCancelModal(false)} className="text-gray-400 hover:text-gray-600">
+              <h2 className="text-xl font-bold text-white">Cancel Booking</h2>
+              <button onClick={() => setShowCancelModal(false)} className="text-slate-500 hover:text-slate-400">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -779,12 +779,12 @@ export default function BookingsPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-400">
                 You are about to cancel the booking for <strong>{currentBooking.customerName}</strong>.
               </p>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   Cancellation Reason *
                 </label>
                 <textarea
@@ -793,7 +793,7 @@ export default function BookingsPage() {
                   onChange={(e) => setCancelReason(e.target.value)}
                   placeholder="Please provide a reason for cancellation..."
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -813,16 +813,16 @@ export default function BookingsPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && currentBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Booking</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Booking</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete this booking? This action cannot be undone.
                 </p>
               </div>

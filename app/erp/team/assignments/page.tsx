@@ -76,13 +76,13 @@ export default function AdminAssignmentsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-100 text-green-800';
+        return 'bg-emerald-900/20 text-green-800';
       case 'in_progress':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-900/20 text-blue-800';
       case 'blocked':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-900/20 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-800 text-slate-400';
     }
   };
 
@@ -90,26 +90,26 @@ export default function AdminAssignmentsPage() {
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Team Assignments</h1>
-        <p className="text-gray-600 mt-2">Manage project tasks and milestone assignments for your team</p>
+        <h1 className="text-3xl font-bold text-white">Team Assignments</h1>
+        <p className="text-slate-400 mt-2">Manage project tasks and milestone assignments for your team</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <Card className="p-4">
-          <p className="text-sm text-gray-600">Total Assignments</p>
-          <p className="text-3xl font-bold text-blue-600 mt-1">{assignments.length}</p>
+          <p className="text-sm text-slate-400">Total Assignments</p>
+          <p className="text-3xl font-bold text-blue-400 mt-1">{assignments.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-600">Task Assignments</p>
-          <p className="text-3xl font-bold text-green-600 mt-1">{assignments.filter(a => a.type === 'task').length}</p>
+          <p className="text-sm text-slate-400">Task Assignments</p>
+          <p className="text-3xl font-bold text-emerald-400 mt-1">{assignments.filter(a => a.type === 'task').length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-600">Milestone Assignments</p>
-          <p className="text-3xl font-bold text-purple-600 mt-1">{assignments.filter(a => a.type === 'milestone').length}</p>
+          <p className="text-sm text-slate-400">Milestone Assignments</p>
+          <p className="text-3xl font-bold text-purple-400 mt-1">{assignments.filter(a => a.type === 'milestone').length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-600">Team Members</p>
+          <p className="text-sm text-slate-400">Team Members</p>
           <p className="text-3xl font-bold text-orange-600 mt-1">
             {new Set(assignments.map(a => a.assignedTo)).size}
           </p>
@@ -128,13 +128,13 @@ export default function AdminAssignmentsPage() {
 
       {/* New Assignment Form */}
       {showForm && (
-        <Card className="p-6 mb-8 border-2 border-blue-200 bg-blue-50">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Create New Assignment</h2>
+        <Card className="p-6 mb-8 border-2 border-blue-200 bg-blue-900/20">
+          <h2 className="text-xl font-semibold text-white mb-4">Create New Assignment</h2>
           <form onSubmit={handleAssign} className="space-y-4">
             {/* Type Selection */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Assignment Type</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Assignment Type</label>
                 <div className="flex gap-4">
                   <label className="flex items-center gap-2">
                     <input
@@ -144,7 +144,7 @@ export default function AdminAssignmentsPage() {
                       onChange={(e) => setAssignmentType(e.target.value as 'task' | 'milestone')}
                       className="w-4 h-4"
                     />
-                    <span className="text-gray-700">Task</span>
+                    <span className="text-slate-300">Task</span>
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -154,18 +154,18 @@ export default function AdminAssignmentsPage() {
                       onChange={(e) => setAssignmentType(e.target.value as 'task' | 'milestone')}
                       className="w-4 h-4"
                     />
-                    <span className="text-gray-700">Milestone</span>
+                    <span className="text-slate-300">Milestone</span>
                   </label>
                 </div>
               </div>
 
               {/* Employee Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Assign To Employee *</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Assign To Employee *</label>
                 <select
                   value={selectedEmployee}
                   onChange={(e) => setSelectedEmployee(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                 >
                   <option value="">Select employee...</option>
@@ -180,13 +180,13 @@ export default function AdminAssignmentsPage() {
 
             {/* Item Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Select {assignmentType === 'task' ? 'Task' : 'Milestone'} *
               </label>
               <select
                 value={selectedItem}
                 onChange={(e) => setSelectedItem(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               >
                 <option value="">Select {assignmentType}...</option>
@@ -206,7 +206,7 @@ export default function AdminAssignmentsPage() {
 
             {/* Due Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Due Date *</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Due Date *</label>
               <Input
                 type="date"
                 value={dueDate}
@@ -219,11 +219,11 @@ export default function AdminAssignmentsPage() {
             {assignmentType === 'task' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Priority</label>
                   <select
                     value={priority}
                     onChange={(e) => setPriority(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -232,7 +232,7 @@ export default function AdminAssignmentsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Estimated Hours</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Estimated Hours</label>
                   <Input
                     type="number"
                     min="0"
@@ -248,11 +248,11 @@ export default function AdminAssignmentsPage() {
             {/* Milestone-Specific Fields */}
             {assignmentType === 'milestone' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Responsibility Type</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Responsibility Type</label>
                 <select
                   value={responsibility}
                   onChange={(e) => setResponsibility(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="deliverable">Deliverable</option>
                   <option value="review">Review</option>
@@ -281,7 +281,7 @@ export default function AdminAssignmentsPage() {
 
       {/* Assignments List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900">Active Assignments</h2>
+        <h2 className="text-xl font-semibold text-white">Active Assignments</h2>
         
         {filteredAssignments.length > 0 ? (
           <div className="space-y-3">
@@ -290,7 +290,7 @@ export default function AdminAssignmentsPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <Badge className={assignment.type === 'task' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}>
+                      <Badge className={assignment.type === 'task' ? 'bg-blue-900/20 text-blue-800' : 'bg-purple-900/20 text-purple-800'}>
                         {assignment.type}
                       </Badge>
                       <Badge className={getStatusColor(assignment.status)}>
@@ -299,17 +299,17 @@ export default function AdminAssignmentsPage() {
                       {assignment.priority && (
                         <Badge className={
                           assignment.priority === 'urgent' || assignment.priority === 'high'
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-red-900/20 text-red-800'
+                            : 'bg-slate-800 text-slate-400'
                         }>
                           {assignment.priority}
                         </Badge>
                       )}
                     </div>
-                    <p className="font-semibold text-gray-900 mb-1">
+                    <p className="font-semibold text-white mb-1">
                       {getItemName(assignment.type, assignment.itemId)}
                     </p>
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-4 text-sm text-slate-400">
                       <span>Assigned to: <strong>{getEmployeeName(assignment.assignedTo)}</strong></span>
                       <span>Due: <strong>{new Date(assignment.dueDate).toLocaleDateString()}</strong></span>
                       {assignment.estimatedHours && (
@@ -325,14 +325,14 @@ export default function AdminAssignmentsPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-blue-600 hover:bg-blue-50"
+                      className="text-blue-400 hover:bg-blue-900/20"
                     >
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-red-600 hover:bg-red-50"
+                      className="text-red-400 hover:bg-red-900/20"
                       onClick={() => handleRemove(assignment.id)}
                     >
                       Remove
@@ -343,7 +343,7 @@ export default function AdminAssignmentsPage() {
             ))}
           </div>
         ) : (
-          <Card className="p-6 text-center text-gray-500">
+          <Card className="p-6 text-center text-slate-400">
             No assignments yet. Create one to get started!
           </Card>
         )}
@@ -351,7 +351,7 @@ export default function AdminAssignmentsPage() {
 
       {/* Team Workload Summary */}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Team Workload Summary</h2>
+        <h2 className="text-xl font-semibold text-white mb-4">Team Workload Summary</h2>
         <Card className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from(new Set(assignments.map(a => a.assignedTo))).map(empId => {
@@ -360,12 +360,12 @@ export default function AdminAssignmentsPage() {
               const milestoneCount = empAssignments.filter(a => a.type === 'milestone').length;
 
               return (
-                <div key={empId} className="p-4 border border-gray-200 rounded-lg">
-                  <p className="font-semibold text-gray-900">{getEmployeeName(empId)}</p>
-                  <div className="mt-2 space-y-1 text-sm text-gray-600">
-                    <p>Tasks: <strong className="text-blue-600">{taskCount}</strong></p>
-                    <p>Milestones: <strong className="text-purple-600">{milestoneCount}</strong></p>
-                    <p>Total: <strong className="text-green-600">{empAssignments.length}</strong></p>
+                <div key={empId} className="p-4 border border-slate-800 rounded-lg">
+                  <p className="font-semibold text-white">{getEmployeeName(empId)}</p>
+                  <div className="mt-2 space-y-1 text-sm text-slate-400">
+                    <p>Tasks: <strong className="text-blue-400">{taskCount}</strong></p>
+                    <p>Milestones: <strong className="text-purple-400">{milestoneCount}</strong></p>
+                    <p>Total: <strong className="text-emerald-400">{empAssignments.length}</strong></p>
                   </div>
                 </div>
               );

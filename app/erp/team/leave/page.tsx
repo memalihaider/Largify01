@@ -214,8 +214,8 @@ export default function LeavePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Leave Management</h1>
-          <p className="text-gray-500">Review and manage leave requests</p>
+          <h1 className="text-2xl font-bold text-white">Leave Management</h1>
+          <p className="text-slate-400">Review and manage leave requests</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -236,24 +236,24 @@ export default function LeavePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Pending Requests</p>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-sm text-slate-400">Pending Requests</p>
+          <p className="text-2xl font-bold text-amber-400">
             {leaveRequests.filter(r => r.status === 'pending').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Approved This Month</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Approved This Month</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {leaveRequests.filter(r => r.status === 'approved').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Currently On Leave</p>
-          <p className="text-2xl font-bold text-blue-600">1</p>
+          <p className="text-sm text-slate-400">Currently On Leave</p>
+          <p className="text-2xl font-bold text-blue-400">1</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Days Off (Month)</p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-sm text-slate-400">Total Days Off (Month)</p>
+          <p className="text-2xl font-bold text-white">
             {leaveRequests.reduce((sum, r) => sum + r.days, 0)}
           </p>
         </Card>
@@ -269,8 +269,8 @@ export default function LeavePage() {
               className={cn(
                 'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
                 statusFilter === status
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-blue-900/20 text-blue-400'
+                  : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
               )}
             >
               {status === 'all' ? 'All Requests' : status}
@@ -307,8 +307,8 @@ export default function LeavePage() {
                         size="sm"
                       />
                       <div>
-                        <p className="font-medium text-gray-900">{user?.fullName || 'Unknown'}</p>
-                        <p className="text-sm text-gray-500">{employee?.department}</p>
+                        <p className="font-medium text-white">{user?.fullName || 'Unknown'}</p>
+                        <p className="text-sm text-slate-400">{employee?.department}</p>
                       </div>
                     </div>
                   </TableCell>
@@ -318,15 +318,15 @@ export default function LeavePage() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <p className="text-sm text-gray-900">
+                    <p className="text-sm text-white">
                       {new Date(request.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(request.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </p>
                   </TableCell>
                   <TableCell>
-                    <p className="font-medium text-gray-900">{request.days}</p>
+                    <p className="font-medium text-white">{request.days}</p>
                   </TableCell>
                   <TableCell>
-                    <p className="text-sm text-gray-600 max-w-xs truncate">{request.reason}</p>
+                    <p className="text-sm text-slate-400 max-w-xs truncate">{request.reason}</p>
                   </TableCell>
                   <TableCell>
                     <Badge variant={statusColors[request.status] as any || 'secondary'} className="capitalize">
@@ -339,7 +339,7 @@ export default function LeavePage() {
                         <>
                           <button
                             onClick={() => handleApprove(request)}
-                            className="p-1 text-gray-400 hover:text-green-600"
+                            className="p-1 text-slate-500 hover:text-emerald-400"
                             title="Approve"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -348,7 +348,7 @@ export default function LeavePage() {
                           </button>
                           <button
                             onClick={() => handleReject(request)}
-                            className="p-1 text-gray-400 hover:text-red-600"
+                            className="p-1 text-slate-500 hover:text-red-400"
                             title="Reject"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -357,7 +357,7 @@ export default function LeavePage() {
                           </button>
                           <button
                             onClick={() => handleOpenModal(request)}
-                            className="p-1 text-gray-400 hover:text-blue-600"
+                            className="p-1 text-slate-500 hover:text-blue-400"
                             title="Edit"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -368,7 +368,7 @@ export default function LeavePage() {
                       )}
                       <button
                         onClick={() => handleDelete(request)}
-                        className="p-1 text-gray-400 hover:text-red-600"
+                        className="p-1 text-slate-500 hover:text-red-400"
                         title="Delete"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -383,8 +383,8 @@ export default function LeavePage() {
           </TableBody>
         </Table>
         {filteredRequests.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
-            <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-8 text-center text-slate-400">
+            <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <p>No leave requests found</p>
@@ -394,7 +394,7 @@ export default function LeavePage() {
 
       {/* Leave Balance Summary */}
       <Card className="p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">Team Leave Balance</h2>
+        <h2 className="font-semibold text-white mb-4">Team Leave Balance</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {mockEmployees.slice(0, 3).map((employee) => {
             const user = mockUsers.find(u => u.id === employee.userId);
@@ -402,17 +402,17 @@ export default function LeavePage() {
             const totalDays = employeeLeaves.reduce((sum, r) => sum + r.days, 0);
             
             return (
-              <div key={employee.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+              <div key={employee.id} className="flex items-center gap-4 p-4 bg-slate-950/50 rounded-lg">
                 <Avatar
                   src={user?.avatarUrl}
                   fallback={user?.fullName?.split(' ').map(n => n[0]).join('') || '?'}
                   size="md"
                 />
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900">{user?.fullName}</p>
+                  <p className="font-medium text-white">{user?.fullName}</p>
                   <div className="flex gap-4 mt-1 text-sm">
-                    <span className="text-gray-500">{employeeLeaves.length} requests</span>
-                    <span className="text-gray-500">{totalDays} days</span>
+                    <span className="text-slate-400">{employeeLeaves.length} requests</span>
+                    <span className="text-slate-400">{totalDays} days</span>
                   </div>
                 </div>
               </div>
@@ -424,13 +424,13 @@ export default function LeavePage() {
       {/* Leave Request Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentRequest ? 'Edit Leave Request' : 'Create Leave Request'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -439,14 +439,14 @@ export default function LeavePage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Employee *
                   </label>
                   <select
                     required
                     value={formData.employeeId}
                     onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select employee</option>
                     {mockEmployees.map((employee) => {
@@ -461,14 +461,14 @@ export default function LeavePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Leave Type *
                   </label>
                   <select
                     required
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value as LeaveType })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="vacation">Vacation</option>
                     <option value="sick">Sick Leave</option>
@@ -480,7 +480,7 @@ export default function LeavePage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Start Date *
                     </label>
                     <Input
@@ -491,7 +491,7 @@ export default function LeavePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       End Date *
                     </label>
                     <Input
@@ -505,7 +505,7 @@ export default function LeavePage() {
                 </div>
 
                 {formData.startDate && formData.endDate && (
-                  <div className="p-3 bg-blue-50 rounded-lg">
+                  <div className="p-3 bg-blue-900/20 rounded-lg">
                     <p className="text-sm text-blue-900">
                       <span className="font-medium">Total Days:</span> {calculateDays(formData.startDate, formData.endDate)}
                     </p>
@@ -513,7 +513,7 @@ export default function LeavePage() {
                 )}
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Reason
                   </label>
                   <textarea
@@ -521,7 +521,7 @@ export default function LeavePage() {
                     onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                     placeholder="Enter reason for leave request..."
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -542,16 +542,16 @@ export default function LeavePage() {
       {/* Approve Confirmation Modal */}
       {showApproveConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-emerald-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Approve Leave Request</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Approve Leave Request</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to approve this leave request?
                 </p>
               </div>
@@ -571,16 +571,16 @@ export default function LeavePage() {
       {/* Reject Confirmation Modal */}
       {showRejectConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Reject Leave Request</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Reject Leave Request</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to reject this leave request?
                 </p>
               </div>
@@ -600,16 +600,16 @@ export default function LeavePage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Leave Request</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Leave Request</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete this leave request? This action cannot be undone.
                 </p>
               </div>

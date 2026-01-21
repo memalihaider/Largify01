@@ -100,20 +100,20 @@ export default function AdminProjectDetailPage({ params }: PageProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'urgent':
-        return 'bg-red-500/10 border-red-500/20 text-red-400';
+        return 'bg-red-900/200/10 border-red-500/20 text-red-400';
       case 'high':
         return 'bg-orange-500/10 border-orange-500/20 text-orange-400';
       case 'medium':
         return 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400';
       default:
-        return 'bg-green-500/10 border-green-500/20 text-green-400';
+        return 'bg-green-900/200/10 border-green-500/20 text-green-400';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-500/10 border-green-500/20 text-green-400';
+        return 'bg-green-900/200/10 border-green-500/20 text-green-400';
       case 'in_progress':
         return 'bg-purple-500/10 border-purple-500/20 text-purple-400';
       case 'on_hold':
@@ -162,7 +162,7 @@ export default function AdminProjectDetailPage({ params }: PageProps) {
             key={i}
             className={`p-4 border rounded-2xl ${
               stat.highlight
-                ? 'bg-red-500/10 border-red-500/20'
+                ? 'bg-red-900/200/10 border-red-500/20'
                 : 'bg-slate-900/40 border-white/5'
             }`}
           >
@@ -245,7 +245,7 @@ export default function AdminProjectDetailPage({ params }: PageProps) {
               </div>
               <Badge className={`${
                 task.status === 'completed'
-                  ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                  ? 'bg-green-900/200/10 border-green-500/20 text-green-400'
                   : 'bg-purple-500/10 border-purple-500/20 text-purple-400'
               } border text-xs`}>
                 {task.status}

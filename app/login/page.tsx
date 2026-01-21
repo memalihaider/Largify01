@@ -21,7 +21,7 @@ export default function LoginPage() {
 
     try {
       if (!email || !password) {
-        setError('CRITICAL: AUTHENTICATION CREDENTIALS REQUIRED');
+        setError('CRITICAL_FAIL: AUTHENTICATION_DATA_REQUIRED');
         setIsLoading(false);
         return;
       }
@@ -35,130 +35,114 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'AUTHENTICATION FAILED');
+        setError(data.error || 'ACCESS_DENIED: AUTHENTICATION_FAILURE');
         setIsLoading(false);
         return;
       }
 
-      // Success - redirect to client portal
       router.push(`/client/${data.clientId}`);
     } catch (err) {
-      setError('ERROR: SECURE HANDSHAKE FAILED');
+      setError('SYSTEM_ERROR: SECURE_HANDSHAKE_TIMEOUT');
       setIsLoading(false);
     }
   };
 
   return (
     <PublicLayout>
-      <section className="min-h-screen flex flex-col lg:flex-row bg-slate-950 overflow-hidden">
-        {/* Left Side: Strategic Impact & Trust */}
-        <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-center p-20 overflow-hidden">
-          {/* Background Branding */}
-          <div className="absolute inset-0 z-0">
-            <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-blue-600/20 via-slate-950 to-cyan-500/10" />
-            <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px]" />
+      <section className="min-h-screen flex flex-col lg:flex-row bg-slate-950 overflow-hidden font-mono">
+        
+        {/* Left Side: Strategic Metadata */}
+        <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-center p-20 border-r border-slate-900 bg-slate-950">
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+            <svg width="100%" height="100%">
+              <pattern id="grid-login" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
+              </pattern>
+              <rect width="100%" height="100%" fill="url(#grid-login)" />
+            </svg>
           </div>
 
-          <div className="relative z-10 max-w-xl">
-            <div className="mb-12">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black tracking-[0.3em] uppercase mb-6">
-                Intelligence Hub
-              </span>
-              <h1 className="text-6xl font-black text-white tracking-tighter leading-[0.9] mb-8">
-                COMMAND <br />
-                <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500">YOUR ASSETS</span>
+          <div className="relative z-10">
+            <div className="mb-16">
+              <div className="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-black tracking-[0.4em] uppercase mb-10 italic">
+                SECURE_AUTHENTICATION_GATE
+              </div>
+              <h1 className="text-7xl font-black text-white tracking-tighter italic leading-none mb-10 uppercase">
+                AUTHORIZED <br />
+                <span className="text-blue-600">PERSONNEL_ONLY.</span>
               </h1>
-              <p className="text-xl text-slate-400 font-light leading-relaxed italic">
-                Access the Largify Enterprise Dashboard to manage global projects, analyze real-time trajectory, and deploy strategic resources.
+              <p className="text-sm font-mono text-slate-500 leading-relaxed uppercase italic max-w-md tracking-widest">
+                ACCESS THE TACTICAL DEVELOPMENT SYSTEM TO DEPLOY ARCHITECTURE, MONITOR GLOBAL NODES, AND MANAGE MISSION-CRITICAL ASSETS.
               </p>
             </div>
 
-            {/* Feature Grid */}
-            <div className="grid grid-cols-1 gap-8 mb-16">
+            {/* Feature Specs */}
+            <div className="space-y-6 mb-20">
               {[
-                { title: 'Neural Analytics', desc: 'Predictive modeling for your business growth.', icon: '🧠' },
-                { title: 'Nexus Control', desc: 'Centralized management of cross-functional teams.', icon: '🛰️' },
-                { title: 'Quantum Security', desc: 'Military-grade encryption for all enterprise data.', icon: '🛡️' }
+                { title: 'CORE_ANALYTICS', desc: 'Real-time trajectory modeling.', code: '0xACE-42' },
+                { title: 'NEXUS_SYNC', desc: 'Global resource orchestration.', code: 'SYNC_STABLE' },
+                { title: 'PROTOCOL_V4', desc: 'Secure infrastructure shielding.', code: 'ENCRYPTED' }
               ].map((f, i) => (
-                <div key={i} className="flex items-start gap-6 group cursor-default">
-                  <div className="h-12 w-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:border-blue-500/50 transition-all duration-500 text-2xl">
-                    {f.icon}
+                <div key={i} className="flex items-center justify-between p-6 bg-slate-900/50 border border-slate-800">
+                  <div className="flex gap-6 items-center">
+                    <span className="text-blue-500 font-black text-lg">[{i + 1}]</span>
+                    <div>
+                      <h3 className="text-white font-black uppercase tracking-widest text-xs mb-1 italic">{f.title}</h3>
+                      <p className="text-slate-600 text-[10px] uppercase tracking-widest">{f.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-white font-black uppercase tracking-widest text-sm mb-1 group-hover:text-blue-400 transition-colors">
-                      {f.title}
-                    </h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
-                  </div>
+                  <span className="text-[10px] font-bold text-slate-800">{f.code}</span>
                 </div>
               ))}
             </div>
 
-            {/* Trust Bar */}
-            <div className="pt-12 border-t border-white/5">
-              <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-6">
-                Trusted by Infrastructure Leaders
-              </p>
-              <div className="flex gap-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-                {['TECH', 'GLOBAL', 'QUANTUM', 'NEXUS'].map((l) => (
-                  <span key={l} className="text-xl font-black text-white tracking-tighter">{l}</span>
-                ))}
+            {/* Log Data */}
+            <div className="pt-10 border-t border-slate-900">
+              <div className="flex justify-between items-center opacity-30">
+                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-[0.5em]">System_Uptime::99.999%</span>
+                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-[0.5em]">SSL_Grade::Military</span>
+                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-[0.5em]">Node_Region::Global</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Authentication Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 relative">
-          {/* Mobile Background */}
-          <div className="lg:hidden absolute inset-0 bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 -z-10" />
-          
-          <div className="w-full max-w-md">
-            {/* Branding for Mobile */}
-            <div className="lg:hidden text-center mb-10">
-              <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-blue-600 to-cyan-500 rounded-2xl shadow-lg shadow-blue-500/20 mb-6 mx-auto">
-                <span className="text-white font-black text-3xl">L</span>
-              </div>
-              <h2 className="text-3xl font-black text-white tracking-tighter">SECURE ACCESS</h2>
-            </div>
-
-            <div className="bg-slate-900/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.5)] overflow-hidden relative">
-              <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 via-cyan-400 to-blue-600"></div>
-
-              <div className="mb-10 text-center lg:text-left transition-all">
-                <h2 className="hidden lg:block text-3xl font-black text-white tracking-tighter mb-2">Welcome Back</h2>
-                <p className="text-slate-400 text-sm italic font-light">Identify yourself to continue the mission.</p>
+        {/* Right Side: Identity Verification */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-slate-950">
+          <div className="w-full max-w-md relative">
+            
+            <div className="bg-slate-900 p-10 border border-slate-800 relative">
+              <div className="absolute top-0 right-0 p-4 font-mono text-[8px] text-slate-700">AUTH_SEQ_v2.01</div>
+              <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-blue-500" />
+              
+              <div className="mb-12 text-center">
+                 <h2 className="text-3xl font-black text-white italic uppercase tracking-tighter mb-4">IDENTIFY_SELF</h2>
+                 <p className="text-[10px] text-slate-600 uppercase tracking-[0.3em] italic">Enter secure credentials to establish link.</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Email Input */}
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Enterprise Identifier</label>
-                  <div className="relative group">
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError('');
-                      }}
-                      placeholder="name@enterprise.com"
-                      className="h-14 px-6 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-0 transition-all duration-300 font-medium"
-                    />
-                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-600 group-focus-within:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                  </div>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em]">ENTITY_ID</label>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError('');
+                    }}
+                    placeholder="NAME@PROTOCOL.COM"
+                    className="h-14 bg-slate-950 border-slate-800 rounded-none text-blue-400 font-bold placeholder:text-slate-800 focus:border-blue-500 transition-all italic text-sm"
+                  />
                 </div>
 
                 {/* Password Input */}
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <label className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em]">Access Key</label>
-                    <Link href="#" className="text-[10px] font-black text-slate-500 hover:text-blue-400 uppercase tracking-[0.2em] transition-colors">Recover</Link>
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em]">ACCESS_KEY</label>
+                    <Link href="#" className="text-[10px] text-slate-700 hover:text-blue-500 transition-colors uppercase">[RECOVER]</Link>
                   </div>
-                  <div className="relative group">
+                  <div className="relative">
                     <Input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
@@ -167,73 +151,64 @@ export default function LoginPage() {
                         setError('');
                       }}
                       placeholder="••••••••••••"
-                      className="h-14 px-6 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-600 focus:border-cyan-500/50 focus:ring-0 transition-all duration-300 font-medium pr-14"
+                      className="h-14 bg-slate-950 border-slate-800 rounded-none text-blue-400 font-bold placeholder:text-slate-800 focus:border-blue-500 transition-all italic text-sm pr-14"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-cyan-400 transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-700 hover:text-blue-500 transition-colors text-xs font-bold"
                     >
-                      {showPassword ? '🙈' : '👁️'}
+                      {showPassword ? '[HIDE]' : '[SHOW]'}
                     </button>
                   </div>
                 </div>
 
                 {/* Error Box */}
                 {error && (
-                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl animate-shake">
-                    <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] leading-tight text-center">{error}</p>
+                  <div className="p-4 bg-red-500/10 border border-red-500/50">
+                    <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] italic text-center leading-relaxed">
+                      {error}
+                    </p>
                   </div>
                 )}
-
-                {/* Remember Me */}
-                <div className="flex items-center gap-3">
-                  <input type="checkbox" id="remember" className="h-4 w-4 rounded border-white/10 bg-white/5 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-950" />
-                  <label htmlFor="remember" className="text-xs font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none">Persistent Session</label>
-                </div>
 
                 {/* Submit Action */}
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="group relative w-full h-14 bg-white text-slate-950 hover:bg-blue-600 hover:text-white font-black uppercase tracking-[0.3em] rounded-xl transition-all duration-500 disabled:opacity-50 overflow-hidden"
+                  className="w-full h-16 bg-blue-600 text-white font-black uppercase italic tracking-[0.3em] rounded-none hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]"
                 >
-                  <span className="relative z-10">{isLoading ? 'BYPASSING PROTOCOLS...' : 'INITIALIZE SYSTEM'}</span>
-                  <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {isLoading ? 'ESTABLISHING_LINK...' : 'INITIATE_HANDSHAKE'}
                 </Button>
 
-                {/* Social Login Divider */}
+                {/* SSO Divider */}
                 <div className="relative py-4">
-                  <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
-                  <div className="relative flex justify-center text-[10px] font-black uppercase tracking-[0.4em]"><span className="bg-slate-900 px-4 text-slate-600">Enterprise SSO</span></div>
+                  <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-800"></div></div>
+                  <div className="relative flex justify-center text-[9px] font-bold uppercase tracking-[0.4em]"><span className="bg-slate-900 px-4 text-slate-700">Federated_ID_Proxy</span></div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <button type="button" className="flex items-center justify-center gap-3 h-12 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all">
-                    <span className="text-sm font-bold text-white uppercase tracking-tighter">Github</span>
-                  </button>
-                  <button type="button" className="flex items-center justify-center gap-3 h-12 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all">
-                    <span className="text-sm font-bold text-white uppercase tracking-tighter">Google</span>
-                  </button>
+                <div className="grid grid-cols-2 gap-px bg-slate-800 border border-slate-800">
+                  <button type="button" className="h-12 bg-slate-900 text-[10px] font-bold text-slate-500 hover:bg-slate-800 hover:text-white transition-all uppercase tracking-widest">GitHub</button>
+                  <button type="button" className="h-12 bg-slate-900 text-[10px] font-bold text-slate-500 hover:bg-slate-800 hover:text-white transition-all uppercase tracking-widest">Google</button>
                 </div>
               </form>
 
               {/* Create Account Link */}
-              <div className="mt-10 text-center">
-                <p className="text-xs text-slate-500 font-medium tracking-widest uppercase">
+              <div className="mt-12 text-center pt-8 border-t border-white/5">
+                <p className="text-[10px] text-slate-600 font-bold tracking-widest uppercase">
                   No authorization yet? {' '}
-                  <Link href="/register" className="text-blue-400 hover:text-blue-300 font-black tracking-widest underline decoration-2 underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500 transition-all">
-                    REQUEST ACCESS
+                  <Link href="/book" className="text-blue-500 hover:text-blue-400 underline decoration-blue-500/30 underline-offset-4">
+                    REQUEST_ACCESS_MISSION
                   </Link>
                 </p>
               </div>
             </div>
             
-            {/* Legal Links */}
-            <div className="mt-8 flex justify-center gap-8 text-[9px] font-black text-slate-700 uppercase tracking-[0.3em]">
-              <Link href="#" className="hover:text-slate-500 transition-colors">Privacy</Link>
-              <Link href="#" className="hover:text-slate-500 transition-colors">Security</Link>
-              <Link href="#" className="hover:text-slate-500 transition-colors">Infrastructure</Link>
+            {/* Structural Links */}
+            <div className="mt-10 flex justify-center gap-10 text-[9px] font-bold text-slate-800 uppercase tracking-[0.4em]">
+              <Link href="#" className="hover:text-slate-500 transition-colors">Privacy_Laws</Link>
+              <Link href="#" className="hover:text-slate-500 transition-colors">Cyber_Sec</Link>
+              <Link href="#" className="hover:text-slate-500 transition-colors">Entity_TOS</Link>
             </div>
           </div>
         </div>

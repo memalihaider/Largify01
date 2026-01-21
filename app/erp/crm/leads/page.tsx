@@ -303,8 +303,8 @@ export default function LeadsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
-          <p className="text-gray-500">Manage and track your sales leads</p>
+          <h1 className="text-2xl font-bold text-white">Leads</h1>
+          <p className="text-slate-400">Manage and track your sales leads</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -325,31 +325,31 @@ export default function LeadsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Leads</p>
-          <p className="text-2xl font-bold text-gray-900">{leads.length}</p>
-          <p className="text-xs text-gray-400 mt-2">{filteredLeads.length} filtered</p>
+          <p className="text-sm text-slate-400">Total Leads</p>
+          <p className="text-2xl font-bold text-white">{leads.length}</p>
+          <p className="text-xs text-slate-500 mt-2">{filteredLeads.length} filtered</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Pipeline Value</p>
-          <p className="text-2xl font-bold text-blue-600">{formatCurrency(stats.pipelineValue)}</p>
-          <p className="text-xs text-gray-400 mt-2">Active deals</p>
+          <p className="text-sm text-slate-400">Pipeline Value</p>
+          <p className="text-2xl font-bold text-blue-400">{formatCurrency(stats.pipelineValue)}</p>
+          <p className="text-xs text-slate-500 mt-2">Active deals</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Won This Month</p>
-          <p className="text-2xl font-bold text-green-600">{stats.wonLeads}</p>
-          <p className="text-xs text-gray-400 mt-2">{formatCurrency(leads.filter(l => l.status === 'won').reduce((sum, l) => sum + l.estimatedValue, 0))}</p>
+          <p className="text-sm text-slate-400">Won This Month</p>
+          <p className="text-2xl font-bold text-emerald-400">{stats.wonLeads}</p>
+          <p className="text-xs text-slate-500 mt-2">{formatCurrency(leads.filter(l => l.status === 'won').reduce((sum, l) => sum + l.estimatedValue, 0))}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Avg Score</p>
-          <p className="text-2xl font-bold text-purple-600">{stats.avgScore}%</p>
-          <p className="text-xs text-gray-400 mt-2">Lead quality</p>
+          <p className="text-sm text-slate-400">Avg Score</p>
+          <p className="text-2xl font-bold text-purple-400">{stats.avgScore}%</p>
+          <p className="text-xs text-slate-500 mt-2">Lead quality</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Conversion Rate</p>
+          <p className="text-sm text-slate-400">Conversion Rate</p>
           <p className="text-2xl font-bold text-orange-600">
             {leads.length > 0 ? Math.round((stats.wonLeads / leads.length) * 100) : 0}%
           </p>
-          <p className="text-xs text-gray-400 mt-2">{leads.length} total</p>
+          <p className="text-xs text-slate-500 mt-2">{leads.length} total</p>
         </Card>
       </div>
 
@@ -370,7 +370,7 @@ export default function LeadsPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="created">Newest First</option>
                 <option value="score">Highest Score</option>
@@ -382,15 +382,15 @@ export default function LeadsPage() {
 
           {/* Filter Tabs */}
           <div className="flex flex-wrap gap-2">
-            <div className="text-sm text-gray-600 font-medium py-1.5 px-2">Status:</div>
+            <div className="text-sm text-slate-400 font-medium py-1.5 px-2">Status:</div>
             {statusFilters.slice(0, 5).map((filter) => (
               <button
                 key={filter.value}
                 onClick={() => setStatusFilter(filter.value)}
                 className={`px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors ${
                   statusFilter === filter.value
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-900/20 text-blue-400'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                 }`}
               >
                 {filter.label}
@@ -401,11 +401,11 @@ export default function LeadsPage() {
           {/* More Filters */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Source</label>
+              <label className="text-xs font-medium text-slate-400 mb-1 block">Source</label>
               <select
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value)}
-                className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-2 py-1.5 border border-slate-800 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 {sourceFilters.map((f) => (
                   <option key={f.value} value={f.value}>{f.label}</option>
@@ -413,11 +413,11 @@ export default function LeadsPage() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Lead Temperature</label>
+              <label className="text-xs font-medium text-slate-400 mb-1 block">Lead Temperature</label>
               <select
                 value={scoreFilter}
                 onChange={(e) => setScoreFilter(e.target.value)}
-                className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-2 py-1.5 border border-slate-800 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="all">All Temperatures</option>
                 <option value="hot">🔥 Hot (80-100)</option>
@@ -426,11 +426,11 @@ export default function LeadsPage() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Value Range</label>
+              <label className="text-xs font-medium text-slate-400 mb-1 block">Value Range</label>
               <select
                 value={valueFilter}
                 onChange={(e) => setValueFilter(e.target.value)}
-                className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-2 py-1.5 border border-slate-800 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="all">All Values</option>
                 <option value="high">High ($100K+)</option>
@@ -458,7 +458,7 @@ export default function LeadsPage() {
 
           {/* Bulk Actions */}
           {selectedLeads.length > 0 && (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="flex items-center gap-2 p-3 bg-blue-900/20 rounded-lg border border-blue-200">
               <span className="text-sm font-medium text-blue-900">
                 {selectedLeads.length} selected
               </span>
@@ -466,7 +466,7 @@ export default function LeadsPage() {
                 <Button size="sm" variant="outline" onClick={() => handleBulkAction('status')}>
                   Change Status
                 </Button>
-                <Button size="sm" variant="outline" onClick={() => handleBulkAction('delete')} className="text-red-600 hover:bg-red-50">
+                <Button size="sm" variant="outline" onClick={() => handleBulkAction('delete')} className="text-red-400 hover:bg-red-900/20">
                   Delete
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => setSelectedLeads([])}>
@@ -477,7 +477,7 @@ export default function LeadsPage() {
           )}
 
           {/* Results count */}
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-slate-400">
             Showing {filteredLeads.length} of {leads.length} leads
           </div>
         </div>
@@ -491,7 +491,7 @@ export default function LeadsPage() {
               <TableHead className="w-12">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300"
+                  className="rounded border-slate-700"
                   checked={selectedLeads.length === filteredLeads.length && filteredLeads.length > 0}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -518,7 +518,7 @@ export default function LeadsPage() {
                 <TableCell>
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300"
+                    className="rounded border-slate-700"
                     checked={selectedLeads.includes(lead.id)}
                     onChange={() => toggleSelectLead(lead.id)}
                   />
@@ -530,14 +530,14 @@ export default function LeadsPage() {
                       size="sm"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">{lead.contact?.fullName}</p>
-                      <p className="text-sm text-gray-500">{lead.contact?.email}</p>
+                      <p className="font-medium text-white">{lead.contact?.fullName}</p>
+                      <p className="text-sm text-slate-400">{lead.contact?.email}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="text-gray-900 font-medium">{lead.company?.name || '-'}</p>
-                  {lead.serviceInterest && <p className="text-xs text-gray-500">{lead.serviceInterest}</p>}
+                  <p className="text-white font-medium">{lead.company?.name || '-'}</p>
+                  {lead.serviceInterest && <p className="text-xs text-slate-400">{lead.serviceInterest}</p>}
                 </TableCell>
                 <TableCell>
                   <Badge status={lead.status}>
@@ -551,30 +551,30 @@ export default function LeadsPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-16 h-2 bg-slate-800 rounded-full overflow-hidden">
                       <div 
                         className={`h-full rounded-full transition-all ${
-                          lead.score >= 80 ? 'bg-green-500' : 
+                          lead.score >= 80 ? 'bg-green-900/200' : 
                           lead.score >= 50 ? 'bg-yellow-500' : 
-                          'bg-red-500'
+                          'bg-red-900/200'
                         }`}
                         style={{ width: `${lead.score}%` }}
                       />
                     </div>
-                    <span className="text-sm font-semibold text-gray-700 w-10">{lead.score}%</span>
+                    <span className="text-sm font-semibold text-slate-300 w-10">{lead.score}%</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="font-medium text-gray-900">{formatCurrency(lead.estimatedValue)}</p>
+                  <p className="font-medium text-white">{formatCurrency(lead.estimatedValue)}</p>
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm text-gray-500">{formatRelativeTime(lead.createdAt)}</p>
+                  <p className="text-sm text-slate-400">{formatRelativeTime(lead.createdAt)}</p>
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
                     <button 
                       onClick={() => handleOpenModal(lead)}
-                      className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                      className="p-1.5 text-slate-500 hover:text-blue-400 hover:bg-blue-900/20 rounded"
                       title="Edit"
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -583,7 +583,7 @@ export default function LeadsPage() {
                     </button>
                     <button 
                       onClick={() => handleDelete(lead.id)}
-                      className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                      className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-900/20 rounded"
                       title="Delete"
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -597,8 +597,8 @@ export default function LeadsPage() {
           </TableBody>
         </Table>
         {filteredLeads.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
-            <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-8 text-center text-slate-400">
+            <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
             </svg>
             <p className="font-medium">No leads found</p>
@@ -610,20 +610,20 @@ export default function LeadsPage() {
       {/* Lead Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 sticky top-0 bg-white">
+          <div className="bg-slate-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-800 sticky top-0 bg-slate-900">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-white">
                     {currentLead ? 'Edit Lead' : 'Add New Lead'}
                   </h2>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-slate-400 mt-1">
                     {currentLead 
                       ? `Update information for ${currentLead.contact?.fullName}`
                       : 'Enter lead details and track the opportunity'}
                   </p>
                 </div>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -634,15 +634,15 @@ export default function LeadsPage() {
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               {/* Contact Information */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                  <svg className="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
                   </svg>
                   Contact Information
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Contact Name *
                     </label>
                     <Input
@@ -653,7 +653,7 @@ export default function LeadsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Email *
                     </label>
                     <Input
@@ -665,7 +665,7 @@ export default function LeadsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Phone
                     </label>
                     <Input
@@ -675,7 +675,7 @@ export default function LeadsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Company
                     </label>
                     <Input
@@ -689,15 +689,15 @@ export default function LeadsPage() {
 
               {/* Opportunity Details */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                  <svg className="h-5 w-5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 7H7v6h6V7z" />
                   </svg>
                   Opportunity Details
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Problem Summary
                     </label>
                     <textarea
@@ -705,11 +705,11 @@ export default function LeadsPage() {
                       onChange={(e) => setFormData({ ...formData, problemSummary: e.target.value })}
                       placeholder="What problem is this lead facing? What are their pain points?"
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Service Interest
                     </label>
                     <Input
@@ -720,13 +720,13 @@ export default function LeadsPage() {
                   </div>
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Budget Range
                       </label>
                       <select
                         value={formData.budgetRange}
                         onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select range...</option>
                         <option value="0-25k">$0 - $25K</option>
@@ -737,13 +737,13 @@ export default function LeadsPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Timeline
                       </label>
                       <select
                         value={formData.timeline}
                         onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select timeline...</option>
                         <option value="immediate">Immediate</option>
@@ -754,7 +754,7 @@ export default function LeadsPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Estimated Value *
                       </label>
                       <Input
@@ -773,22 +773,22 @@ export default function LeadsPage() {
 
               {/* Sales Stage & Scoring */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <svg className="h-5 w-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                  <svg className="h-5 w-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                   </svg>
                   Sales Stage & Scoring
                 </h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Status *
                     </label>
                     <select
                       required
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value as LeadStatus })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="new">New</option>
                       <option value="contacted">Contacted</option>
@@ -801,14 +801,14 @@ export default function LeadsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Source *
                     </label>
                     <select
                       required
                       value={formData.source}
                       onChange={(e) => setFormData({ ...formData, source: e.target.value as LeadSource })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="website">Website</option>
                       <option value="booking">Booking</option>
@@ -820,8 +820,8 @@ export default function LeadsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Lead Score: <span className="text-blue-600 font-semibold">{formData.score}%</span>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
+                      Lead Score: <span className="text-blue-400 font-semibold">{formData.score}%</span>
                     </label>
                     <input
                       type="range"
@@ -832,7 +832,7 @@ export default function LeadsPage() {
                       onChange={(e) => setFormData({ ...formData, score: parseInt(e.target.value) })}
                       className="w-full"
                     />
-                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <div className="flex justify-between text-xs text-slate-400 mt-1">
                       <span>Cold</span>
                       <span>Warm</span>
                       <span>Hot</span>
@@ -843,13 +843,13 @@ export default function LeadsPage() {
 
               {/* Assignment */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   Assign To
                 </label>
                 <select
                   value={formData.assignedTo}
                   onChange={(e) => setFormData({ ...formData, assignedTo: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Unassigned</option>
                   {mockUsers.map(user => (
@@ -861,7 +861,7 @@ export default function LeadsPage() {
               </div>
 
               {/* Form Actions */}
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
+              <div className="flex gap-3 pt-4 border-t border-slate-800">
                 <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
                   <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -880,16 +880,16 @@ export default function LeadsPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Lead{selectedLeads.length > 1 ? 's' : ''}</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Lead{selectedLeads.length > 1 ? 's' : ''}</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete {selectedLeads.length} lead{selectedLeads.length > 1 ? 's' : ''}? This action cannot be undone.
                 </p>
               </div>

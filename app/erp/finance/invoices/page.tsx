@@ -348,8 +348,8 @@ export default function InvoicesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Invoices</h1>
-          <p className="text-gray-500">Manage and track all invoices</p>
+          <h1 className="text-2xl font-bold text-white">Invoices</h1>
+          <p className="text-slate-400">Manage and track all invoices</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -370,24 +370,24 @@ export default function InvoicesPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Invoices</p>
-          <p className="text-2xl font-bold text-gray-900">{invoices.length}</p>
+          <p className="text-sm text-slate-400">Total Invoices</p>
+          <p className="text-2xl font-bold text-white">{invoices.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Paid</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Paid</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {formatCurrency(invoices.filter(i => i.status === 'paid').reduce((sum, i) => sum + i.totalAmount, 0))}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Pending</p>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-sm text-slate-400">Pending</p>
+          <p className="text-2xl font-bold text-amber-400">
             {formatCurrency(invoices.filter(i => i.status === 'sent').reduce((sum, i) => sum + i.totalAmount, 0))}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Overdue</p>
-          <p className="text-2xl font-bold text-red-600">
+          <p className="text-sm text-slate-400">Overdue</p>
+          <p className="text-2xl font-bold text-red-400">
             {formatCurrency(invoices.filter(i => i.status === 'overdue').reduce((sum, i) => sum + i.totalAmount, 0))}
           </p>
         </Card>
@@ -412,8 +412,8 @@ export default function InvoicesPage() {
                   className={cn(
                     'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
                     statusFilter === status
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-blue-900/20 text-blue-400'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                   )}
                 >
                   {status === 'all' ? 'All' : status}
@@ -422,12 +422,12 @@ export default function InvoicesPage() {
             </div>
           </div>
           {selectedInvoices.length > 0 && (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-2 p-3 bg-blue-900/20 rounded-lg">
               <span className="text-sm font-medium text-blue-900">
                 {selectedInvoices.length} selected
               </span>
               <div className="flex gap-2 ml-auto">
-                <Button size="sm" variant="outline" onClick={() => setShowDeleteConfirm(true)} className="text-red-600">
+                <Button size="sm" variant="outline" onClick={() => setShowDeleteConfirm(true)} className="text-red-400">
                   Delete
                 </Button>
               </div>
@@ -444,7 +444,7 @@ export default function InvoicesPage() {
               <TableHead className="w-12">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300"
+                  className="rounded border-slate-700"
                   checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -474,35 +474,35 @@ export default function InvoicesPage() {
                   <TableCell>
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300"
+                      className="rounded border-slate-700"
                       checked={selectedInvoices.includes(invoice.id)}
                       onChange={() => toggleSelectInvoice(invoice.id)}
                     />
                   </TableCell>
                   <TableCell>
-                    <p className="font-medium text-gray-900">{invoice.invoiceNumber}</p>
-                    <p className="text-sm text-gray-500">{invoice.title}</p>
+                    <p className="font-medium text-white">{invoice.invoiceNumber}</p>
+                    <p className="text-sm text-slate-400">{invoice.title}</p>
                   </TableCell>
                   <TableCell>
-                    <p className="text-gray-900">{company?.name || '-'}</p>
+                    <p className="text-white">{company?.name || '-'}</p>
                   </TableCell>
                   <TableCell>
-                    <p className="text-gray-500">
+                    <p className="text-slate-400">
                       {invoice.issueDate ? new Date(invoice.issueDate).toLocaleDateString() : '-'}
                     </p>
                   </TableCell>
                   <TableCell>
-                    <p className="text-gray-500">
+                    <p className="text-slate-400">
                       {invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString() : '-'}
                     </p>
                   </TableCell>
                   <TableCell>
-                    <p className="font-medium text-gray-900">{formatCurrency(invoice.total)}</p>
+                    <p className="font-medium text-white">{formatCurrency(invoice.total)}</p>
                   </TableCell>
                   <TableCell>
                     <p className={cn(
                       "font-medium",
-                      balance > 0 ? "text-red-600" : "text-green-600"
+                      balance > 0 ? "text-red-400" : "text-emerald-400"
                     )}>
                       {formatCurrency(balance)}
                     </p>
@@ -516,7 +516,7 @@ export default function InvoicesPage() {
                         <>
                           <button
                             onClick={() => handleOpenPaymentModal(invoice)}
-                            className="p-1 text-gray-400 hover:text-green-600"
+                            className="p-1 text-slate-500 hover:text-emerald-400"
                             title="Record Payment"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -525,7 +525,7 @@ export default function InvoicesPage() {
                           </button>
                           <button
                             onClick={() => handleMarkAsPaid(invoice)}
-                            className="p-1 text-gray-400 hover:text-green-600"
+                            className="p-1 text-slate-500 hover:text-emerald-400"
                             title="Mark as Paid"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -537,7 +537,7 @@ export default function InvoicesPage() {
                       {invoice.status === 'draft' && (
                         <button
                           onClick={() => handleStatusChange(invoice.id, 'sent')}
-                          className="p-1 text-gray-400 hover:text-blue-600"
+                          className="p-1 text-slate-500 hover:text-blue-400"
                           title="Send Invoice"
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -547,7 +547,7 @@ export default function InvoicesPage() {
                       )}
                       <button
                         onClick={() => handleDownloadPDF(invoice)}
-                        className="p-1 text-gray-400 hover:text-purple-600"
+                        className="p-1 text-slate-500 hover:text-purple-400"
                         title="Download PDF"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -556,7 +556,7 @@ export default function InvoicesPage() {
                       </button>
                       <button
                         onClick={() => handleOpenModal(invoice)}
-                        className="p-1 text-gray-400 hover:text-blue-600"
+                        className="p-1 text-slate-500 hover:text-blue-400"
                         title="Edit"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -565,7 +565,7 @@ export default function InvoicesPage() {
                       </button>
                       <button
                         onClick={() => handleDelete(invoice.id)}
-                        className="p-1 text-gray-400 hover:text-red-600"
+                        className="p-1 text-slate-500 hover:text-red-400"
                         title="Delete"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -580,8 +580,8 @@ export default function InvoicesPage() {
           </TableBody>
         </Table>
         {filteredInvoices.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
-            <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-8 text-center text-slate-400">
+            <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <p>No invoices found matching your criteria</p>
@@ -592,13 +592,13 @@ export default function InvoicesPage() {
       {/* Invoice Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentInvoice ? 'Edit Invoice' : 'New Invoice'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -608,14 +608,14 @@ export default function InvoicesPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Client *
                     </label>
                     <select
                       required
                       value={formData.clientId}
                       onChange={(e) => setFormData({ ...formData, clientId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select Client</option>
                       {mockClients.map((client) => {
@@ -629,7 +629,7 @@ export default function InvoicesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Invoice Number
                     </label>
                     <Input
@@ -643,7 +643,7 @@ export default function InvoicesPage() {
 
                 <div className="grid md:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Issue Date *
                     </label>
                     <Input
@@ -654,7 +654,7 @@ export default function InvoicesPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Due Date *
                     </label>
                     <Input
@@ -665,14 +665,14 @@ export default function InvoicesPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Payment Terms *
                     </label>
                     <select
                       required
                       value={formData.paymentTerms}
                       onChange={(e) => setFormData({ ...formData, paymentTerms: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="net_15">Net 15</option>
                       <option value="net_30">Net 30</option>
@@ -680,14 +680,14 @@ export default function InvoicesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Status *
                     </label>
                     <select
                       required
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="draft">Draft</option>
                       <option value="sent">Sent</option>
@@ -699,7 +699,7 @@ export default function InvoicesPage() {
 
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-slate-300">
                       Line Items *
                     </label>
                     <Button type="button" size="sm" onClick={addLineItem}>
@@ -709,7 +709,7 @@ export default function InvoicesPage() {
                       Add Item
                     </Button>
                   </div>
-                  <div className="space-y-3 border border-gray-200 rounded-lg p-4">
+                  <div className="space-y-3 border border-slate-800 rounded-lg p-4">
                     {formData.lineItems.map((item, index) => (
                       <div key={item.id} className="grid grid-cols-12 gap-3 items-start">
                         <div className="col-span-5">
@@ -745,7 +745,7 @@ export default function InvoicesPage() {
                           <Input
                             disabled
                             value={formatCurrency(item.total)}
-                            className="bg-gray-50"
+                            className="bg-slate-950/50"
                           />
                         </div>
                         <div className="col-span-1">
@@ -753,7 +753,7 @@ export default function InvoicesPage() {
                             type="button"
                             onClick={() => removeLineItem(index)}
                             disabled={formData.lineItems.length === 1}
-                            className="p-2 text-gray-400 hover:text-red-600 disabled:opacity-30"
+                            className="p-2 text-slate-500 hover:text-red-400 disabled:opacity-30"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -765,17 +765,17 @@ export default function InvoicesPage() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="bg-slate-950/50 p-4 rounded-lg">
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">Subtotal:</span>
+                    <span className="text-sm text-slate-400">Subtotal:</span>
                     <span className="font-medium">{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">Tax (10%):</span>
+                    <span className="text-sm text-slate-400">Tax (10%):</span>
                     <span className="font-medium">{formatCurrency(tax)}</span>
                   </div>
-                  <div className="flex justify-between pt-2 border-t border-gray-200">
-                    <span className="font-semibold text-gray-900">Total:</span>
+                  <div className="flex justify-between pt-2 border-t border-slate-800">
+                    <span className="font-semibold text-white">Total:</span>
                     <span className="font-bold text-lg">{formatCurrency(total)}</span>
                   </div>
                 </div>
@@ -797,10 +797,10 @@ export default function InvoicesPage() {
       {/* Payment Modal */}
       {showPaymentModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Record Payment</h2>
-              <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-gray-600">
+              <h2 className="text-xl font-bold text-white">Record Payment</h2>
+              <button onClick={() => setShowPaymentModal(false)} className="text-slate-500 hover:text-slate-400">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -809,22 +809,22 @@ export default function InvoicesPage() {
 
             <form onSubmit={handleRecordPayment} className="space-y-4">
               <div>
-                <p className="text-sm text-gray-500 mb-2">
-                  Invoice: <span className="font-medium text-gray-900">{currentInvoice?.invoiceNumber}</span>
+                <p className="text-sm text-slate-400 mb-2">
+                  Invoice: <span className="font-medium text-white">{currentInvoice?.invoiceNumber}</span>
                 </p>
-                <p className="text-sm text-gray-500 mb-2">
-                  Total Amount: <span className="font-medium text-gray-900">{formatCurrency(currentInvoice?.total || 0)}</span>
+                <p className="text-sm text-slate-400 mb-2">
+                  Total Amount: <span className="font-medium text-white">{formatCurrency(currentInvoice?.total || 0)}</span>
                 </p>
-                <p className="text-sm text-gray-500 mb-4">
-                  Amount Paid: <span className="font-medium text-gray-900">{formatCurrency(currentInvoice?.amountPaid || 0)}</span>
+                <p className="text-sm text-slate-400 mb-4">
+                  Amount Paid: <span className="font-medium text-white">{formatCurrency(currentInvoice?.amountPaid || 0)}</span>
                 </p>
-                <p className="text-sm font-medium text-red-600">
+                <p className="text-sm font-medium text-red-400">
                   Balance Due: {formatCurrency((currentInvoice?.total || 0) - (currentInvoice?.amountPaid || 0))}
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   Payment Amount *
                 </label>
                 <Input
@@ -839,7 +839,7 @@ export default function InvoicesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-300 mb-1">
                   Payment Date *
                 </label>
                 <Input
@@ -866,16 +866,16 @@ export default function InvoicesPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Invoice{selectedInvoices.length > 1 ? 's' : ''}</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Invoice{selectedInvoices.length > 1 ? 's' : ''}</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete {selectedInvoices.length} invoice{selectedInvoices.length > 1 ? 's' : ''}? This action cannot be undone.
                 </p>
               </div>

@@ -193,10 +193,10 @@ export default function CompaniesPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'prospect': return 'bg-yellow-100 text-yellow-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active': return 'bg-emerald-900/20 text-green-800';
+      case 'prospect': return 'bg-amber-900/20 text-yellow-800';
+      case 'inactive': return 'bg-slate-800 text-slate-400';
+      default: return 'bg-slate-800 text-slate-400';
     }
   };
 
@@ -205,8 +205,8 @@ export default function CompaniesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Companies</h1>
-          <p className="text-gray-500">Manage company profiles and business relationships</p>
+          <h1 className="text-2xl font-bold text-white">Companies</h1>
+          <p className="text-slate-400">Manage company profiles and business relationships</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">
@@ -227,29 +227,29 @@ export default function CompaniesPage() {
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Companies</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-          <p className="text-xs text-gray-400 mt-2">{filteredCompanies.length} filtered</p>
+          <p className="text-sm text-slate-400">Total Companies</p>
+          <p className="text-2xl font-bold text-white">{stats.total}</p>
+          <p className="text-xs text-slate-500 mt-2">{filteredCompanies.length} filtered</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Active</p>
-          <p className="text-2xl font-bold text-green-600">{stats.active}</p>
-          <p className="text-xs text-gray-400 mt-2">{Math.round((stats.active / stats.total) * 100)}% of total</p>
+          <p className="text-sm text-slate-400">Active</p>
+          <p className="text-2xl font-bold text-emerald-400">{stats.active}</p>
+          <p className="text-xs text-slate-500 mt-2">{Math.round((stats.active / stats.total) * 100)}% of total</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Prospects</p>
-          <p className="text-2xl font-bold text-yellow-600">{stats.prospect}</p>
-          <p className="text-xs text-gray-400 mt-2">Pipeline</p>
+          <p className="text-sm text-slate-400">Prospects</p>
+          <p className="text-2xl font-bold text-amber-400">{stats.prospect}</p>
+          <p className="text-xs text-slate-500 mt-2">Pipeline</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Revenue</p>
-          <p className="text-2xl font-bold text-blue-600">${(stats.totalRevenue / 1000000).toFixed(1)}M</p>
-          <p className="text-xs text-gray-400 mt-2">Annual</p>
+          <p className="text-sm text-slate-400">Total Revenue</p>
+          <p className="text-2xl font-bold text-blue-400">${(stats.totalRevenue / 1000000).toFixed(1)}M</p>
+          <p className="text-xs text-slate-500 mt-2">Annual</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Avg Revenue</p>
-          <p className="text-2xl font-bold text-purple-600">${(stats.avgRevenue / 1000000).toFixed(1)}M</p>
-          <p className="text-xs text-gray-400 mt-2">Per company</p>
+          <p className="text-sm text-slate-400">Avg Revenue</p>
+          <p className="text-2xl font-bold text-purple-400">${(stats.avgRevenue / 1000000).toFixed(1)}M</p>
+          <p className="text-xs text-slate-500 mt-2">Per company</p>
         </Card>
       </div>
 
@@ -266,7 +266,7 @@ export default function CompaniesPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="px-3 py-2 border border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-900"
             >
               <option value="created">Newest First</option>
               <option value="name">Name A-Z</option>
@@ -275,13 +275,13 @@ export default function CompaniesPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <div className="text-sm text-gray-600 font-medium py-1.5 px-2">Status:</div>
+            <div className="text-sm text-slate-400 font-medium py-1.5 px-2">Status:</div>
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors ${
                 statusFilter === 'all'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-blue-900/20 text-blue-400'
+                  : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
               }`}
             >
               All
@@ -292,8 +292,8 @@ export default function CompaniesPage() {
                 onClick={() => setStatusFilter(status)}
                 className={`px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize ${
                   statusFilter === status
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-900/20 text-blue-400'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                 }`}
               >
                 {status}
@@ -302,11 +302,11 @@ export default function CompaniesPage() {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-gray-600 mb-2 block">Industry</label>
+            <label className="text-xs font-medium text-slate-400 mb-2 block">Industry</label>
             <select
               value={industryFilter}
               onChange={(e) => setIndustryFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full px-3 py-2 border border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-900"
             >
               <option value="all">All Industries</option>
               {industryOptions.map((industry) => (
@@ -323,9 +323,9 @@ export default function CompaniesPage() {
       <Card>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-950/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider w-12">
                   <input
                     type="checkbox"
                     onChange={(e) => {
@@ -336,33 +336,33 @@ export default function CompaniesPage() {
                       }
                     }}
                     checked={selectedCompanies.length === filteredCompanies.length && filteredCompanies.length > 0}
-                    className="rounded border-gray-300"
+                    className="rounded border-slate-700"
                   />
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Company
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Industry
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Location
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Revenue
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Updated
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider w-20">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-slate-900 divide-y divide-gray-200">
               {filteredCompanies.map((company) => (
                 <tr key={company.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -370,7 +370,7 @@ export default function CompaniesPage() {
                       type="checkbox"
                       checked={selectedCompanies.includes(company.id)}
                       onChange={() => toggleSelectCompany(company.id)}
-                      className="rounded border-gray-300"
+                      className="rounded border-slate-700"
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -379,17 +379,17 @@ export default function CompaniesPage() {
                         {company.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{company.name}</p>
+                        <p className="font-medium text-white">{company.name}</p>
                         {company.email && (
-                          <p className="text-xs text-gray-500">{company.email}</p>
+                          <p className="text-xs text-slate-400">{company.email}</p>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
                     {company.industry}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
                     {company.city}, {company.country}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -400,14 +400,14 @@ export default function CompaniesPage() {
                       {company.status || 'active'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
                     {formatRelativeTime(company.updatedAt || company.createdAt)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <div className="flex gap-1">
                       <button
                         onClick={() => handleOpenModal(company)}
-                        className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                        className="p-1.5 text-slate-500 hover:text-blue-400 hover:bg-blue-900/20 rounded"
                         title="Edit"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -416,7 +416,7 @@ export default function CompaniesPage() {
                       </button>
                       <button
                         onClick={() => handleDelete(company.id)}
-                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                        className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-900/20 rounded"
                         title="Delete"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -430,7 +430,7 @@ export default function CompaniesPage() {
             </tbody>
           </table>
         </div>
-        <div className="px-6 py-4 border-t border-gray-200 text-xs text-gray-500">
+        <div className="px-6 py-4 border-t border-slate-800 text-xs text-slate-400">
           Showing {filteredCompanies.length} of {companies.length} companies
         </div>
       </Card>
@@ -438,12 +438,12 @@ export default function CompaniesPage() {
       {/* Company Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">
                 {currentCompany ? 'Edit Company' : 'Add New Company'}
               </h2>
-              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -453,11 +453,11 @@ export default function CompaniesPage() {
             <form onSubmit={handleSave} className="p-6 space-y-6">
               {/* Company Info Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Company Information</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Company Information</h3>
                 <div className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Company Name *
                       </label>
                       <Input
@@ -468,14 +468,14 @@ export default function CompaniesPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Industry *
                       </label>
                       <select
                         required
                         value={formData.industry}
                         onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select Industry</option>
                         {industryOptions.map((industry) => (
@@ -489,13 +489,13 @@ export default function CompaniesPage() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Status
                       </label>
                       <select
                         value={formData.status}
                         onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         {statusOptions.map((status) => (
                           <option key={status} value={status}>
@@ -505,7 +505,7 @@ export default function CompaniesPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Website
                       </label>
                       <Input
@@ -521,11 +521,11 @@ export default function CompaniesPage() {
 
               {/* Contact Info Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Contact Information</h3>
                 <div className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Email
                       </label>
                       <Input
@@ -536,7 +536,7 @@ export default function CompaniesPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Phone
                       </label>
                       <Input
@@ -548,7 +548,7 @@ export default function CompaniesPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Address
                     </label>
                     <Input
@@ -560,7 +560,7 @@ export default function CompaniesPage() {
 
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         City
                       </label>
                       <Input
@@ -570,7 +570,7 @@ export default function CompaniesPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Country
                       </label>
                       <Input
@@ -580,7 +580,7 @@ export default function CompaniesPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Founded Year
                       </label>
                       <Input
@@ -596,11 +596,11 @@ export default function CompaniesPage() {
 
               {/* Business Details Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Details</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Business Details</h3>
                 <div className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Annual Revenue ($)
                       </label>
                       <Input
@@ -611,7 +611,7 @@ export default function CompaniesPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-300 mb-1">
                         Employee Count
                       </label>
                       <Input
@@ -625,7 +625,7 @@ export default function CompaniesPage() {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
+              <div className="flex gap-3 pt-4 border-t border-slate-800">
                 <Button type="submit" className="flex-1">
                   {currentCompany ? 'Update Company' : 'Create Company'}
                 </Button>
@@ -641,16 +641,16 @@ export default function CompaniesPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Company</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Company</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete {currentCompany?.name}? This action cannot be undone.
                 </p>
               </div>

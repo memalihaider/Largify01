@@ -126,7 +126,7 @@ export default function ERPDashboard() {
     <div className="space-y-6 pb-12 animate-in fade-in duration-700">
       {/* HUD Header */}
       <div className="relative group overflow-hidden bg-slate-900/40 backdrop-blur-3xl border border-blue-500/20 rounded-2xl p-6 shadow-2xl shadow-blue-500/5">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-3xl -mr-32 -mt-32 rounded-full" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-900/200/5 blur-3xl -mr-32 -mt-32 rounded-full" />
         
         <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
@@ -143,7 +143,7 @@ export default function ERPDashboard() {
               </span>
               <div className="flex gap-1">
                 {[1,2,3,4,5].map(i => (
-                  <div key={i} className={`w-1 h-3 rounded-full ${i <= 4 ? 'bg-blue-500/50' : 'bg-slate-700'}`} />
+                  <div key={i} className={`w-1 h-3 rounded-full ${i <= 4 ? 'bg-blue-900/200/50' : 'bg-slate-700'}`} />
                 ))}
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function ERPDashboard() {
               </span>
             </div>
             <div className="mt-3 w-full bg-slate-800 h-px relative overflow-hidden">
-               <div className="absolute top-0 left-0 h-full bg-blue-500 w-1/3 animate-ping opacity-20" />
+               <div className="absolute top-0 left-0 h-full bg-blue-900/200 w-1/3 animate-ping opacity-20" />
             </div>
           </div>
         ))}
@@ -211,12 +211,12 @@ export default function ERPDashboard() {
               <h3 className="text-sm font-black italic tracking-tighter text-white uppercase flex items-center gap-2">
                 <Bell className="w-4 h-4 text-blue-500" /> System Logs
               </h3>
-              <Badge className="bg-blue-500/10 text-blue-400 border-none text-[10px] font-mono">REAL-TIME</Badge>
+              <Badge className="bg-blue-900/200/10 text-blue-400 border-none text-[10px] font-mono">REAL-TIME</Badge>
             </div>
             <div className="space-y-4 relative z-10">
               {filteredData.recentNotifications.map((n, i) => (
-                <div key={i} className="flex gap-3 group cursor-pointer hover:bg-blue-500/5 p-2 -m-2 rounded-lg transition-colors border-l-2 border-transparent hover:border-blue-500/30">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shadow-lg shadow-blue-500/50" />
+                <div key={i} className="flex gap-3 group cursor-pointer hover:bg-blue-900/200/5 p-2 -m-2 rounded-lg transition-colors border-l-2 border-transparent hover:border-blue-500/30">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-900/200 mt-1.5 shadow-lg shadow-blue-500/50" />
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-slate-300 font-medium line-clamp-1 group-hover:text-blue-400 transition-colors uppercase tracking-tight">{n.title}</p>
                     <p className="text-[10px] text-slate-500 font-mono mt-0.5">{formatDate(n.createdAt)}</p>
@@ -273,13 +273,13 @@ export default function ERPDashboard() {
               {filteredData.urgentTasks.map((task, i) => (
                 <div key={i} className="bg-slate-950/40 border border-blue-500/10 hover:border-blue-500/30 p-4 rounded-xl flex items-center justify-between group transition-all backdrop-blur-sm">
                   <div className="flex items-center gap-4">
-                    <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 shadow-inner group-hover:scale-105 transition-transform group-hover:bg-blue-500/20">
+                    <div className="p-2.5 rounded-lg bg-blue-900/200/10 border border-blue-500/20 shadow-inner group-hover:scale-105 transition-transform group-hover:bg-blue-900/200/20">
                       <Zap className="w-4 h-4 text-blue-400" />
                     </div>
                     <div>
                       <p className="text-sm text-slate-200 font-bold tracking-tight uppercase group-hover:text-white transition-colors">{task.title}</p>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-[9px] font-mono bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded uppercase tracking-tighter">
+                        <span className="text-[9px] font-mono bg-blue-900/200/10 text-blue-400 px-1.5 py-0.5 rounded uppercase tracking-tighter">
                           {task.priority} Priority
                         </span>
                         <span className="text-[9px] font-mono text-slate-600 uppercase">
@@ -303,8 +303,8 @@ export default function ERPDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
              <Card className="bg-linear-to-br from-blue-600/10 to-transparent border-blue-500/20 p-6 flex flex-col items-center text-center group hover:bg-blue-600/20 transition-all cursor-pointer rounded-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-xl shadow-blue-500/20 relative z-10">
+                <div className="absolute inset-0 bg-blue-900/200/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="w-14 h-14 rounded-2xl bg-blue-900/200/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-xl shadow-blue-500/20 relative z-10">
                   <BarChart3 className="w-7 h-7 text-blue-400" />
                 </div>
                 <h4 className="text-white font-black italic uppercase text-lg tracking-tighter relative z-10">FINANCIAL ANALYTICS</h4>

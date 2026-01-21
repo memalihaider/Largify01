@@ -32,8 +32,8 @@ export default function CMSPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Content Management</h1>
-          <p className="text-gray-600 mt-1">Manage website content, services, case studies, and more</p>
+          <h1 className="text-3xl font-bold text-white">Content Management</h1>
+          <p className="text-slate-400 mt-1">Manage website content, services, case studies, and more</p>
         </div>
         <div className="flex gap-3">
           <Link href="/erp/cms/services-management">
@@ -48,19 +48,19 @@ export default function CMSPage() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 flex gap-8 overflow-x-auto">
+      <div className="border-b border-slate-800 flex gap-8 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as CMSTab)}
             className={`px-4 py-3 font-medium whitespace-nowrap border-b-2 transition-colors ${
               activeTab === tab.id
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
+                ? 'border-blue-600 text-blue-400'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             {tab.label}
-            <span className="ml-2 bg-gray-100 text-gray-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+            <span className="ml-2 bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full text-xs font-semibold">
               {tab.count}
             </span>
           </button>
@@ -70,7 +70,7 @@ export default function CMSPage() {
       {/* Search */}
       <div className="relative">
         <svg
-          className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -99,8 +99,8 @@ export default function CMSPage() {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{service.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+                    <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+                    <p className="text-sm text-slate-400 mt-1">{service.description}</p>
                   </div>
                   <Badge variant={service.isPublished ? 'success' : 'secondary'}>
                     {service.isPublished ? 'Published' : 'Draft'}
@@ -119,7 +119,7 @@ export default function CMSPage() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>
@@ -138,13 +138,13 @@ export default function CMSPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">{study.title}</h3>
+                      <h3 className="text-lg font-semibold text-white">{study.title}</h3>
                       {study.isFeatured && (
                         <Badge variant="success" className="text-xs">★ Featured</Badge>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600">{study.companyName}</p>
-                    <p className="text-xs text-gray-500 mt-1">{study.industry}</p>
+                    <p className="text-sm text-slate-400">{study.companyName}</p>
+                    <p className="text-xs text-slate-400 mt-1">{study.industry}</p>
                   </div>
                   <Badge variant={study.isPublished ? 'success' : 'secondary'}>
                     {study.isPublished ? 'Published' : 'Draft'}
@@ -152,9 +152,9 @@ export default function CMSPage() {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                   {study.results.map((result, idx) => (
-                    <div key={idx} className="bg-blue-50 rounded-lg p-3">
-                      <p className="text-lg font-bold text-blue-600">{result.metric}</p>
-                      <p className="text-xs text-gray-600">{result.label}</p>
+                    <div key={idx} className="bg-blue-900/20 rounded-lg p-3">
+                      <p className="text-lg font-bold text-blue-400">{result.metric}</p>
+                      <p className="text-xs text-slate-400">{result.label}</p>
                     </div>
                   ))}
                 </div>
@@ -164,7 +164,7 @@ export default function CMSPage() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>
@@ -183,12 +183,12 @@ export default function CMSPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <p className="text-lg font-semibold text-gray-900">{testimonial.authorName}</p>
+                      <p className="text-lg font-semibold text-white">{testimonial.authorName}</p>
                       {testimonial.isFeatured && (
                         <Badge variant="success" className="text-xs">★ Featured</Badge>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-slate-400">
                       {testimonial.authorRole} {testimonial.authorCompany && `at ${testimonial.authorCompany}`}
                     </p>
                   </div>
@@ -196,7 +196,7 @@ export default function CMSPage() {
                     {testimonial.isPublished ? 'Published' : 'Draft'}
                   </Badge>
                 </div>
-                <blockquote className="border-l-4 border-blue-600 pl-4 italic text-gray-700 mb-4">
+                <blockquote className="border-l-4 border-blue-600 pl-4 italic text-slate-300 mb-4">
                   "{testimonial.quote}"
                 </blockquote>
                 <div className="flex items-center gap-1 mb-4">
@@ -210,7 +210,7 @@ export default function CMSPage() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>
@@ -235,20 +235,20 @@ export default function CMSPage() {
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">{faq.question}</h3>
+                    <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
                   </div>
                   <Badge variant={faq.isPublished ? 'success' : 'secondary'}>
                     {faq.isPublished ? 'Published' : 'Draft'}
                   </Badge>
                 </div>
-                <p className="text-gray-600 mb-4">{faq.answer}</p>
+                <p className="text-slate-400 mb-4">{faq.answer}</p>
                 <div className="flex gap-2">
                   <Link href={`/erp/cms/faqs/${faq.id}`}>
                     <Button variant="outline" size="sm">
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>
@@ -274,15 +274,15 @@ export default function CMSPage() {
                   )}
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-lg font-semibold text-white">
                         {member.firstName} {member.lastName}
                       </h3>
                       <Badge variant={member.isPublished ? 'success' : 'secondary'}>
                         {member.isPublished ? 'Published' : 'Draft'}
                       </Badge>
                     </div>
-                    <p className="text-sm font-medium text-blue-600">{member.jobTitle}</p>
-                    {member.bio && <p className="text-sm text-gray-600 mt-1 line-clamp-2">{member.bio}</p>}
+                    <p className="text-sm font-medium text-blue-400">{member.jobTitle}</p>
+                    {member.bio && <p className="text-sm text-slate-400 mt-1 line-clamp-2">{member.bio}</p>}
                   </div>
                 </div>
                 {member.expertise && member.expertise.length > 0 && (
@@ -305,7 +305,7 @@ export default function CMSPage() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>
@@ -326,12 +326,12 @@ export default function CMSPage() {
                     <img
                       src={cert.logoUrl}
                       alt={cert.providerName}
-                      className="h-16 w-16 rounded-lg object-cover bg-gray-100"
+                      className="h-16 w-16 rounded-lg object-cover bg-slate-800"
                     />
                   )}
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-sm font-medium text-gray-600">{cert.providerName}</p>
+                      <p className="text-sm font-medium text-slate-400">{cert.providerName}</p>
                       <Badge 
                         variant={cert.isActive ? 'success' : 'secondary'}
                         className="text-xs"
@@ -339,23 +339,23 @@ export default function CMSPage() {
                         {cert.isActive ? 'Active' : 'Inactive'}
                       </Badge>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">{cert.certificationName}</h3>
+                    <h3 className="text-lg font-semibold text-white">{cert.certificationName}</h3>
                     {cert.description && (
-                      <p className="text-sm text-gray-600 mt-2 line-clamp-2">{cert.description}</p>
+                      <p className="text-sm text-slate-400 mt-2 line-clamp-2">{cert.description}</p>
                     )}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
                   {cert.issuedDate && (
                     <div>
-                      <p className="text-xs text-gray-500 font-medium">Issued</p>
-                      <p className="text-gray-900">{cert.issuedDate.toLocaleDateString()}</p>
+                      <p className="text-xs text-slate-400 font-medium">Issued</p>
+                      <p className="text-white">{cert.issuedDate.toLocaleDateString()}</p>
                     </div>
                   )}
                   {cert.expiryDate && (
                     <div>
-                      <p className="text-xs text-gray-500 font-medium">Expires</p>
-                      <p className="text-gray-900">{cert.expiryDate.toLocaleDateString()}</p>
+                      <p className="text-xs text-slate-400 font-medium">Expires</p>
+                      <p className="text-white">{cert.expiryDate.toLocaleDateString()}</p>
                     </div>
                   )}
                 </div>
@@ -365,7 +365,7 @@ export default function CMSPage() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="ghost" size="sm" className="text-red-400 hover:bg-red-900/20">
                     Delete
                   </Button>
                 </div>

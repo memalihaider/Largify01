@@ -124,9 +124,17 @@ export default function ERPLayout({
 }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>(['CRM', 'Projects', 'Finance']);
 
   const toggleExpanded = (name: string) => {
+    if (isSidebarCollapsed) {
+      setIsSidebarCollapsed(false);
+      if (!expandedItems.includes(name)) {
+        setExpandedItems(prev => [...prev, name]);
+      }
+      return;
+    }
     setExpandedItems(prev =>
       prev.includes(name)
         ? prev.filter(item => item !== name)
@@ -142,11 +150,11 @@ export default function ERPLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-950/50">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -154,18 +162,18 @@ export default function ERPLayout({
       {/* Mobile sidebar */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white transform transition-transform duration-300 ease-in-out lg:hidden',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-slate-950 border-r border-slate-800 transform transition-transform duration-300 ease-in-out lg:hidden',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+        <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
           <Link href="/erp" className="flex items-center">
-            <span className="text-xl font-bold text-blue-600">Largify</span>
-            <Badge variant="secondary" className="ml-2 text-xs">ERP</Badge>
+            <span className="text-xl font-bold text-blue-500">Largify</span>
+            <Badge variant="outline" className="ml-2 text-xs border-blue-500/50 text-blue-400">ERP</Badge>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-slate-400 hover:text-white"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -178,17 +186,38 @@ export default function ERPLayout({
           expandedItems={expandedItems}
           toggleExpanded={toggleExpanded}
           isActive={isActive}
+          isCollapsed={false}
         />
       </div>
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
-          <div className="flex items-center shrink-0 h-16 px-4 border-b border-gray-200">
-            <Link href="/erp" className="flex items-center">
-              <span className="text-xl font-bold text-blue-600">Largify</span>
-              <Badge variant="secondary" className="ml-2 text-xs">ERP</Badge>
-            </Link>
+      <div className={cn(
+        "hidden lg:fixed lg:inset-y-0 lg:flex lg:flex-col transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "lg:w-20" : "lg:w-64"
+      )}>
+        <div className="flex flex-col flex-1 min-h-0 bg-slate-950 border-r border-slate-800">
+          <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
+            {!isSidebarCollapsed && (
+              <Link href="/erp" className="flex items-center animate-in fade-in duration-300">
+                <span className="text-xl font-bold text-blue-500 tracking-tighter">Largify</span>
+                <Badge variant="outline" className="ml-2 text-[10px] py-0 border-blue-500/50 text-blue-400">SYSTEM</Badge>
+              </Link>
+            )}
+            {isSidebarCollapsed && (
+              <div className="flex justify-center w-full animate-in zoom-in duration-300">
+                <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
+                  <span className="text-white font-black text-xs">L</span>
+                </div>
+              </div>
+            )}
+            <button
+              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className="absolute -right-3 top-20 h-6 w-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white z-50 shadow-xl shadow-black/50 transition-transform duration-300 hover:scale-110"
+            >
+              <svg className={cn("h-4 w-4 transition-transform duration-300", isSidebarCollapsed ? "rotate-0" : "rotate-180")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
           <SidebarContent
             navigation={navigation}
@@ -196,17 +225,21 @@ export default function ERPLayout({
             expandedItems={expandedItems}
             toggleExpanded={toggleExpanded}
             isActive={isActive}
+            isCollapsed={isSidebarCollapsed}
           />
         </div>
       </div>
 
       {/* Main content */}
-      <div className="lg:pl-64 flex flex-col min-h-screen">
+      <div className={cn(
+        "flex flex-col min-h-screen bg-slate-950 transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "lg:pl-20" : "lg:pl-64"
+      )}>
         {/* Top header */}
-        <header className="sticky top-0 z-30 flex items-center h-16 px-4 bg-white border-b border-gray-200 gap-4">
+        <header className="sticky top-0 z-30 flex items-center h-16 px-6 bg-slate-950/40 backdrop-blur-xl border-b border-white/5 gap-6">
           {/* Mobile menu button */}
           <button
-            className="lg:hidden text-gray-500 hover:text-gray-700"
+            className="lg:hidden text-slate-400 hover:text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -214,57 +247,76 @@ export default function ERPLayout({
             </svg>
           </button>
 
+          {/* Breadcrumbs / Page Title */}
+          <div className="hidden sm:flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-600">
+            <span className="text-slate-500">ROOT</span>
+            <span className="text-slate-800">/</span>
+            <span className="text-blue-500/80">{pathname.split('/').pop()?.toUpperCase() || 'DASHBOARD'}</span>
+          </div>
+
           {/* Search */}
-          <div className="flex-1 max-w-lg">
-            <div className="relative">
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="search"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+          <div className="flex-1 max-w-md ml-auto">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-blue-500/5 rounded-xl blur-md group-focus-within:bg-blue-500/10 transition-all duration-500" />
+              <div className="relative flex items-center">
+                <svg
+                  className="absolute left-4 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="search"
+                  placeholder="Execute command or search..."
+                  className="w-full pl-11 pr-4 py-2.5 text-xs bg-slate-900/40 border border-slate-800/50 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all font-mono"
+                />
+                <div className="absolute right-3 flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-800 bg-slate-950/50 text-[10px] text-slate-600 font-mono">
+                  <span>⌘</span>
+                  <span>K</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
+            {/* System Status */}
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/5 border border-emerald-500/10 rounded-full">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+              <span className="text-[10px] font-black text-emerald-500/80 uppercase tracking-widest">System Optimal</span>
+            </div>
+
             {/* Notifications */}
-            <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            <button className="relative p-2.5 text-slate-400 hover:text-white rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10 group">
+              <svg className="h-5 w-5 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
               {unreadNotifications > 0 && (
-                <span className="absolute top-1 right-1 h-4 w-4 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
-                  {unreadNotifications}
+                <span className="absolute top-2 right-2 flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span>
                 </span>
               )}
             </button>
 
-            {/* User menu */}
-            <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-              <div className="hidden sm:block text-right">
-                <p className="text-sm font-medium text-gray-900">{currentUser?.fullName || 'User'}</p>
-                <p className="text-xs text-gray-500 capitalize">{currentUser?.role?.name || 'User'}</p>
+            {/* User Profile */}
+            <div className="flex items-center gap-3 pl-5 border-l border-slate-800/50">
+              <div className="hidden md:block text-right">
+                <p className="text-[11px] font-black text-white uppercase tracking-wider">{currentUser?.fullName || 'Root Admin'}</p>
+                <p className="text-[10px] text-blue-500/70 font-bold uppercase tracking-widest">{currentUser?.role?.name || 'Superuser'}</p>
               </div>
-              <Avatar
-                src={currentUser?.avatarUrl}
-                alt={currentUser?.fullName || 'User'}
-                fallback={(currentUser?.fullName || 'U').split(' ').map(n => n[0]).join('').substring(0, 2)}
-                size="md"
-              />
-              <Link
-                href="/2365653214"
-                className="ml-2 px-3 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
-              >
-                Logout
-              </Link>
+              <div className="relative group cursor-pointer">
+                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Avatar
+                  src={currentUser?.avatarUrl}
+                  alt={currentUser?.fullName || 'User'}
+                  fallback={(currentUser?.fullName || 'U').split(' ').map(n => n[0]).join('').substring(0, 2)}
+                  size="md"
+                  className="relative border border-white/10 group-hover:border-blue-500/50 transition-colors"
+                />
+              </div>
             </div>
           </div>
         </header>
@@ -284,6 +336,7 @@ function SidebarContent({
   expandedItems,
   toggleExpanded,
   isActive,
+  isCollapsed,
 }: {
   navigation: Array<{
     name: string;
@@ -295,9 +348,10 @@ function SidebarContent({
   expandedItems: string[];
   toggleExpanded: (name: string) => void;
   isActive: (href: string) => boolean;
+  isCollapsed: boolean;
 }) {
   return (
-    <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+    <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto scrollbar-hide">
       {navigation.map((item) => (
         <div key={item.name}>
           {item.children ? (
@@ -305,43 +359,47 @@ function SidebarContent({
               <button
                 onClick={() => toggleExpanded(item.name)}
                 className={cn(
-                  'w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-colors',
+                  'w-full flex items-center justify-between px-3 py-3 text-sm font-medium rounded-xl transition-all duration-300',
                   isActive(item.href)
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-blue-600/10 text-blue-400 shadow-[inset_0_0_12px_rgba(59,130,246,0.1)] border border-blue-500/10'
+                    : 'text-slate-400 hover:bg-slate-900/80 hover:text-white border border-transparent'
                 )}
+                title={isCollapsed ? item.name : ''}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <span className={cn(
-                    isActive(item.href) ? 'text-blue-600' : 'text-gray-400'
+                    'transition-all duration-300 flex-shrink-0',
+                    isActive(item.href) ? 'text-blue-500 scale-110' : 'text-slate-500 group-hover:text-slate-300'
                   )}>
                     {item.icon}
                   </span>
-                  {item.name}
+                  {!isCollapsed && <span className="animate-in fade-in slide-in-from-left-2 duration-300">{item.name}</span>}
                 </div>
-                <svg
-                  className={cn(
-                    'h-4 w-4 transition-transform',
-                    expandedItems.includes(item.name) ? 'rotate-180' : ''
-                  )}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                {!isCollapsed && (
+                  <svg
+                    className={cn(
+                      'h-4 w-4 transition-transform duration-300 text-slate-600',
+                      expandedItems.includes(item.name) ? 'rotate-180 text-blue-500' : ''
+                    )}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
               </button>
-              {expandedItems.includes(item.name) && (
-                <div className="ml-8 mt-1 space-y-1">
+              {!isCollapsed && expandedItems.includes(item.name) && (
+                <div className="ml-9 mt-2 space-y-1.5 border-l-2 border-slate-800/50 pl-4 animate-in slide-in-from-top-2 duration-300">
                   {item.children.map((child: { name: string; href: string }) => (
                     <Link
                       key={child.href}
                       href={child.href}
                       className={cn(
-                        'block px-3 py-2 text-sm rounded-lg transition-colors',
+                        'block px-3 py-2 text-xs rounded-lg transition-all duration-300',
                         pathname === child.href
-                          ? 'bg-blue-50 text-blue-700 font-medium'
-                          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                          ? 'text-blue-400 font-bold bg-blue-500/5'
+                          : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
                       )}
                     >
                       {child.name}
@@ -354,31 +412,40 @@ function SidebarContent({
             <Link
               href={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors',
+                'flex items-center gap-4 px-3 py-3 text-sm font-medium rounded-xl transition-all duration-300',
                 isActive(item.href)
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-blue-600/10 text-blue-400 shadow-[inset_0_0_12px_rgba(59,130,246,0.1)] border border-blue-500/10'
+                  : 'text-slate-400 hover:bg-slate-900/80 hover:text-white border border-transparent'
               )}
+              title={isCollapsed ? item.name : ''}
             >
               <span className={cn(
-                isActive(item.href) ? 'text-blue-600' : 'text-gray-400'
+                'transition-all duration-300 flex-shrink-0',
+                isActive(item.href) ? 'text-blue-400 scale-110' : 'text-slate-500 group-hover:text-slate-300'
               )}>
                 {item.icon}
               </span>
-              {item.name}
+              {!isCollapsed && <span className="animate-in fade-in slide-in-from-left-2 duration-300">{item.name}</span>}
+              {!isCollapsed && isActive(item.href) && (
+                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+              )}
             </Link>
           )}
         </div>
       ))}
       
       {/* Logout Button */}
-      <div className="pt-4 border-t border-gray-200 mt-4">
+      <div className="pt-6 border-t border-slate-800/50 mt-6 mx-2">
         <Link
           href="/2365653214"
-          className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+          className={cn(
+            "flex items-center gap-4 px-4 py-3 text-sm font-medium text-slate-500 hover:text-red-400 hover:bg-red-900/10 rounded-xl transition-all duration-300 group",
+            isCollapsed ? "justify-center px-0" : ""
+          )}
+          title={isCollapsed ? "Logout" : ""}
         >
-          <span>🚪</span>
-          <span>Logout</span>
+          <span className="text-xl transition-transform duration-300 group-hover:-translate-x-1">🚪</span>
+          {!isCollapsed && <span className="animate-in fade-in duration-300">Terminate Session</span>}
         </Link>
       </div>
     </nav>

@@ -23,8 +23,8 @@ export default function CRMPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">CRM Overview</h1>
-        <p className="text-gray-500">Manage your customer relationships and sales pipeline</p>
+        <h1 className="text-2xl font-bold text-white">CRM Overview</h1>
+        <p className="text-slate-400">Manage your customer relationships and sales pipeline</p>
       </div>
 
       {/* Stats Grid */}
@@ -77,16 +77,16 @@ export default function CRMPage() {
       {/* Pipeline Overview */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-semibold text-gray-900">Sales Pipeline</h2>
-          <Link href="/erp/crm/pipeline" className="text-sm text-blue-600 hover:text-blue-700">
+          <h2 className="font-semibold text-white">Sales Pipeline</h2>
+          <Link href="/erp/crm/pipeline" className="text-sm text-blue-400 hover:text-blue-400">
             View Pipeline →
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {pipelineStages.map((stage) => (
-            <div key={stage.id} className="text-center p-4 bg-gray-50 rounded-lg">
-              <p className="text-2xl font-bold text-gray-900">{stage.count}</p>
-              <p className="text-sm text-gray-500">{stage.name}</p>
+            <div key={stage.id} className="text-center p-4 bg-slate-950/50 rounded-lg">
+              <p className="text-2xl font-bold text-white">{stage.count}</p>
+              <p className="text-sm text-slate-400">{stage.name}</p>
             </div>
           ))}
         </div>
@@ -97,14 +97,14 @@ export default function CRMPage() {
         <Link href="/erp/crm/leads">
           <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-lg bg-blue-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Leads</h3>
-                <p className="text-sm text-gray-500">{mockLeads.length} total leads</p>
+                <h3 className="font-semibold text-white">Leads</h3>
+                <p className="text-sm text-slate-400">{mockLeads.length} total leads</p>
               </div>
             </div>
           </Card>
@@ -113,14 +113,14 @@ export default function CRMPage() {
         <Link href="/erp/crm/clients">
           <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-lg bg-emerald-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Clients</h3>
-                <p className="text-sm text-gray-500">{mockClients.length} active clients</p>
+                <h3 className="font-semibold text-white">Clients</h3>
+                <p className="text-sm text-slate-400">{mockClients.length} active clients</p>
               </div>
             </div>
           </Card>
@@ -129,14 +129,14 @@ export default function CRMPage() {
         <Link href="/erp/crm/companies">
           <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-lg bg-purple-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Companies</h3>
-                <p className="text-sm text-gray-500">{mockCompanies.length} companies</p>
+                <h3 className="font-semibold text-white">Companies</h3>
+                <p className="text-sm text-slate-400">{mockCompanies.length} companies</p>
               </div>
             </div>
           </Card>
@@ -145,14 +145,14 @@ export default function CRMPage() {
         <Link href="/erp/crm/pipeline">
           <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-yellow-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-lg bg-amber-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Pipeline</h3>
-                <p className="text-sm text-gray-500">Visual pipeline view</p>
+                <h3 className="font-semibold text-white">Pipeline</h3>
+                <p className="text-sm text-slate-400">Visual pipeline view</p>
               </div>
             </div>
           </Card>
@@ -162,19 +162,19 @@ export default function CRMPage() {
       {/* Recent Activity */}
       <div className="grid lg:grid-cols-2 gap-6">
         <Card>
-          <div className="p-6 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Recent Leads</h2>
+          <div className="p-6 border-b border-slate-800">
+            <h2 className="font-semibold text-white">Recent Leads</h2>
           </div>
           <div className="divide-y divide-gray-100">
             {mockLeads.slice(0, 5).map((lead) => (
-              <div key={lead.id} className="p-4 hover:bg-gray-50 transition-colors">
+              <div key={lead.id} className="p-4 hover:bg-slate-950/50 transition-colors">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900">{lead.contact?.fullName}</p>
-                    <p className="text-sm text-gray-500">{lead.company?.name}</p>
+                    <p className="font-medium text-white">{lead.contact?.fullName}</p>
+                    <p className="text-sm text-slate-400">{lead.company?.name}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium text-gray-900">{formatCurrency(lead.estimatedValue)}</p>
+                    <p className="font-medium text-white">{formatCurrency(lead.estimatedValue)}</p>
                     <Badge variant={lead.status === 'won' ? 'success' : lead.status === 'new' ? 'info' : 'secondary'} className="text-xs">
                       {lead.status}
                     </Badge>
@@ -186,21 +186,21 @@ export default function CRMPage() {
         </Card>
 
         <Card>
-          <div className="p-6 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Recent Contacts</h2>
+          <div className="p-6 border-b border-slate-800">
+            <h2 className="font-semibold text-white">Recent Contacts</h2>
           </div>
           <div className="divide-y divide-gray-100">
             {mockContacts.slice(0, 5).map((contact) => {
               const company = mockCompanies.find(c => c.id === contact.companyId);
               return (
-                <div key={contact.id} className="p-4 hover:bg-gray-50 transition-colors">
+                <div key={contact.id} className="p-4 hover:bg-slate-950/50 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600">
+                    <div className="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-sm font-medium text-slate-400">
                       {contact.fullName?.split(' ').map(n => n[0]).join('') || '?'}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{contact.fullName}</p>
-                      <p className="text-sm text-gray-500">{contact.jobTitle} at {company?.name}</p>
+                      <p className="font-medium text-white">{contact.fullName}</p>
+                      <p className="text-sm text-slate-400">{contact.jobTitle} at {company?.name}</p>
                     </div>
                   </div>
                 </div>

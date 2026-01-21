@@ -115,16 +115,16 @@ export default function FinancePage() {
       {/* Header with Real-time Status */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Finance Overview</h1>
-          <p className="text-gray-500">Real-time financial performance and metrics</p>
+          <h1 className="text-2xl font-bold text-white">Finance Overview</h1>
+          <p className="text-slate-400">Real-time financial performance and metrics</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg">
+          <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 rounded-lg">
             <div className={cn(
               'h-2 w-2 rounded-full animate-pulse',
-              isLive ? 'bg-green-500' : 'bg-gray-400'
+              isLive ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-600'
             )} />
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-slate-300">
               {isLive ? 'Live' : 'Offline'}
             </span>
           </div>
@@ -143,8 +143,8 @@ export default function FinancePage() {
       </div>
 
       {/* Live Update Indicator */}
-      <Card className="p-4 bg-linear-to-r from-blue-50 to-blue-100 border border-blue-200">
-        <p className="text-sm text-blue-900">
+      <Card className="p-4 bg-blue-500/10 border border-blue-500/20">
+        <p className="text-sm text-blue-400">
           <strong>Last Update:</strong> {lastUpdate.toLocaleTimeString('en-US')} • 
           <strong className="ml-2">Live Transactions:</strong> {liveTransactions.length}
         </p>
@@ -200,20 +200,20 @@ export default function FinancePage() {
 
       {/* Chart */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Revenue vs Expenses</h2>
+        <h2 className="text-lg font-semibold text-white mb-4">Revenue vs Expenses</h2>
         <div className="space-y-4">
           {monthlyData.map((item) => (
             <div key={item.month} className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium text-gray-700">{item.month}</span>
+                <span className="font-medium text-slate-300">{item.month}</span>
                 <div className="flex gap-4">
-                  <span className="text-green-600 font-semibold">{formatCurrency(item.revenue)}</span>
-                  <span className="text-red-600 font-semibold">{formatCurrency(item.expenses)}</span>
+                  <span className="text-emerald-400 font-semibold">{formatCurrency(item.revenue)}</span>
+                  <span className="text-red-400 font-semibold">{formatCurrency(item.expenses)}</span>
                 </div>
               </div>
-              <div className="flex gap-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="flex gap-2 h-2 bg-slate-800 rounded-full overflow-hidden">
                 <div
-                  className="bg-green-500 rounded-full"
+                  className="bg-green-900/200 rounded-full"
                   style={{ width: `${(item.revenue / maxRevenue) * 100}%` }}
                 />
               </div>
@@ -226,43 +226,43 @@ export default function FinancePage() {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Live Transaction Stream</h2>
-            <p className="text-sm text-gray-500">Real-time payments and expenses</p>
+            <h2 className="text-lg font-semibold text-white">Live Transaction Stream</h2>
+            <p className="text-sm text-slate-400">Real-time payments and expenses</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-medium text-gray-600">Streaming</span>
+            <div className="h-2 w-2 rounded-full bg-green-900/200 animate-pulse" />
+            <span className="text-xs font-medium text-slate-400">Streaming</span>
           </div>
         </div>
         <div className="space-y-3 max-h-96 overflow-y-auto">
           {liveTransactions.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">No transactions yet</p>
+            <p className="text-center text-slate-400 py-8">No transactions yet</p>
           ) : (
             liveTransactions.map((txn) => (
               <div
                 key={txn.id}
-                className="p-3 bg-linear-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 hover:border-gray-300 transition-all flex items-center justify-between"
+                className="p-3 bg-linear-to-r from-gray-50 to-gray-100 rounded-lg border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-between"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <div className={cn(
                     'h-10 w-10 rounded-full flex items-center justify-center',
                     txn.type === 'payment' 
-                      ? 'bg-green-100' 
-                      : 'bg-red-100'
+                      ? 'bg-emerald-900/20' 
+                      : 'bg-red-900/20'
                   )}>
                     {txn.type === 'payment' ? (
-                      <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3v-6" />
                       </svg>
                     ) : (
-                      <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 5l3-3m0 0l3 3m-3-3v6" />
                       </svg>
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">{txn.description}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm font-medium text-white">{txn.description}</p>
+                    <p className="text-xs text-slate-400">
                       {txn.timestamp.toLocaleTimeString('en-US')}
                     </p>
                   </div>
@@ -271,8 +271,8 @@ export default function FinancePage() {
                   <p className={cn(
                     'text-sm font-semibold',
                     txn.type === 'payment' 
-                      ? 'text-green-600' 
-                      : 'text-red-600'
+                      ? 'text-emerald-400' 
+                      : 'text-red-400'
                   )}>
                     {txn.type === 'payment' ? '+' : '-'}{formatCurrency(txn.amount)}
                   </p>
@@ -289,23 +289,23 @@ export default function FinancePage() {
       {/* Invoices Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="p-6">
-          <h3 className="text-sm font-medium text-gray-700 mb-2">Pending Quotations</h3>
-          <p className="text-2xl font-bold text-gray-900">{stats.pendingQuotes.length}</p>
-          <p className="text-xs text-gray-500 mt-2">
+          <h3 className="text-sm font-medium text-slate-300 mb-2">Pending Quotations</h3>
+          <p className="text-2xl font-bold text-white">{stats.pendingQuotes.length}</p>
+          <p className="text-xs text-slate-400 mt-2">
             Value: {formatCurrency(stats.pendingQuotes.reduce((sum, q) => sum + (q.total || 0), 0))}
           </p>
         </Card>
         <Card className="p-6">
-          <h3 className="text-sm font-medium text-gray-700 mb-2">Overdue Invoices</h3>
-          <p className="text-2xl font-bold text-red-600">{stats.overdueInvoices.length}</p>
-          <p className="text-xs text-gray-500 mt-2">
+          <h3 className="text-sm font-medium text-slate-300 mb-2">Overdue Invoices</h3>
+          <p className="text-2xl font-bold text-red-400">{stats.overdueInvoices.length}</p>
+          <p className="text-xs text-slate-400 mt-2">
             Amount: {formatCurrency(stats.overdueInvoices.reduce((sum, i) => sum + (i.total || i.totalAmount || 0), 0))}
           </p>
         </Card>
         <Card className="p-6">
-          <h3 className="text-sm font-medium text-gray-700 mb-2">Pending Expenses</h3>
+          <h3 className="text-sm font-medium text-slate-300 mb-2">Pending Expenses</h3>
           <p className="text-2xl font-bold text-orange-600">{stats.pendingExpenses.filter(e => e.status === 'pending').length}</p>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-slate-400 mt-2">
             Awaiting approval
           </p>
         </Card>

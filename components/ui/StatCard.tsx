@@ -23,19 +23,20 @@ export function StatCard({
   trend,
   subtitle,
   icon,
-  iconColor = 'bg-blue-100 text-blue-600',
+  iconColor = 'bg-blue-500/10 text-blue-400',
   description,
 }: StatCardProps) {
   return (
-    <Card variant="bordered" className="p-6">
-      <div className="flex items-start justify-between">
+    <Card variant="bordered" className="p-6 relative overflow-hidden group">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl -mr-16 -mt-16 rounded-full group-hover:bg-blue-500/10 transition-all duration-500" />
+      <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-500">{title}</p>
-          <p className="mt-2 text-3xl font-bold text-gray-900">{value}</p>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{title}</p>
+          <p className="mt-2 text-3xl font-black text-white italic tracking-tighter">{value}</p>
           {change && (
             <div className="mt-2 flex items-center gap-1">
               {change.type === 'increase' ? (
-                <svg className="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
                 </svg>
               ) : (
@@ -45,21 +46,21 @@ export function StatCard({
               )}
               <span
                 className={cn(
-                  'text-sm font-medium',
-                  change.type === 'increase' ? 'text-green-600' : 'text-red-600'
+                  'text-sm font-bold',
+                  change.type === 'increase' ? 'text-emerald-400' : 'text-red-400'
                 )}
               >
                 {change.value}%
               </span>
-              <span className="text-sm text-gray-500">vs last month</span>
+              <span className="text-xs text-slate-600 font-medium uppercase ml-1">vs last month</span>
             </div>
           )}
           {description && (
-            <p className="mt-1 text-sm text-gray-500">{description}</p>
+            <p className="mt-2 text-xs text-slate-500 font-medium italic">{description}</p>
           )}
         </div>
         {icon && (
-          <div className={cn('p-3 rounded-lg', iconColor)}>
+          <div className={cn('p-3 rounded-xl border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-300', iconColor)}>
             {icon}
           </div>
         )}

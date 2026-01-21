@@ -16,14 +16,14 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants = {
-    default: 'bg-gray-100 text-gray-800',
-    secondary: 'bg-gray-200 text-gray-700',
-    success: 'bg-green-100 text-green-800',
-    warning: 'bg-yellow-100 text-yellow-800',
-    danger: 'bg-red-100 text-red-800',
-    info: 'bg-blue-100 text-blue-800',
-    outline: 'bg-transparent border border-current',
-    ghost: 'bg-transparent',
+    default: 'bg-slate-800 text-slate-300 border border-slate-700',
+    secondary: 'bg-slate-900/50 text-slate-400 border border-slate-800',
+    success: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]',
+    warning: 'bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-[0_0_10px_rgba(245,158,11,0.1)]',
+    danger: 'bg-red-500/10 text-red-400 border border-red-500/20 shadow-[0_0_10px_rgba(239,68,68,0.1)]',
+    info: 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.1)]',
+    outline: 'bg-transparent border border-slate-700 text-slate-400',
+    ghost: 'bg-transparent text-slate-500',
   };
   
   const sizes = {

@@ -160,8 +160,8 @@ export default function ExpensesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Expenses</h1>
-          <p className="text-gray-500">Track and manage business expenses</p>
+          <h1 className="text-2xl font-bold text-white">Expenses</h1>
+          <p className="text-slate-400">Track and manage business expenses</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -182,26 +182,26 @@ export default function ExpensesPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Expenses</p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-sm text-slate-400">Total Expenses</p>
+          <p className="text-2xl font-bold text-white">
             {formatCurrency(expenses.reduce((sum, e) => sum + e.amount, 0))}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Pending Approval</p>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-sm text-slate-400">Pending Approval</p>
+          <p className="text-2xl font-bold text-amber-400">
             {expenses.filter(e => e.status === 'pending').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Approved This Month</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Approved This Month</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {formatCurrency(expenses.filter(e => e.status === 'approved').reduce((sum, e) => sum + e.amount, 0))}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Reimbursed</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-sm text-slate-400">Reimbursed</p>
+          <p className="text-2xl font-bold text-blue-400">
             {formatCurrency(expenses.filter(e => e.status === 'reimbursed').reduce((sum, e) => sum + e.amount, 0))}
           </p>
         </Card>
@@ -226,8 +226,8 @@ export default function ExpensesPage() {
                   className={cn(
                     'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
                     statusFilter === status
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-blue-900/20 text-blue-400'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                   )}
                 >
                   {status === 'all' ? 'All' : status}
@@ -243,8 +243,8 @@ export default function ExpensesPage() {
                 className={cn(
                   'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors capitalize',
                   categoryFilter === category
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-purple-900/20 text-purple-700'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                 )}
               >
                 {category === 'all' ? 'All Categories' : `${categoryIcons[category] || ''} ${category}`}
@@ -252,12 +252,12 @@ export default function ExpensesPage() {
             ))}
           </div>
           {selectedExpenses.length > 0 && (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-2 p-3 bg-blue-900/20 rounded-lg">
               <span className="text-sm font-medium text-blue-900">
                 {selectedExpenses.length} selected
               </span>
               <div className="flex gap-2 ml-auto">
-                <Button size="sm" variant="outline" onClick={() => setShowDeleteConfirm(true)} className="text-red-600">
+                <Button size="sm" variant="outline" onClick={() => setShowDeleteConfirm(true)} className="text-red-400">
                   Delete
                 </Button>
               </div>
@@ -274,7 +274,7 @@ export default function ExpensesPage() {
               <TableHead className="w-12">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300"
+                  className="rounded border-slate-700"
                   checked={selectedExpenses.length === filteredExpenses.length && filteredExpenses.length > 0}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -302,7 +302,7 @@ export default function ExpensesPage() {
                   <TableCell>
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300"
+                      className="rounded border-slate-700"
                       checked={selectedExpenses.includes(expense.id)}
                       onChange={() => toggleSelectExpense(expense.id)}
                     />
@@ -310,17 +310,17 @@ export default function ExpensesPage() {
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{categoryIcons[expense.category]}</span>
-                      <span className="capitalize text-gray-900">{expense.category}</span>
+                      <span className="capitalize text-white">{expense.category}</span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <p className="font-medium text-gray-900">{expense.description}</p>
+                    <p className="font-medium text-white">{expense.description}</p>
                   </TableCell>
                   <TableCell>
-                    <p className="font-medium text-gray-900">{formatCurrency(expense.amount)}</p>
+                    <p className="font-medium text-white">{formatCurrency(expense.amount)}</p>
                   </TableCell>
                   <TableCell>
-                    <p className="text-gray-500">
+                    <p className="text-slate-400">
                       {expense.expenseDate ? new Date(expense.expenseDate).toLocaleDateString() : '-'}
                     </p>
                   </TableCell>
@@ -331,7 +331,7 @@ export default function ExpensesPage() {
                         fallback={submitter?.fullName?.split(' ').map(n => n[0]).join('') || '?'}
                         size="sm"
                       />
-                      <span className="text-sm text-gray-900">{submitter?.fullName || '-'}</span>
+                      <span className="text-sm text-white">{submitter?.fullName || '-'}</span>
                     </div>
                   </TableCell>
                   <TableCell>
@@ -343,7 +343,7 @@ export default function ExpensesPage() {
                         <>
                           <button
                             onClick={() => handleApprove(expense.id)}
-                            className="p-1 text-gray-400 hover:text-green-600"
+                            className="p-1 text-slate-500 hover:text-emerald-400"
                             title="Approve"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -352,7 +352,7 @@ export default function ExpensesPage() {
                           </button>
                           <button
                             onClick={() => handleReject(expense.id)}
-                            className="p-1 text-gray-400 hover:text-red-600"
+                            className="p-1 text-slate-500 hover:text-red-400"
                             title="Reject"
                           >
                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -364,7 +364,7 @@ export default function ExpensesPage() {
                       {expense.status === 'approved' && (
                         <button
                           onClick={() => handleMarkReimbursed(expense.id)}
-                          className="p-1 text-gray-400 hover:text-blue-600"
+                          className="p-1 text-slate-500 hover:text-blue-400"
                           title="Mark Reimbursed"
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -374,7 +374,7 @@ export default function ExpensesPage() {
                       )}
                       <button
                         onClick={() => handleViewReceipt(expense)}
-                        className="p-1 text-gray-400 hover:text-purple-600"
+                        className="p-1 text-slate-500 hover:text-purple-400"
                         title="View Receipt"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -384,7 +384,7 @@ export default function ExpensesPage() {
                       </button>
                       <button
                         onClick={() => handleOpenModal(expense)}
-                        className="p-1 text-gray-400 hover:text-blue-600"
+                        className="p-1 text-slate-500 hover:text-blue-400"
                         title="Edit"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -393,7 +393,7 @@ export default function ExpensesPage() {
                       </button>
                       <button
                         onClick={() => handleDelete(expense.id)}
-                        className="p-1 text-gray-400 hover:text-red-600"
+                        className="p-1 text-slate-500 hover:text-red-400"
                         title="Delete"
                       >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -408,8 +408,8 @@ export default function ExpensesPage() {
           </TableBody>
         </Table>
         {filteredExpenses.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
-            <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-8 text-center text-slate-400">
+            <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p>No expenses found matching your criteria</p>
@@ -420,13 +420,13 @@ export default function ExpensesPage() {
       {/* Expense Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentExpense ? 'Edit Expense' : 'New Expense'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -436,14 +436,14 @@ export default function ExpensesPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Category *
                     </label>
                     <select
                       required
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="software">💻 Software</option>
                       <option value="travel">✈️ Travel</option>
@@ -454,7 +454,7 @@ export default function ExpensesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Amount *
                     </label>
                     <Input
@@ -470,7 +470,7 @@ export default function ExpensesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Description *
                   </label>
                   <Input
@@ -483,7 +483,7 @@ export default function ExpensesPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Date *
                     </label>
                     <Input
@@ -494,14 +494,14 @@ export default function ExpensesPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Submitted By *
                     </label>
                     <select
                       required
                       value={formData.submittedBy}
                       onChange={(e) => setFormData({ ...formData, submittedBy: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select User</option>
                       {mockUsers.map((user) => (
@@ -514,12 +514,12 @@ export default function ExpensesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Receipt Upload
                   </label>
                   <button
                     type="button"
-                    className="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-500 hover:text-blue-500 transition-colors"
+                    className="w-full px-4 py-2 border-2 border-dashed border-slate-700 rounded-lg text-slate-400 hover:border-blue-500 hover:text-blue-500 transition-colors"
                     onClick={() => alert('Receipt upload functionality (placeholder)')}
                   >
                     <svg className="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -530,27 +530,27 @@ export default function ExpensesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Notes
                   </label>
                   <textarea
                     rows={3}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Additional notes..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Status *
                   </label>
                   <select
                     required
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="pending">Pending</option>
                     <option value="approved">Approved</option>
@@ -576,16 +576,16 @@ export default function ExpensesPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Expense{selectedExpenses.length > 1 ? 's' : ''}</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Expense{selectedExpenses.length > 1 ? 's' : ''}</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete {selectedExpenses.length} expense{selectedExpenses.length > 1 ? 's' : ''}? This action cannot be undone.
                 </p>
               </div>

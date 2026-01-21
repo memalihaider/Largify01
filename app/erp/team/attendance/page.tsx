@@ -18,11 +18,11 @@ interface AttendanceRecord {
 }
 
 const statusColors: Record<AttendanceStatus, string> = {
-  present: 'bg-green-100 text-green-700',
-  absent: 'bg-red-100 text-red-700',
-  late: 'bg-yellow-100 text-yellow-700',
-  leave: 'bg-blue-100 text-blue-700',
-  remote: 'bg-purple-100 text-purple-700',
+  present: 'bg-emerald-900/20 text-green-700',
+  absent: 'bg-red-900/20 text-red-700',
+  late: 'bg-amber-900/20 text-yellow-700',
+  leave: 'bg-blue-900/20 text-blue-400',
+  remote: 'bg-purple-900/20 text-purple-700',
 };
 
 const statusIcons: Record<AttendanceStatus, string> = {
@@ -159,8 +159,8 @@ export default function AttendancePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Team Attendance</h1>
-          <p className="text-gray-500">Track and manage employee attendance</p>
+          <h1 className="text-2xl font-bold text-white">Team Attendance</h1>
+          <p className="text-slate-400">Track and manage employee attendance</p>
         </div>
         <Button onClick={() => setShowBulkMarkModal(true)} className="flex gap-2">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -180,7 +180,7 @@ export default function AttendancePage() {
               'px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors',
               view === v
                 ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-950/50'
             )}
           >
             {v.charAt(0).toUpperCase() + v.slice(1)}
@@ -191,28 +191,28 @@ export default function AttendancePage() {
       {/* Statistics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Present</p>
-          <p className="text-2xl font-bold text-green-600">{stats.present}</p>
+          <p className="text-xs text-slate-400">Present</p>
+          <p className="text-2xl font-bold text-emerald-400">{stats.present}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Remote</p>
-          <p className="text-2xl font-bold text-purple-600">{stats.remote}</p>
+          <p className="text-xs text-slate-400">Remote</p>
+          <p className="text-2xl font-bold text-purple-400">{stats.remote}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Late</p>
-          <p className="text-2xl font-bold text-yellow-600">{stats.late}</p>
+          <p className="text-xs text-slate-400">Late</p>
+          <p className="text-2xl font-bold text-amber-400">{stats.late}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Leave</p>
-          <p className="text-2xl font-bold text-blue-600">{stats.leave}</p>
+          <p className="text-xs text-slate-400">Leave</p>
+          <p className="text-2xl font-bold text-blue-400">{stats.leave}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Absent</p>
-          <p className="text-2xl font-bold text-red-600">{stats.absent}</p>
+          <p className="text-xs text-slate-400">Absent</p>
+          <p className="text-2xl font-bold text-red-400">{stats.absent}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-gray-500">Avg Hours</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.avgHours.toFixed(1)}h</p>
+          <p className="text-xs text-slate-400">Avg Hours</p>
+          <p className="text-2xl font-bold text-white">{stats.avgHours.toFixed(1)}h</p>
         </Card>
       </div>
 
@@ -226,11 +226,11 @@ export default function AttendancePage() {
           />
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Department</label>
               <select
                 value={departmentFilter}
                 onChange={(e) => setDepartmentFilter(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {departments.map((dept) => (
                   <option key={dept} value={dept}>
@@ -240,11 +240,11 @@ export default function AttendancePage() {
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Status</label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">All Status</option>
                 <option value="present">Present</option>
@@ -261,38 +261,38 @@ export default function AttendancePage() {
       {/* Attendance Table */}
       <Card>
         <div className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <h3 className="text-lg font-semibold text-white mb-4">
             Attendance - {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
           </h3>
 
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-950/50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Employee</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Department</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Check In</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Check Out</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hours</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Employee</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Department</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Check In</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Check Out</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Hours</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-slate-900 divide-y divide-gray-200">
                 {filteredAttendance.map((record) => {
                   const user = mockUsers.find(u => u.id === record.userId);
                   if (!user) return null;
 
                   return (
-                    <tr key={record.userId} className="hover:bg-gray-50">
+                    <tr key={record.userId} className="hover:bg-slate-950/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
-                          <p className="font-medium text-gray-900">{user.fullName}</p>
-                          <p className="text-xs text-gray-500">{user.email}</p>
+                          <p className="font-medium text-white">{user.fullName}</p>
+                          <p className="text-xs text-slate-400">{user.email}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-sm text-gray-600">{user.department}</span>
+                        <span className="text-sm text-slate-400">{user.department}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="relative">
@@ -306,14 +306,14 @@ export default function AttendancePage() {
                             {statusIcons[record.status]} {record.status}
                           </button>
                           {editingId === record.userId && (
-                            <div className="absolute top-full mt-2 left-0 bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-2 space-y-1">
+                            <div className="absolute top-full mt-2 left-0 bg-slate-900 border border-slate-800 rounded-lg shadow-lg z-10 p-2 space-y-1">
                               {(['present', 'remote', 'late', 'leave', 'absent'] as AttendanceStatus[]).map((status) => (
                                 <button
                                   key={status}
                                   onClick={() => handleStatusChange(record.userId, status)}
                                   className={cn(
                                     'block w-full text-left px-3 py-2 rounded text-sm',
-                                    record.status === status ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'
+                                    record.status === status ? 'bg-blue-900/20 text-blue-400' : 'hover:bg-slate-800'
                                   )}
                                 >
                                   {status}
@@ -323,9 +323,9 @@ export default function AttendancePage() {
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{record.checkIn || '-'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{record.checkOut || '-'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{record.checkIn || '-'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{record.checkOut || '-'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                         {record.hours ? `${record.hours.toFixed(1)}h` : '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -334,7 +334,7 @@ export default function AttendancePage() {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleCheckIn(record.userId)}
-                            className="text-green-600 hover:bg-green-50"
+                            className="text-emerald-400 hover:bg-green-900/20"
                           >
                             In
                           </Button>
@@ -342,7 +342,7 @@ export default function AttendancePage() {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleCheckOut(record.userId)}
-                            className="text-red-600 hover:bg-red-50"
+                            className="text-red-400 hover:bg-red-900/20"
                           >
                             Out
                           </Button>
@@ -362,16 +362,16 @@ export default function AttendancePage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <Card className="max-w-md w-full">
             <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Mark Department Present</h2>
+              <h2 className="text-xl font-bold text-white mb-4">Mark Department Present</h2>
               <div className="space-y-2 mb-6">
                 {departments.filter(d => d !== 'all').map((dept) => (
                   <button
                     key={dept}
                     onClick={() => handleMarkDepartmentPresent(dept)}
-                    className="w-full px-4 py-2 text-left border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                    className="w-full px-4 py-2 text-left border border-slate-800 rounded-lg hover:bg-blue-900/20 hover:border-blue-300 transition-colors"
                   >
-                    <p className="font-medium text-gray-900">{dept}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-white">{dept}</p>
+                    <p className="text-xs text-slate-400">
                       {mockUsers.filter(u => u.department === dept).length} members
                     </p>
                   </button>

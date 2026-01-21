@@ -1,266 +1,173 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import { PublicLayout } from '@/components/public';
-import { Button, Card, CardContent, Badge } from '@/components/ui';
+import { Button } from '@/components/ui';
 
 const caseStudies = [
   {
-    id: 'techflow-erp',
-    company: 'TechFlow Industries',
-    industry: 'Manufacturing',
-    title: 'Custom ERP Implementation',
-    excerpt: 'How we helped TechFlow streamline their manufacturing operations with a tailored ERP system.',
-    challenge: 'TechFlow was managing inventory, production, and sales across multiple disconnected spreadsheets and legacy systems. Data silos were causing errors, delays, and lost revenue.',
-    solution: 'We designed and built a comprehensive ERP system that unified inventory management, production scheduling, sales orders, and financial reporting into one integrated platform.',
+    id: 'TECHFLOW_01',
+    company: 'TECHFLOW_INDUSTRIES',
+    industry: 'MANUFACTURING',
+    title: 'CUSTOM_ERP_INTEGRATION',
+    challenge: 'UNIFIED_DATA_SILOS.Spreadsheet-based_inventory_critical_failure.',
+    solution: 'DEPLOYED_CENTRAL_CORE_ERP.Real-time_supply_chain_visibility.',
     results: [
-      { metric: '40%', label: 'Reduction in order processing time' },
-      { metric: '99.5%', label: 'Inventory accuracy (up from 85%)' },
-      { metric: '25%', label: 'Increase in production efficiency' },
-      { metric: '6 months', label: 'Full ROI achieved' },
+      { metric: '40%', label: 'PROCESSING_VELOCITY' },
+      { metric: '99.5%', label: 'INVENTORY_ACCURACY' },
+      { metric: '25%', label: 'EFFICIENCY_GAIN' },
     ],
-    testimonial: {
-      quote: 'Largify transformed our operations. The new system actually fits how we work, not the other way around.',
-      author: 'Robert Martinez',
-      role: 'CTO, TechFlow Industries',
-    },
-    tags: ['ERP', 'Manufacturing', 'Inventory'],
-    image: '/case-studies/techflow.jpg',
-    featured: true,
+    tags: ['ERP', 'MANUFACTURING', 'CORE'],
   },
   {
-    id: 'greenleaf-health',
-    company: 'GreenLeaf Healthcare',
-    industry: 'Healthcare',
-    title: 'Patient Management System',
-    excerpt: 'Building a HIPAA-compliant patient management system that improved care coordination.',
-    challenge: 'GreenLeaf needed a modern patient management system that could handle scheduling, records, billing, and comply with HIPAA regulations—without the complexity of enterprise solutions.',
-    solution: 'We built a custom healthcare platform with secure patient records, integrated scheduling, automated billing, and comprehensive audit logging for compliance.',
+    id: 'GREENLEAF_02',
+    company: 'GREENLEAF_HEALTH',
+    industry: 'HEALTHCARE',
+    title: 'SECURE_PATIENT_NEXUS',
+    challenge: 'HIPAA_COMPLIANCE_HARDENING.Legacy_data_exposure_risks.',
+    solution: 'ENCRYPTED_ADAPTIVE_HUB.Zero-trust_patient_record_access.',
     results: [
-      { metric: '50%', label: 'Faster patient check-in' },
-      { metric: '100%', label: 'HIPAA compliance' },
-      { metric: '30%', label: 'Reduction in no-shows' },
-      { metric: '4.8/5', label: 'Patient satisfaction score' },
+      { metric: '50%', label: 'CHECK_IN_SPEED' },
+      { metric: '100%', label: 'COMPLIANCE_LOCK' },
+      { metric: '30%', label: 'CHURN_REDUCTION' },
     ],
-    testimonial: {
-      quote: 'Their security-first approach gave us confidence that our patient data is protected. Excellent team to work with.',
-      author: 'Emily Johnson',
-      role: 'Operations Director, GreenLeaf Healthcare',
-    },
-    tags: ['Healthcare', 'HIPAA', 'Custom Software'],
-    featured: true,
+    tags: ['HEALTHCARE', 'SECURE', 'Pii'],
   },
   {
-    id: 'summit-logistics',
-    company: 'Summit Logistics',
-    industry: 'Logistics',
-    title: 'Fleet Management System',
-    excerpt: 'Real-time fleet tracking and route optimization for a growing logistics company.',
-    challenge: 'Summit was struggling to efficiently manage their growing fleet of vehicles. Manual dispatching, lack of real-time visibility, and inefficient routes were cutting into profits.',
-    solution: 'We developed a comprehensive fleet management system with GPS tracking, automated route optimization, driver management, and real-time analytics dashboards.',
+    id: 'SUMMIT_03',
+    company: 'SUMMIT_LOGISTICS',
+    industry: 'LOGISTICS',
+    title: 'FLEET_OPTIM_PROTOCOL',
+    challenge: 'ROUTE_INEFFICIENCY.High_latency_dispatch_logic.',
+    solution: 'LOW_LATENCY_FLEET_CORE.Autonomous_route_optimization.',
     results: [
-      { metric: '18%', label: 'Fuel cost reduction' },
-      { metric: '22%', label: 'More deliveries per day' },
-      { metric: '95%', label: 'On-time delivery rate' },
-      { metric: 'Real-time', label: 'Fleet visibility' },
+      { metric: '18%', label: 'FUEL_REDUCTION' },
+      { metric: '22%', label: 'UPLINK_DENSITY' },
+      { metric: '95%', label: 'ON_TIME_REL' },
     ],
-    tags: ['Logistics', 'Fleet Management', 'IoT'],
-    featured: false,
+    tags: ['LOGISTICS', 'AUTO', 'FLEET'],
   },
 ];
 
 export default function CaseStudiesPage() {
-  const featuredStudies = caseStudies.filter(cs => cs.featured);
-  const otherStudies = caseStudies.filter(cs => !cs.featured);
-
   return (
     <PublicLayout>
-      {/* Hero Section - Premium */}
-      <section className="relative bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 text-white py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]">
-          <svg className="w-full h-full" viewBox="0 0 1200 1200">
-            <defs>
-              <pattern id="cases-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="1200" height="1200" fill="url(#cases-grid)" />
+      <section className="min-h-screen bg-slate-950 text-white font-mono pt-32 pb-20 relative overflow-hidden">
+        {/* Tactical Grid Background */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <rect width="100%" height="100%" fill="url(#tactical-grid)" />
           </svg>
         </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl">
-            <div className="inline-block mb-6 px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full">
-              <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Impact Analysis</span>
+          
+          {/* Header Readout */}
+          <div className="max-w-4xl mb-32 border-l-2 border-blue-600 pl-8">
+            <div className="inline-block mb-6 px-3 py-1 bg-blue-500/10 border border-blue-500/20">
+              <span className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.3em] italic">// OPERATIONAL_VALIDATION</span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-black mb-10 leading-tight">
-              Systems at<br />
-              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-cyan-400 font-black">Global Scale</span>
+            <h1 className="text-5xl md:text-8xl font-black italic uppercase tracking-tighter mb-10 leading-[0.9]">
+               IMPACT <br />
+               <span className="text-blue-600">ARCHIVE.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl">
-              Evidence-based engineering transformations. Explore how we architect solutions for complex industrial and digital challenges.
+            <p className="text-lg text-slate-400 italic uppercase leading-relaxed max-w-2xl tracking-tight">
+               Verified deployment logs and performance metrics across diverse industrial and digital sectors.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Featured Case Studies - Premium */}
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Case Study Grid */}
           <div className="space-y-40">
-            {featuredStudies.map((study, index) => (
-              <div key={study.id} className="grid lg:grid-cols-2 gap-20 items-start">
-                <div className={`${index % 2 === 1 ? 'lg:order-2' : ''} space-y-10`}>
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-3 mb-6">
-                      {study.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-tighter border border-blue-100">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm font-bold text-blue-500 uppercase tracking-widest">{study.company} // {study.industry}</p>
-                    <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">{study.title}</h2>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 gap-10">
-                    <div>
-                      <h4 className="flex items-center gap-2 text-xs font-black text-gray-400 uppercase tracking-widest mb-4">
-                        <span className="h-px w-8 bg-gray-200"></span>
-                        Executive Challenge
-                      </h4>
-                      <p className="text-xl text-gray-600 font-light leading-relaxed">{study.challenge}</p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="flex items-center gap-2 text-xs font-black text-gray-400 uppercase tracking-widest mb-4">
-                        <span className="h-px w-8 bg-gray-200"></span>
-                        The Framework
-                      </h4>
-                      <p className="text-xl text-gray-600 font-light leading-relaxed">{study.solution}</p>
-                    </div>
-                  </div>
-
-                  {study.testimonial && (
-                    <div className="relative p-10 bg-slate-50 rounded-3xl border-l-4 border-blue-600 italic group">
-                      <div className="absolute top-4 right-8 text-6xl text-blue-200 opacity-50 font-serif">"</div>
-                      <p className="text-lg text-slate-700 mb-6 font-medium relative z-10">&quot;{study.testimonial.quote}&quot;</p>
-                      <div className="flex items-center gap-3">
-                        <div className="h-0.5 w-6 bg-blue-400" />
-                        <p className="text-sm text-slate-500 font-bold tracking-tight">
-                          {study.testimonial.author}, <span className="text-blue-600">{study.testimonial.role}</span>
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+            {caseStudies.map((study, idx) => (
+              <div key={study.id} className="grid lg:grid-cols-12 gap-16 items-start py-12 border-t border-slate-900">
                 
-                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="sticky top-24">
-                    <Card variant="bordered" className="p-12 bg-slate-950 border-slate-900 rounded-[2.5rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] overflow-hidden">
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                      <h4 className="text-xs font-black text-blue-400 uppercase tracking-[0.3em] mb-12 flex items-center gap-4">
-                        Success Metrics
-                        <div className="flex-1 h-px bg-slate-800"></div>
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-8">
-                        {study.results.map((result) => (
-                          <div key={result.label} className="group">
-                            <p className="text-5xl font-black text-white mb-2 tracking-tighter group-hover:text-blue-400 transition-colors duration-300">
-                              {result.metric}
-                            </p>
-                            <p className="text-sm text-slate-400 font-medium uppercase tracking-widest">
-                              {result.label}
-                            </p>
-                            <div className="mt-4 h-1 w-8 bg-blue-600/30 group-hover:w-full transition-all duration-500 rounded-full" />
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="mt-16 p-8 bg-blue-500/5 rounded-2xl border border-blue-500/10">
-                        <p className="text-sm text-blue-300 font-light leading-relaxed">
-                          "This project utilized our <span className="text-blue-400 font-bold">Secure-Core™</span> infrastructure, ensuring SOC 2 compliance from day one."
-                        </p>
-                      </div>
-                    </Card>
-                  </div>
+                {/* ID & Meta */}
+                <div className="lg:col-span-1">
+                   <div className="text-4xl font-black text-slate-800 italic">[{idx+1}]</div>
+                   <div className="h-20 w-px bg-slate-800 my-8 mx-auto hidden lg:block" />
                 </div>
+
+                {/* Content */}
+                <div className="lg:col-span-7 space-y-12">
+                   <div>
+                      <div className="flex gap-4 mb-6">
+                         {study.tags.map(tag => (
+                            <span key={tag} className="text-[9px] text-blue-500 font-bold border border-blue-500/30 px-2 py-0.5 italic">#{tag}</span>
+                         ))}
+                      </div>
+                      <h2 className="text-3xl md:text-5xl font-black text-white italic uppercase tracking-tighter mb-4">{study.title}</h2>
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{study.company} // {study.industry}</p>
+                   </div>
+
+                   <div className="grid md:grid-cols-2 gap-12">
+                      <div>
+                         <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-4 tracking-[0.2em] italic">PROBLEM_SET</h4>
+                         <p className="text-sm text-slate-400 uppercase italic leading-relaxed tracking-tight">
+                            {study.challenge}
+                         </p>
+                      </div>
+                      <div>
+                         <h4 className="text-[10px] font-bold text-emerald-500 uppercase mb-4 tracking-[0.2em] italic">SYSTEM_SOLUTION</h4>
+                         <p className="text-sm text-slate-400 uppercase italic leading-relaxed tracking-tight">
+                            {study.solution}
+                         </p>
+                      </div>
+                   </div>
+                </div>
+
+                {/* Metrics Card */}
+                <div className="lg:col-span-4 bg-slate-900 border border-slate-800 p-8 relative">
+                   <div className="absolute top-0 right-0 p-2 bg-blue-600/20 text-[8px] font-bold text-blue-400 italic">VAL_LOG: {study.id}</div>
+                   <h4 className="text-[10px] font-black italic uppercase tracking-[0.2em] mb-10 text-white">OPERATIONAL_METRICS:</h4>
+                   <div className="space-y-8">
+                      {study.results.map(res => (
+                         <div key={res.label}>
+                            <div className="flex justify-between items-end mb-1">
+                               <p className="text-3xl font-black text-white italic tracking-tighter">{res.metric}</p>
+                               <p className="text-[9px] font-bold text-blue-500 mb-1">{res.label}</p>
+                            </div>
+                            <div className="h-1 bg-slate-800 w-full overflow-hidden">
+                               <div className="h-full bg-blue-600 w-3/4" />
+                            </div>
+                         </div>
+                      ))}
+                   </div>
+                   <div className="mt-8 pt-6 border-t border-slate-800">
+                      <p className="text-[8px] text-slate-600 uppercase italic tracking-widest">VERIFIED_ROI_SYNCED</p>
+                   </div>
+                </div>
+
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Other Case Studies - Premium */}
-      {otherStudies.length > 0 && (
-        <section className="py-32 bg-slate-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-              <div>
-                <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-6">Secondary Impact</h2>
-                <p className="text-xl text-gray-600 font-light">Further explorations in technical efficiency.</p>
-              </div>
-              <div className="h-px flex-1 bg-gray-200 mx-8 hidden md:block mb-6"></div>
+          {/* Tactical CTA */}
+          <section className="pt-40 text-center">
+            <div className="inline-flex items-center gap-3 bg-slate-900/50 border border-blue-500/30 rounded-xs px-4 py-1.5 mb-12 backdrop-blur-md">
+              <span className="h-2 w-2 bg-blue-500 rounded-full animate-ping" />
+              <span className="text-[10px] font-mono font-bold text-blue-400 italic uppercase tracking-[0.2em]">Ready_For_Deployment</span>
             </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {otherStudies.map((study) => (
-                <Card key={study.id} variant="bordered" className="group p-10 bg-white hover:border-blue-400 border-gray-200 transition-all duration-500 rounded-3xl shadow-sm hover:shadow-2xl hover:shadow-blue-500/5 flex flex-col">
-                  <div className="flex-1">
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {study.tags.slice(0, 2).map(tag => (
-                        <span key={tag} className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-black uppercase tracking-tighter">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">{study.company}</p>
-                    <h3 className="text-2xl font-black text-gray-900 mb-6 group-hover:text-blue-600 transition-colors leading-tight">
-                      {study.title}
-                    </h3>
-                    <p className="text-gray-600 text-base font-light mb-10 leading-relaxed italic">
-                      "{study.excerpt}"
-                    </p>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-8 pt-8 border-t border-gray-50">
-                    {study.results.slice(0, 2).map((result) => (
-                      <div key={result.label}>
-                        <p className="text-2xl font-black text-gray-900 mb-1">{result.metric}</p>
-                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{result.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              ))}
+            <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter mb-12 leading-[0.9]">
+               ARCHITECT YOUR <br />
+               <span className="text-blue-600 font-black"> SUCCESS_SEQUENCE.</span>
+            </h2>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <Link href="/book">
+                <Button className="h-16 px-12 bg-blue-600 hover:bg-blue-700 text-white font-black italic uppercase tracking-[0.2em] rounded-none shadow-[0_0_25px_rgba(37,99,235,0.4)]">
+                  Start_Integration
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" className="h-16 px-12 border-slate-700 text-slate-400 hover:text-white hover:border-blue-500 rounded-none italic uppercase font-black text-xs tracking-widest">
+                  [Request_Detailed_Archive]
+                </Button>
+              </Link>
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section - Premium */}
-      <section className="py-32 bg-slate-950 text-white relative">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-950/50 to-transparent pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl md:text-7xl font-black mb-10 tracking-tight leading-tight">
-            Ready to Architect <br />
-            Your <span className="text-blue-400 italic">Success Story?</span>
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed font-serif italic">
-            "The best way to predict the future is to engineer it."
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link href="/book">
-              <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-500 px-14 py-8 text-lg font-bold rounded-full transition-all shadow-2xl shadow-blue-500/20">
-                Start Discovery Phase
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button variant="outline" size="lg" className="border-2 border-white/20 text-white hover:bg-white/10 px-14 py-8 text-lg font-bold rounded-full transition-all backdrop-blur-sm">
-                Request Benchmarks
-              </Button>
-            </Link>
-          </div>
+          </section>
         </div>
       </section>
     </PublicLayout>
   );
 }
-   
+

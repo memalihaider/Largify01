@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Largify Solutions | Secure Business Systems for SMEs",
+  title: "Largify Solutions | Tactical Development System",
   description: "Largify Solutions builds secure, custom business systems including ERP, custom software, and security solutions for small and medium enterprises.",
   keywords: ["ERP", "custom software", "business systems", "SME", "security", "enterprise software"],
 };

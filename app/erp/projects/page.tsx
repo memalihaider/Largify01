@@ -8,11 +8,11 @@ import type { Project, ProjectStatus, ProjectType, Priority } from '@/lib/types'
 import Link from 'next/link';
 
 const statusColors: Record<string, string> = {
-  planning: 'bg-gray-100 text-gray-700',
-  in_progress: 'bg-blue-100 text-blue-700',
-  on_hold: 'bg-yellow-100 text-yellow-700',
-  completed: 'bg-green-100 text-green-700',
-  cancelled: 'bg-red-100 text-red-700',
+  planning: 'bg-slate-800 text-slate-300',
+  in_progress: 'bg-blue-900/20 text-blue-400',
+  on_hold: 'bg-amber-900/20 text-yellow-700',
+  completed: 'bg-emerald-900/20 text-green-700',
+  cancelled: 'bg-red-900/20 text-red-700',
 };
 
 export default function ProjectsPage() {
@@ -224,8 +224,8 @@ export default function ProjectsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-500">Manage and track all your projects</p>
+          <h1 className="text-2xl font-bold text-white">Projects</h1>
+          <p className="text-slate-400">Manage and track all your projects</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -246,24 +246,24 @@ export default function ProjectsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Projects</p>
-          <p className="text-2xl font-bold text-gray-900">{projects.length}</p>
+          <p className="text-sm text-slate-400">Total Projects</p>
+          <p className="text-2xl font-bold text-white">{projects.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">In Progress</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-sm text-slate-400">In Progress</p>
+          <p className="text-2xl font-bold text-blue-400">
             {projects.filter(p => p.status === 'in_progress').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Budget</p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-sm text-slate-400">Total Budget</p>
+          <p className="text-2xl font-bold text-white">
             {formatCurrency(projects.reduce((sum, p) => sum + (p.budget || 0), 0))}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Completed</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Completed</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {projects.filter(p => p.status === 'completed').length}
           </p>
         </Card>
@@ -287,8 +287,8 @@ export default function ProjectsPage() {
                 className={cn(
                   'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors',
                   statusFilter === status
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-900/20 text-blue-400'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                 )}
               >
                 {status === 'all' ? 'All' : status.replace('_', ' ')}
@@ -310,10 +310,10 @@ export default function ProjectsPage() {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1">{project.name}</h3>
-                    <p className="text-sm text-gray-500 line-clamp-2">{project.description}</p>
+                    <h3 className="font-semibold text-white mb-1">{project.name}</h3>
+                    <p className="text-sm text-slate-400 line-clamp-2">{project.description}</p>
                   </div>
-                  <Badge className={statusColors[project.status] || 'bg-gray-100'}>
+                  <Badge className={statusColors[project.status] || 'bg-slate-800'}>
                     {project.status.replace('_', ' ')}
                   </Badge>
                 </div>
@@ -321,12 +321,12 @@ export default function ProjectsPage() {
                 {/* Progress Bar */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-gray-500">Progress</span>
-                    <span className="font-medium text-gray-900">{progress}%</span>
+                    <span className="text-slate-400">Progress</span>
+                    <span className="font-medium text-white">{progress}%</span>
                   </div>
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-blue-600 rounded-full transition-all"
+                      className="h-full bg-blue-900/200 rounded-full transition-all"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -336,10 +336,10 @@ export default function ProjectsPage() {
                 {project.budget && (
                   <div className="mb-4">
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-gray-500">Budget Utilization</span>
-                      <span className="font-medium text-gray-900">{budgetUtilization}%</span>
+                      <span className="text-slate-400">Budget Utilization</span>
+                      <span className="font-medium text-white">{budgetUtilization}%</span>
                     </div>
-                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all",
@@ -354,32 +354,32 @@ export default function ProjectsPage() {
                 {/* Project Details */}
                 <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                   <div>
-                    <p className="text-gray-500">Budget</p>
-                    <p className="font-medium text-gray-900">{project.budget ? formatCurrency(project.budget) : 'N/A'}</p>
+                    <p className="text-slate-400">Budget</p>
+                    <p className="font-medium text-white">{project.budget ? formatCurrency(project.budget) : 'N/A'}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Milestones</p>
-                    <p className="font-medium text-gray-900">{projectMilestones.length}</p>
+                    <p className="text-slate-400">Milestones</p>
+                    <p className="font-medium text-white">{projectMilestones.length}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Start Date</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-slate-400">Start Date</p>
+                    <p className="font-medium text-white">
                       {project.startDate ? new Date(project.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '-'}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">End Date</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-slate-400">End Date</p>
+                    <p className="font-medium text-white">
                       {project.endDate ? new Date(project.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '-'}
                     </p>
                   </div>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2 mb-4 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-2 mb-4 pt-4 border-t border-slate-800">
                   <Link href={`/erp/projects/${project.id}`} className="flex-1">
                     <button
-                      className="w-full px-3 py-1.5 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors"
+                      className="w-full px-3 py-1.5 text-sm font-medium text-purple-400 bg-purple-50 rounded-lg hover:bg-purple-900/20 transition-colors"
                       title="View Project Lifecycle"
                     >
                       Lifecycle
@@ -387,21 +387,21 @@ export default function ProjectsPage() {
                   </Link>
                   <button
                     onClick={() => handleOpenModal(project)}
-                    className="flex-1 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                    className="flex-1 px-3 py-1.5 text-sm font-medium text-blue-400 bg-blue-900/20 rounded-lg hover:bg-blue-900/20 transition-colors"
                     title="Edit"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleViewBudget(project)}
-                    className="flex-1 px-3 py-1.5 text-sm font-medium text-green-600 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+                    className="flex-1 px-3 py-1.5 text-sm font-medium text-emerald-400 bg-green-900/20 rounded-lg hover:bg-emerald-900/20 transition-colors"
                     title="View Budget"
                   >
                     Budget
                   </button>
                   <button
                     onClick={() => handleDelete(project.id)}
-                    className="flex-1 px-3 py-1.5 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
+                    className="flex-1 px-3 py-1.5 text-sm font-medium text-red-400 bg-red-900/20 rounded-lg hover:bg-red-900/20 transition-colors"
                     title="Delete"
                   >
                     Delete
@@ -409,7 +409,7 @@ export default function ProjectsPage() {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div className="flex items-center justify-between pt-4 border-t border-slate-800">
                   <AvatarGroup
                     max={3}
                     avatars={[
@@ -433,8 +433,8 @@ export default function ProjectsPage() {
       </div>
 
       {filteredProjects.length === 0 && (
-        <Card className="p-8 text-center text-gray-500">
-          <svg className="h-12 w-12 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <Card className="p-8 text-center text-slate-400">
+          <svg className="h-12 w-12 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
           <p>No projects found</p>
@@ -444,7 +444,7 @@ export default function ProjectsPage() {
       {/* Create/Edit Project Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
+          <div className="bg-slate-900 rounded-lg max-w-4xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
             {/* Modal Header */}
             <div className="sticky top-0 bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between border-b border-blue-800">
               <div>
@@ -465,10 +465,10 @@ export default function ProjectsPage() {
             <form onSubmit={handleSave} className="p-6 space-y-6">
               {/* Section 1: Basic Information */}
               <div className="border-l-4 border-blue-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">📌 Basic Information</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">📌 Basic Information</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Project Name *</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Project Name *</label>
                     <Input
                       required
                       value={formData.name}
@@ -478,37 +478,37 @@ export default function ProjectsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Project Code</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Project Code</label>
                     <Input
                       value={formData.projectCode}
                       onChange={(e) => setFormData({ ...formData, projectCode: e.target.value })}
                       placeholder="e.g., PRJ-2026-001"
-                      className="text-base bg-gray-50"
+                      className="text-base bg-slate-950/50"
                     />
                   </div>
                 </div>
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Description</label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Provide a detailed description of the project scope, objectives, and deliverables..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* Section 2: Project Configuration */}
               <div className="border-l-4 border-purple-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">⚙️ Project Configuration</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">⚙️ Project Configuration</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Client</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Client</label>
                     <select
                       value={formData.clientId}
                       onChange={(e) => setFormData({ ...formData, clientId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select a client...</option>
                       {mockClients.map((client) => (
@@ -520,11 +520,11 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Project Type</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Project Type</label>
                     <select
                       value={formData.type}
                       onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="erp_implementation">ERP Implementation</option>
                       <option value="custom_development">Custom Development</option>
@@ -536,11 +536,11 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Priority</label>
                     <select
                       value={formData.priority}
                       onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="low">🟢 Low</option>
                       <option value="medium">🟡 Medium</option>
@@ -553,15 +553,15 @@ export default function ProjectsPage() {
 
               {/* Section 3: Project Lifecycle */}
               <div className="border-l-4 border-green-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">🔄 Project Lifecycle</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">🔄 Project Lifecycle</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Status *</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Status *</label>
                     <select
                       required
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="planning">📋 Planning</option>
                       <option value="in_progress">⚡ In Progress</option>
@@ -569,15 +569,15 @@ export default function ProjectsPage() {
                       <option value="completed">✅ Completed</option>
                       <option value="cancelled">❌ Cancelled</option>
                     </select>
-                    <p className="text-xs text-gray-500 mt-1">Current phase in project lifecycle</p>
+                    <p className="text-xs text-slate-400 mt-1">Current phase in project lifecycle</p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Project Manager</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Project Manager</label>
                     <select
                       value={formData.projectManager}
                       onChange={(e) => setFormData({ ...formData, projectManager: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select project manager...</option>
                       {mockUsers.map((user) => (
@@ -592,10 +592,10 @@ export default function ProjectsPage() {
 
               {/* Section 4: Timeline */}
               <div className="border-l-4 border-orange-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">📅 Timeline</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">📅 Timeline</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Start Date</label>
                     <Input
                       type="date"
                       value={formData.startDate}
@@ -604,35 +604,35 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Target End Date</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Target End Date</label>
                     <Input
                       type="date"
                       value={formData.targetEndDate}
                       onChange={(e) => setFormData({ ...formData, targetEndDate: e.target.value })}
                       min={formData.startDate}
                     />
-                    <p className="text-xs text-gray-500 mt-1">Expected completion date</p>
+                    <p className="text-xs text-slate-400 mt-1">Expected completion date</p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Actual End Date</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Actual End Date</label>
                     <Input
                       type="date"
                       value={formData.endDate}
                       onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                       min={formData.startDate}
                     />
-                    <p className="text-xs text-gray-500 mt-1">When project actually ended</p>
+                    <p className="text-xs text-slate-400 mt-1">When project actually ended</p>
                   </div>
                 </div>
               </div>
 
               {/* Section 5: Financial Details */}
               <div className="border-l-4 border-red-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">💰 Financial Details</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">💰 Financial Details</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Budget Allocated ($)</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Budget Allocated ($)</label>
                     <Input
                       type="number"
                       value={formData.budget}
@@ -641,11 +641,11 @@ export default function ProjectsPage() {
                       step="0.01"
                       min="0"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Total approved budget</p>
+                    <p className="text-xs text-slate-400 mt-1">Total approved budget</p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Actual Cost ($)</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Actual Cost ($)</label>
                     <Input
                       type="number"
                       value={formData.actualCost}
@@ -654,13 +654,13 @@ export default function ProjectsPage() {
                       step="0.01"
                       min="0"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Cumulative spending to date</p>
+                    <p className="text-xs text-slate-400 mt-1">Cumulative spending to date</p>
                   </div>
                 </div>
                 {formData.budget && formData.actualCost && (
-                  <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                    <p className="text-sm text-gray-600">
-                      Budget Utilization: <span className="font-semibold text-gray-900">
+                  <div className="mt-3 p-3 bg-slate-950/50 rounded-lg">
+                    <p className="text-sm text-slate-400">
+                      Budget Utilization: <span className="font-semibold text-white">
                         {((parseFloat(formData.actualCost) / parseFloat(formData.budget)) * 100).toFixed(1)}%
                       </span>
                     </p>
@@ -670,21 +670,21 @@ export default function ProjectsPage() {
 
               {/* Section 6: Tags */}
               <div className="border-l-4 border-indigo-500 pl-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">🏷️ Tags & Labels</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">🏷️ Tags & Labels</h3>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Tags</label>
                   <Input
                     value={formData.tags}
                     onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                     placeholder="Enter tags separated by commas (e.g., urgent, high-risk, cloud-based)"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Add comma-separated tags for easy filtering and organization</p>
+                  <p className="text-xs text-slate-400 mt-1">Add comma-separated tags for easy filtering and organization</p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 pt-6 border-t border-gray-200">
-                <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-base py-3">
+              <div className="flex gap-3 pt-6 border-t border-slate-800">
+                <Button type="submit" className="flex-1 bg-blue-900/200 hover:bg-blue-700 text-base py-3">
                   {currentProject ? '💾 Update Project' : '➕ Create Project'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => setShowModal(false)} className="flex-1 text-base py-3">
@@ -699,16 +699,16 @@ export default function ProjectsPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Project</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Project</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete this project? This action cannot be undone.
                 </p>
               </div>

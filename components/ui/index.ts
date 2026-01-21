@@ -11,3 +11,4 @@ export { MessageList } from './MessageList';
 export { ConversationList } from './ConversationList';
 export { NotificationBell } from './NotificationBell';
 export { ProjectActionModal } from './ProjectActionModal';
+export { ClientEngagement } from './ClientEngagement';

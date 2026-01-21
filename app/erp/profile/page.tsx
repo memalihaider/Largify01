@@ -31,7 +31,7 @@ export default function AdminProfilePage() {
           onClick={() => setIsEditing(!isEditing)}
           className={`h-14 font-black uppercase tracking-wider rounded-2xl px-8 ${
             isEditing
-              ? 'bg-red-600 hover:bg-red-500 text-white'
+              ? 'bg-red-600 hover:bg-red-900/200 text-white'
               : 'bg-purple-600 hover:bg-purple-500 text-white'
           }`}
         >
@@ -96,13 +96,13 @@ export default function AdminProfilePage() {
             </h3>
 
             <div className="space-y-3">
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 🔒 Change Password
               </Button>
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 ✓ Two-Factor Authentication
               </Button>
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 📋 Admin Activity Log
               </Button>
             </div>
@@ -115,13 +115,13 @@ export default function AdminProfilePage() {
             </h3>
 
             <div className="space-y-3">
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 👥 Manage Users
               </Button>
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 🔑 Role Management
               </Button>
-              <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
+              <Button className="w-full bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10">
                 ⚙️ System Settings
               </Button>
             </div>
@@ -135,7 +135,7 @@ export default function AdminProfilePage() {
               </Button>
               <Button
                 onClick={() => setIsEditing(false)}
-                className="flex-1 bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10"
+                className="flex-1 bg-slate-900/5 hover:bg-slate-900/10 text-white font-black uppercase tracking-wider rounded-2xl h-12 border border-white/10"
               >
                 ✗ Cancel
               </Button>

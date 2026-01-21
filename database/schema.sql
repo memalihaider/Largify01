@@ -93,6 +93,31 @@ CREATE TABLE activity_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- User Preferences & Settings Table
+CREATE TABLE user_preferences (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+    -- Email Notification Preferences
+    notify_task_assigned BOOLEAN DEFAULT true,
+    notify_project_updates BOOLEAN DEFAULT true,
+    notify_leave_approvals BOOLEAN DEFAULT true,
+    notify_expense_updates BOOLEAN DEFAULT true,
+    notify_timeline_alerts BOOLEAN DEFAULT false,
+    -- Display Preferences
+    theme VARCHAR(20) DEFAULT 'dark', -- 'dark', 'light'
+    language VARCHAR(10) DEFAULT 'en-US',
+    date_format VARCHAR(20) DEFAULT 'MM/DD/YYYY',
+    time_format VARCHAR(5) DEFAULT '24h', -- '12h', '24h'
+    -- Security Settings
+    two_factor_enabled BOOLEAN DEFAULT false,
+    session_timeout_minutes INTEGER DEFAULT 30,
+    last_password_change TIMESTAMP,
+    -- Additional preferences
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- =====================================================
 -- CRM MODULE - Leads & Clients
 -- =====================================================

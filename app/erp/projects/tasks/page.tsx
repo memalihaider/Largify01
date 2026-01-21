@@ -199,10 +199,10 @@ export default function TasksPage() {
   };
 
   const statusColumns = [
-    { id: 'todo', name: 'To Do', color: 'bg-gray-100' },
-    { id: 'in_progress', name: 'In Progress', color: 'bg-blue-100' },
-    { id: 'review', name: 'Review', color: 'bg-yellow-100' },
-    { id: 'done', name: 'Done', color: 'bg-green-100' },
+    { id: 'todo', name: 'To Do', color: 'bg-slate-800' },
+    { id: 'in_progress', name: 'In Progress', color: 'bg-blue-900/20' },
+    { id: 'review', name: 'Review', color: 'bg-amber-900/20' },
+    { id: 'done', name: 'Done', color: 'bg-emerald-900/20' },
   ];
 
   return (
@@ -210,16 +210,16 @@ export default function TasksPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Tasks</h1>
-          <p className="text-gray-500">Manage tasks across all projects</p>
+          <h1 className="text-2xl font-bold text-white">Tasks</h1>
+          <p className="text-slate-400">Manage tasks across all projects</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+          <div className="flex items-center border border-slate-800 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('list')}
               className={cn(
                 'px-3 py-2 text-sm',
-                viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-500 hover:bg-gray-50'
+                viewMode === 'list' ? 'bg-blue-900/20 text-blue-400' : 'text-slate-400 hover:bg-slate-950/50'
               )}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,7 +230,7 @@ export default function TasksPage() {
               onClick={() => setViewMode('board')}
               className={cn(
                 'px-3 py-2 text-sm',
-                viewMode === 'board' ? 'bg-blue-100 text-blue-600' : 'text-gray-500 hover:bg-gray-50'
+                viewMode === 'board' ? 'bg-blue-900/20 text-blue-400' : 'text-slate-400 hover:bg-slate-950/50'
               )}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -250,24 +250,24 @@ export default function TasksPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Tasks</p>
-          <p className="text-2xl font-bold text-gray-900">{tasks.length}</p>
+          <p className="text-sm text-slate-400">Total Tasks</p>
+          <p className="text-2xl font-bold text-white">{tasks.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">To Do</p>
-          <p className="text-2xl font-bold text-gray-600">
+          <p className="text-sm text-slate-400">To Do</p>
+          <p className="text-2xl font-bold text-slate-400">
             {tasks.filter(t => t.status === 'todo').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">In Progress</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-sm text-slate-400">In Progress</p>
+          <p className="text-2xl font-bold text-blue-400">
             {tasks.filter(t => t.status === 'in_progress').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Completed</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Completed</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {tasks.filter(t => t.status === 'done').length}
           </p>
         </Card>
@@ -291,8 +291,8 @@ export default function TasksPage() {
                 className={cn(
                   'px-3 py-1.5 text-sm font-medium rounded-lg whitespace-nowrap transition-colors',
                   statusFilter === filter.value
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-900/20 text-blue-400'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
                 )}
               >
                 {filter.label}
@@ -328,7 +328,7 @@ export default function TasksPage() {
                     <TableCell>
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="h-4 w-4 rounded border-slate-700 text-blue-400 focus:ring-blue-500"
                         checked={task.status === 'done'}
                         onChange={(e) => handleQuickStatusChange(task.id, e.target.checked ? 'done' : 'todo')}
                       />
@@ -336,13 +336,13 @@ export default function TasksPage() {
                     <TableCell>
                       <p className={cn(
                         'font-medium',
-                        task.status === 'done' ? 'text-gray-400 line-through' : 'text-gray-900'
+                        task.status === 'done' ? 'text-slate-500 line-through' : 'text-white'
                       )}>
                         {task.title}
                       </p>
                     </TableCell>
                     <TableCell>
-                      <p className="text-gray-600">{project?.name || '-'}</p>
+                      <p className="text-slate-400">{project?.name || '-'}</p>
                     </TableCell>
                     <TableCell>
                       <select
@@ -370,8 +370,8 @@ export default function TasksPage() {
                       <p className={cn(
                         'text-sm',
                         task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'done'
-                          ? 'text-red-600 font-medium'
-                          : 'text-gray-500'
+                          ? 'text-red-400 font-medium'
+                          : 'text-slate-400'
                       )}>
                         {task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-US') : '-'}
                       </p>
@@ -384,14 +384,14 @@ export default function TasksPage() {
                           size="sm"
                         />
                       ) : (
-                        <span className="text-gray-400">-</span>
+                        <span className="text-slate-500">-</span>
                       )}
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1">
                         <button 
                           onClick={() => handleOpenModal(task)}
-                          className="p-1 text-gray-400 hover:text-blue-600"
+                          className="p-1 text-slate-500 hover:text-blue-400"
                           title="Edit"
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -400,7 +400,7 @@ export default function TasksPage() {
                         </button>
                         <button 
                           onClick={() => handleDelete(task.id)}
-                          className="p-1 text-gray-400 hover:text-red-600"
+                          className="p-1 text-slate-500 hover:text-red-400"
                           title="Delete"
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -415,7 +415,7 @@ export default function TasksPage() {
             </TableBody>
           </Table>
           {filteredTasks.length === 0 && (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-slate-400">
               <p>No tasks found</p>
             </div>
           )}
@@ -438,13 +438,13 @@ export default function TasksPage() {
                 >
                   <div className={cn('rounded-t-lg p-4', column.color)}>
                     <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-gray-900">{column.name}</h3>
-                      <Badge variant="secondary" className="bg-white/50">
+                      <h3 className="font-semibold text-white">{column.name}</h3>
+                      <Badge variant="secondary" className="bg-slate-900/50">
                         {columnTasks.length}
                       </Badge>
                     </div>
                   </div>
-                  <div className="bg-gray-50 rounded-b-lg p-2 min-h-125 space-y-2">
+                  <div className="bg-slate-950/50 rounded-b-lg p-2 min-h-125 space-y-2">
                     {columnTasks.map((task) => {
                       const project = task.milestoneId ? getProject(task.milestoneId) : undefined;
                       const assignee = getAssignee(task.assignedToId);
@@ -462,11 +462,11 @@ export default function TasksPage() {
                           onDragEnd={handleDragEnd}
                         >
                           <div className="flex items-start justify-between mb-2">
-                            <p className="font-medium text-gray-900 flex-1">{task.title}</p>
+                            <p className="font-medium text-white flex-1">{task.title}</p>
                             <div className="flex gap-1 ml-2">
                               <button 
                                 onClick={() => handleOpenModal(task)}
-                                className="p-1 text-gray-400 hover:text-blue-600"
+                                className="p-1 text-slate-500 hover:text-blue-400"
                                 title="Edit"
                               >
                                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -475,7 +475,7 @@ export default function TasksPage() {
                               </button>
                               <button 
                                 onClick={() => handleDelete(task.id)}
-                                className="p-1 text-gray-400 hover:text-red-600"
+                                className="p-1 text-slate-500 hover:text-red-400"
                                 title="Delete"
                               >
                                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -485,14 +485,14 @@ export default function TasksPage() {
                             </div>
                           </div>
                           {project && (
-                            <p className="text-xs text-gray-500 mb-2">{project.name}</p>
+                            <p className="text-xs text-slate-400 mb-2">{project.name}</p>
                           )}
                           {task.dueDate && (
                             <p className={cn(
                               'text-xs mb-2',
                               new Date(task.dueDate) < new Date() && task.status !== 'done'
-                                ? 'text-red-600 font-medium'
-                                : 'text-gray-500'
+                                ? 'text-red-400 font-medium'
+                                : 'text-slate-400'
                             )}>
                               Due: {new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                             </p>
@@ -504,7 +504,7 @@ export default function TasksPage() {
                                 e.stopPropagation();
                                 handleQuickPriorityChange(task.id, e.target.value);
                               }}
-                              className="px-2 py-1 text-xs rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="px-2 py-1 text-xs rounded border border-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                               onClick={(e) => e.stopPropagation()}
                             >
                               {priorityOptions.map(opt => (
@@ -523,7 +523,7 @@ export default function TasksPage() {
                       );
                     })}
                     {columnTasks.length === 0 && (
-                      <div className="text-center py-8 text-gray-400 text-sm">
+                      <div className="text-center py-8 text-slate-500 text-sm">
                         Drop tasks here
                       </div>
                     )}
@@ -538,13 +538,13 @@ export default function TasksPage() {
       {/* Task Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentTask ? 'Edit Task' : 'Add New Task'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -553,7 +553,7 @@ export default function TasksPage() {
 
               <form onSubmit={handleSave} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Title *
                   </label>
                   <Input
@@ -565,26 +565,26 @@ export default function TasksPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Description
                   </label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Enter task description"
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-25"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-25"
                   />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Milestone
                     </label>
                     <select
                       value={formData.milestoneId}
                       onChange={(e) => setFormData({ ...formData, milestoneId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">No milestone</option>
                       {mockMilestones.map((milestone) => {
@@ -599,13 +599,13 @@ export default function TasksPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Assignee
                     </label>
                     <select
                       value={formData.assignedToId}
                       onChange={(e) => setFormData({ ...formData, assignedToId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Unassigned</option>
                       {mockUsers.map((user) => (
@@ -619,14 +619,14 @@ export default function TasksPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Priority *
                     </label>
                     <select
                       required
                       value={formData.priority}
                       onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {priorityOptions.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -635,14 +635,14 @@ export default function TasksPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Status *
                     </label>
                     <select
                       required
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {statusOptions.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -653,7 +653,7 @@ export default function TasksPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Due Date
                     </label>
                     <Input
@@ -664,7 +664,7 @@ export default function TasksPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Estimated Hours
                     </label>
                     <Input
@@ -695,16 +695,16 @@ export default function TasksPage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Task</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Task</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete this task? This action cannot be undone.
                 </p>
               </div>

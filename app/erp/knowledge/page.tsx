@@ -171,8 +171,8 @@ export default function KnowledgePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Knowledge Base</h1>
-          <p className="text-gray-500">Find guides, documentation, and resources</p>
+          <h1 className="text-2xl font-bold text-white">Knowledge Base</h1>
+          <p className="text-slate-400">Find guides, documentation, and resources</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}>
@@ -193,24 +193,24 @@ export default function KnowledgePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Documents</p>
-          <p className="text-2xl font-bold text-gray-900">{documents.length}</p>
+          <p className="text-sm text-slate-400">Total Documents</p>
+          <p className="text-2xl font-bold text-white">{documents.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Published</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-sm text-slate-400">Published</p>
+          <p className="text-2xl font-bold text-emerald-400">
             {documents.filter(d => d.status === 'published').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Drafts</p>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-sm text-slate-400">Drafts</p>
+          <p className="text-2xl font-bold text-amber-400">
             {documents.filter(d => d.status === 'draft').length}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-gray-500">Total Views</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-sm text-slate-400">Total Views</p>
+          <p className="text-2xl font-bold text-blue-400">
             {documents.reduce((sum, d) => sum + (d.viewsCount || 0), 0)}
           </p>
         </Card>
@@ -221,7 +221,7 @@ export default function KnowledgePage() {
         <div className="max-w-2xl mx-auto">
           <div className="relative">
             <svg
-              className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+              className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -233,7 +233,7 @@ export default function KnowledgePage() {
               placeholder="Search documentation..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 text-lg border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-12 pr-4 py-3 text-lg border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -253,15 +253,15 @@ export default function KnowledgePage() {
               className={cn(
                 'flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors',
                 categoryFilter === category.id
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-blue-900/20 text-blue-400'
+                  : 'bg-slate-800 text-slate-400 hover:bg-slate-800'
               )}
             >
               {category.id !== 'all' && (
                 <span>{categoryIcons[category.name] || '📄'}</span>
               )}
               <span className="font-medium">{category.name}</span>
-              <Badge variant="secondary" className="bg-white/50">{docCount}</Badge>
+              <Badge variant="secondary" className="bg-slate-900/50">{docCount}</Badge>
             </button>
           );
         })}
@@ -277,12 +277,12 @@ export default function KnowledgePage() {
             <Card key={doc.id} className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="p-6">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center text-xl">
+                  <div className="h-10 w-10 rounded-lg bg-blue-900/20 flex items-center justify-center text-xl">
                     {categoryIcons[category?.name || ''] || '📄'}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-gray-900 line-clamp-1 flex-1">{doc.title}</h3>
+                      <h3 className="font-semibold text-white line-clamp-1 flex-1">{doc.title}</h3>
                       <Badge 
                         status={doc.status === 'published' ? 'success' : 'warning'}
                         className="text-xs"
@@ -290,31 +290,31 @@ export default function KnowledgePage() {
                         {doc.status}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-500">{category?.name}</p>
+                    <p className="text-sm text-slate-400">{category?.name}</p>
                   </div>
                 </div>
                 
-                <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+                <p className="text-sm text-slate-400 line-clamp-3 mb-4">
                   {doc.content?.replace(/<[^>]*>/g, '').substring(0, 150)}...
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100 mb-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center justify-between pt-4 border-t border-slate-800 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-slate-400">
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     {formatRelativeTime(doc.updatedAt)}
                   </div>
                   <div className="flex items-center gap-2">
-                    <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    <span className="text-sm text-gray-500">{doc.viewsCount}</span>
+                    <span className="text-sm text-slate-400">{doc.viewsCount}</span>
                   </div>
                 </div>
 
-                <div className="text-xs text-gray-500 mb-4">
+                <div className="text-xs text-slate-400 mb-4">
                   <span>By {author?.fullName || 'Unknown'}</span>
                   {doc.version && <span> • v{doc.version}</span>}
                 </div>
@@ -334,7 +334,7 @@ export default function KnowledgePage() {
                   </Button>
                   <button
                     onClick={() => handleOpenModal(doc)}
-                    className="p-2 text-gray-400 hover:text-blue-600 border border-gray-200 rounded-lg"
+                    className="p-2 text-slate-500 hover:text-blue-400 border border-slate-800 rounded-lg"
                     title="Edit"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -343,7 +343,7 @@ export default function KnowledgePage() {
                   </button>
                   <button
                     onClick={() => handleTogglePublish(doc)}
-                    className="p-2 text-gray-400 hover:text-green-600 border border-gray-200 rounded-lg"
+                    className="p-2 text-slate-500 hover:text-emerald-400 border border-slate-800 rounded-lg"
                     title={doc.status === 'published' ? 'Unpublish' : 'Publish'}
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -352,7 +352,7 @@ export default function KnowledgePage() {
                   </button>
                   <button
                     onClick={() => handleCopyLink(doc)}
-                    className="p-2 text-gray-400 hover:text-purple-600 border border-gray-200 rounded-lg"
+                    className="p-2 text-slate-500 hover:text-purple-400 border border-slate-800 rounded-lg"
                     title="Copy Link"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -361,7 +361,7 @@ export default function KnowledgePage() {
                   </button>
                   <button
                     onClick={() => handleDelete(doc.id)}
-                    className="p-2 text-gray-400 hover:text-red-600 border border-gray-200 rounded-lg"
+                    className="p-2 text-slate-500 hover:text-red-400 border border-slate-800 rounded-lg"
                     title="Delete"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -377,11 +377,11 @@ export default function KnowledgePage() {
 
       {filteredDocs.length === 0 && (
         <Card className="p-12 text-center">
-          <svg className="h-16 w-16 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-16 w-16 mx-auto mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No documents found</h3>
-          <p className="text-gray-500 mb-4">Try adjusting your search or filters</p>
+          <h3 className="text-lg font-semibold text-white mb-2">No documents found</h3>
+          <p className="text-slate-400 mb-4">Try adjusting your search or filters</p>
           <Button onClick={() => handleOpenModal()}>Create First Document</Button>
         </Card>
       )}
@@ -389,13 +389,13 @@ export default function KnowledgePage() {
       {/* Create/Edit Document Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-white">
                   {currentDoc ? 'Edit Document' : 'Create New Document'}
                 </h2>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -404,7 +404,7 @@ export default function KnowledgePage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Title *
                   </label>
                   <Input
@@ -417,14 +417,14 @@ export default function KnowledgePage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Category *
                     </label>
                     <select
                       required
                       value={formData.categoryId}
                       onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select category</option>
                       {mockKnowledgeCategories.map((cat) => (
@@ -435,14 +435,14 @@ export default function KnowledgePage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-300 mb-1">
                       Author *
                     </label>
                     <select
                       required
                       value={formData.authorId}
                       onChange={(e) => setFormData({ ...formData, authorId: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {mockUsers.map((user) => (
                         <option key={user.id} value={user.id}>
@@ -454,7 +454,7 @@ export default function KnowledgePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Content *
                   </label>
                   <textarea
@@ -463,12 +463,12 @@ export default function KnowledgePage() {
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     placeholder="Document content (supports markdown)..."
                     rows={12}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+                    className="w-full px-3 py-2 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-300 mb-1">
                     Tags
                   </label>
                   <Input
@@ -476,7 +476,7 @@ export default function KnowledgePage() {
                     onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                     placeholder="tag1, tag2, tag3"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Separate tags with commas</p>
+                  <p className="text-xs text-slate-400 mt-1">Separate tags with commas</p>
                 </div>
 
                 <div>
@@ -485,13 +485,13 @@ export default function KnowledgePage() {
                       type="checkbox"
                       checked={formData.status === 'published'}
                       onChange={(e) => setFormData({ ...formData, status: e.target.checked ? 'published' : 'draft' })}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      className="rounded border-slate-700 text-blue-400 focus:ring-blue-500"
                     />
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-slate-300">
                       Publish immediately
                     </span>
                   </label>
-                  <p className="text-xs text-gray-500 ml-6">Uncheck to save as draft</p>
+                  <p className="text-xs text-slate-400 ml-6">Uncheck to save as draft</p>
                 </div>
 
                 <div className="flex gap-3 pt-4">
@@ -511,35 +511,35 @@ export default function KnowledgePage() {
       {/* View Document Modal */}
       {showViewModal && currentDoc && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-gray-900">{currentDoc.title}</h2>
+                  <h2 className="text-2xl font-bold text-white">{currentDoc.title}</h2>
                   <div className="flex items-center gap-3 mt-2">
                     <Badge status={currentDoc.status === 'published' ? 'success' : 'warning'}>
                       {currentDoc.status}
                     </Badge>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-400">
                       {getCategory(currentDoc.categoryId)?.name}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-400">
                       • v{currentDoc.version || 1}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-400">
                       • {currentDoc.viewsCount} views
                     </span>
                   </div>
                 </div>
-                <button onClick={() => setShowViewModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button onClick={() => setShowViewModal(false)} className="text-slate-500 hover:text-slate-400">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <div className="flex items-center gap-6 text-sm text-gray-600">
+              <div className="bg-slate-950/50 rounded-lg p-4 mb-6">
+                <div className="flex items-center gap-6 text-sm text-slate-400">
                   <div className="flex items-center gap-2">
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -556,13 +556,13 @@ export default function KnowledgePage() {
               </div>
 
               <div className="prose max-w-none">
-                <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+                <div className="whitespace-pre-wrap text-slate-300 leading-relaxed">
                   {currentDoc.content}
                 </div>
               </div>
 
               {currentDoc.tags && currentDoc.tags.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="mt-6 pt-6 border-t border-slate-800">
                   <div className="flex flex-wrap gap-2">
                     {currentDoc.tags.map((tag: string, idx: number) => (
                       <Badge key={idx} variant="secondary">
@@ -580,16 +580,16 @@ export default function KnowledgePage() {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && currentDoc && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-slate-900 rounded-lg max-w-md w-full p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center">
-                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="h-12 w-12 rounded-full bg-red-900/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Document</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-white">Delete Document</h3>
+                <p className="text-sm text-slate-400">
                   Are you sure you want to delete &quot;{currentDoc.title}&quot;? This action cannot be undone.
                 </p>
               </div>

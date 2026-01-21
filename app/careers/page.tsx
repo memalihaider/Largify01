@@ -1,164 +1,146 @@
+'use client';
+
+import React from 'react';
 import { PublicLayout } from '@/components/public';
-import { Button, Card, CardContent, Badge } from '@/components/ui';
-import Link from 'next/link';
+import { Button } from '@/components/ui';
 
 export default function CareersPage() {
   const positions = [
     {
-      title: 'Infrastructure Architect',
-      department: 'Engineering',
-      location: 'Remote / Global',
-      type: 'Full-time',
-      desc: 'Design and implement hardened cloud-native systems for enterprise dominance.',
+      id: 'INFRA_ARC_01',
+      title: 'INFRASTRUCTURE_ARCHITECT',
+      dept: 'ENGINEERING',
+      loc: 'REMOTE_GLOBAL',
+      desc: 'HARDENING_CLOUD_NATIVE_SYSTEMS. ENTERPRISE_DOMINANCE_STRATEGY.',
     },
     {
-      title: 'Security Operations Lead',
-      department: 'Cybersecurity',
-      location: 'Remote',
-      type: 'Full-time',
-      desc: 'Oversight of autonomous threat detection protocols and penetration testing.',
+      id: 'SEC_OPS_02',
+      title: 'SECURITY_OPERATIONS_LEAD',
+      dept: 'CYBER_DEFENSE',
+      loc: 'REMOTE_ONLY',
+      desc: 'AUTONOMOUS_THREAT_DETECTION. PENETRATION_TESTING_PROTOCOL.',
     },
     {
-      title: 'Senior ERP Engineer',
-      department: 'Product',
-      location: 'Hybrid',
-      type: 'Full-time',
-      desc: 'Building the next generation of industrial-grade business management software.',
+      id: 'ERP_ENG_03',
+      title: 'SENIOR_ERP_ENGINEER',
+      dept: 'PRODUCT_DEVELOPMENT',
+      loc: 'HYBRID_NEXUS',
+      desc: 'INDUSTRIAL_GRADE_BUSINESS_LOGIC. SCALE_AUTOMATION.',
     },
   ];
 
   return (
     <PublicLayout>
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-32 overflow-hidden bg-slate-950">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] opacity-50" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <section className="min-h-screen bg-slate-950 text-white font-mono pt-32 pb-20 relative overflow-hidden">
+        {/* Tactical Grid Background */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <rect width="100%" height="100%" fill="url(#tactical-grid)" />
+          </svg>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
-              <span className="text-xs font-black text-blue-400 uppercase tracking-[0.3em]">Recruitment Active</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Header Section */}
+          <div className="max-w-4xl mb-32 border-l-2 border-blue-600 pl-8">
+            <div className="inline-block mb-6 px-3 py-1 bg-blue-500/10 border border-blue-500/20">
+              <span className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.3em] italic">// PERSONNEL_ACQUISITION</span>
             </div>
-            
-            <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 leading-[0.9]">
-              Join the <br />
-              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500">Elite Guard</span>
+            <h1 className="text-5xl md:text-8xl font-black italic uppercase tracking-tighter mb-10 leading-[0.9]">
+               JOIN THE <br />
+               <span className="text-blue-600 font-black">ELITE_GUARD.</span>
             </h1>
-            
-            <p className="text-xl md:text-2xl text-slate-400 font-light leading-relaxed mb-12 italic">
-              "We don't hire employees. We recruit technical sovereigns capable of engineering the impossible."
+            <p className="text-lg text-slate-400 italic uppercase leading-relaxed max-w-2xl tracking-tight">
+               Recruiting technical sovereigns for the deployment of critical enterprise infrastructure.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Positions Section */}
-      <section className="py-32 bg-white relative -mt-20 px-6 rounded-t-[4rem]">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none mb-6">
-                Open <span className="text-blue-600">Protocols</span>
-              </h2>
-              <p className="text-lg text-slate-500 font-medium italic">
-                Strategic roles available for those who excel in high-pressure specialized environments.
-              </p>
+          {/* Open Protocols - Positions List */}
+          <section className="mb-32">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+               <div>
+                  <h2 className="text-3xl font-black italic uppercase text-white tracking-tighter mb-2">OPEN_PROTOCOLS.</h2>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">ACTIVE_RECRUITMENT_SLOTS</p>
+               </div>
+               <div className="h-px flex-1 bg-slate-900 mx-8 hidden md:block" />
+               <div className="text-xs font-bold text-blue-500 border border-blue-500/30 px-6 py-2 italic bg-blue-500/5">
+                  SLOTS_AVAILABLE: {positions.length}
+               </div>
             </div>
-            <Badge variant="default" className="px-6 py-2 border-slate-200 text-slate-400 font-black uppercase tracking-widest leading-none h-12 flex items-center">
-              {positions.length} Slots Available
-            </Badge>
-          </div>
 
-          <div className="grid gap-6">
-            {positions.map((job, idx) => (
-              <div 
-                key={idx}
-                className="group relative bg-slate-50 rounded-[2.5rem] p-10 lg:p-12 border border-slate-100 hover:bg-slate-950 transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20"
-              >
-                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
-                  <div className="max-w-xl">
-                    <div className="flex flex-wrap gap-3 mb-6">
-                      <span className="px-4 py-1.5 bg-blue-100 text-blue-600 text-[10px] font-black uppercase tracking-widest rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        {job.department}
-                      </span>
-                      <span className="px-4 py-1.5 bg-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-full group-hover:bg-white/10 group-hover:text-slate-400 transition-colors">
-                        {job.location}
-                      </span>
-                    </div>
-                    <h3 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 tracking-tighter group-hover:text-white transition-colors">
-                      {job.title}
-                    </h3>
-                    <p className="text-slate-500 font-medium italic group-hover:text-slate-400 transition-colors">
-                      {job.desc}
-                    </p>
+            <div className="grid gap-px bg-slate-800 border border-slate-800">
+               {positions.map(job => (
+                  <div key={job.id} className="bg-slate-950 p-10 lg:p-14 group hover:bg-slate-900 transition-all duration-300 relative overflow-hidden">
+                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 transition-opacity">
+                        <span className="text-9xl font-black italic">{job.id.split('_').pop()}</span>
+                     </div>
+                     
+                     <div className="relative z-10 flex flex-col lg:flex-row justify-between gap-12">
+                        <div className="max-w-2xl">
+                           <div className="flex gap-4 mb-8">
+                              <span className="text-[9px] font-bold text-blue-500 border border-blue-500/40 px-3 py-1 italic uppercase tracking-widest">{job.dept}</span>
+                              <span className="text-[9px] font-bold text-slate-500 border border-slate-800 px-3 py-1 italic uppercase tracking-widest">{job.loc}</span>
+                           </div>
+                           <h3 className="text-2xl md:text-4xl font-black text-white italic uppercase tracking-widest group-hover:text-blue-400 transition-colors mb-6">{job.title}</h3>
+                           <p className="text-xs text-slate-500 uppercase italic tracking-widest">{job.desc}</p>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row items-center gap-10">
+                           <div className="text-right">
+                              <p className="text-[8px] font-black text-slate-700 uppercase tracking-widest mb-1">CLEARANCE_LEVEL</p>
+                              <p className="text-[10px] font-bold text-white uppercase italic tracking-widest">LEVEL_A+ (TOP_SECRET)</p>
+                           </div>
+                           <Button className="h-14 px-10 bg-slate-900 border border-slate-800 text-white rounded-none font-black italic uppercase text-[10px] tracking-[0.3em] hover:bg-blue-600 hover:border-blue-400 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                              INITIATE_APPLICATION
+                           </Button>
+                        </div>
+                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-6">
-                    <div className="hidden sm:block text-right">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Clearance Level</p>
-                      <p className="text-sm font-black text-slate-900 group-hover:text-blue-400 transition-colors">Level A+ (Top Secret)</p>
-                    </div>
-                    <Button className="h-20 px-10 bg-slate-950 text-white rounded-[2rem] group-hover:bg-blue-600 transition-all duration-500 font-black uppercase tracking-widest border-none text-sm">
-                      APPLY FOR ROLE
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+               ))}
+            </div>
+          </section>
 
-      {/* Perks Section */}
-      <section className="py-32 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {[
-              { title: "Sovereign Compensation", desc: "Top 1% market rates with aggressive equity protocols." },
-              { title: "Deep Work Zones", desc: "Strict asynchronous standards with zero-latency communications." },
-              { title: "Neural Enhancement", desc: "Full stack health coverage including advanced cognitive support." }
-            ].map((perk, i) => (
-              <div key={i} className="p-10 bg-white border border-slate-100 rounded-[3rem] hover:shadow-xl transition-all group">
-                <div className="h-14 w-14 bg-slate-900 rounded-2xl mb-8 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-black text-slate-900 mb-4 uppercase tracking-tighter">{perk.title}</h3>
-                <p className="text-slate-500 font-medium italic">{perk.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Culture CTA */}
-      <section className="py-24 px-6">
-        <div className="container mx-auto">
-          <div className="bg-slate-950 rounded-[4rem] p-12 lg:p-24 text-center relative overflow-hidden">
-             <div className="absolute inset-0 opacity-10 pointer-events-none">
-               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.3),transparent_70%)]" />
+          {/* Operational Perks */}
+          <section className="py-24 border-t border-slate-900 mb-32">
+             <div className="grid lg:grid-cols-3 gap-12">
+                {[
+                   { title: 'SOVEREIGN_COMPENSATION', val: 'TOP_1%_MARKET_RATES. PERFORMANCE_EQUITY_BONUS.' },
+                   { title: 'DEEP_WORK_NEXUS', val: '100%_ASYNC_STANDARDS. ZERO_MEETING_CULTURE.' },
+                   { title: 'NEURAL_OPTIMIZATION', val: 'PERFORMANCE_HEALTH_PLANS. CONTINUOUS_LEARNING_STIPEND.' },
+                ].map(perk => (
+                   <div key={perk.title} className="p-10 border border-slate-900 hover:border-blue-500/30 transition-all group">
+                      <div className="h-0.5 w-12 bg-blue-600 mb-10 group-hover:w-full transition-all duration-700" />
+                      <h4 className="text-xs font-black text-white italic uppercase tracking-widest mb-4 group-hover:text-blue-400">{perk.title}</h4>
+                      <p className="text-[10px] text-slate-500 font-bold leading-relaxed uppercase italic tracking-tighter">
+                         {perk.val}
+                      </p>
+                   </div>
+                ))}
              </div>
+          </section>
+
+          {/* Verification CTA */}
+          <section className="text-center bg-slate-900 border border-slate-800 p-20 relative overflow-hidden">
+             <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.2),transparent_70%)]" />
              <div className="relative z-10 max-w-3xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-none">
-                  Ready to <span className="text-blue-500 underline decoration-blue-500/30">Transcend</span>?
+                <h2 className="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter mb-10 leading-[0.9]">
+                   READY TO <br />
+                   <span className="text-blue-600">TRANSCEND?</span>
                 </h2>
-                <p className="text-xl text-slate-400 font-light leading-relaxed mb-12">
-                  Our vetting process is rigorous, algorithmic, and designed for those who seek technical enlightenment.
+                <p className="text-sm text-slate-500 font-bold uppercase italic leading-relaxed mb-12 tracking-tight">
+                   Our vetting process is rigorous, algorithmic, and designed for technical enlightenment.
                 </p>
-                <div className="flex flex-wrap justify-center gap-6">
-                  <Button size="lg" className="h-20 px-12 text-xl font-black bg-white text-slate-950 hover:bg-blue-600 hover:text-white rounded-full transition-all">
-                    START EXAMINATION
-                  </Button>
-                  <Button variant="outline" size="lg" className="h-20 px-12 text-xl font-black bg-white/5 border-white/10 text-white hover:bg-white/10 rounded-full transition-all">
-                    OUR MANIFESTO
-                  </Button>
+                <div className="flex flex-col sm:flex-row justify-center gap-6">
+                   <Button className="h-16 px-12 bg-blue-600 hover:bg-blue-700 text-white font-black italic uppercase tracking-[0.2em] rounded-none shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                      START_EXAMINATION
+                   </Button>
+                   <Button variant="outline" className="h-16 px-12 border-slate-700 text-slate-400 hover:text-white hover:border-blue-500 rounded-none italic uppercase font-black text-[10px] tracking-widest">
+                      SYSTEM_MANIFESTO
+                   </Button>
                 </div>
              </div>
-          </div>
+          </section>
+
         </div>
       </section>
     </PublicLayout>
